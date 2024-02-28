@@ -1,0 +1,80 @@
+﻿@model List<Data.Entities.Product>
+<h1>Products List</h1>
+<a asp-controller="Products" asp-action="Create" class="btn btn-primary">Create New Product</a>
+
+<hr />
+@*Razor Syntax: @if() @{..C#..} @for ...*@
+
+@*<ul>
+    @foreach (var p in Model)
+    {
+        <li>[@p.Id] @p.Name @p.Price$</li>
+    }    
+</ul>*@
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Availability</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price UAH</th>
+            <th scope="col">Discout</th>
+            <th scope="col" >Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr class="align-middle">
+                <th scope="row">@p.Id</th>
+                <td>@p.Name</td>
+                <td>
+                   @if(p.InStock)
+                    {
+                        <span class="badge bg-success">In Stock</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Out of Stock</span>
+                    }
+                </td>
+                <td>@(p.Category?.Name ?? "not loaded")</td>
+                <td>
+                    @if (p.Discout != null)
+                    {
+                        var a = p.Price * (100 - p.Discout) / 100;
+                        string b = a?.ToString("0.00##");
+                      
+                        <p> @b </p>
+                      
+                    }
+                    else
+                    {
+                        
+                         <p> @p.Price </p>
+                      
+                    }
+                </td>
+                <td>@(p.Discout ?? 0)%</td>
+                 <td>
+                    <div class="btn-group" role="group">
+                        <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-info">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-warning">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@p.Id" class="btn btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </td>
+              
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>Count: @Model.Count</p>

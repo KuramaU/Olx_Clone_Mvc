@@ -1,0 +1,15 @@
+﻿@model List<Data.Entities.Product>
+<div class="text-center">
+    <h1 class="display-4">Categories Menu</h1>
+</div>
+
+@foreach (var prod in Model)
+{
+    <li class="active has-sub">       
+        <div class="card-footer text-center">
+            <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@prod.CategoryId">
+                @prod.Category.Name
+            </a>
+        </div>
+    </li>
+}

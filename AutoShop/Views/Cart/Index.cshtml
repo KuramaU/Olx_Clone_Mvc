@@ -1,0 +1,63 @@
+﻿@model List<Data.Entities.Product>
+
+<h1 class="text-center"></h1>
+
+<div class="card text-center">
+    <div class="card-header">
+        My Cart
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Product List</h5>
+        @if (!Model.Any())
+        {
+            <p>Looks like your cart is empty!</p>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var p in Model)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="ms-2 me-auto">
+                            <div>ID: @p.Id - <span class="fw-bold">@p.Name</span></div>
+                        </div>
+                        <span class="badge bg-primary">
+                            @if (p.Discout != null)
+                            {
+                                var a = p.Price * (100 - p.Discout) / 100;
+                                string b = a?.ToString("0.00#");
+
+                                 <span class="badge bg-primary">@b</span>
+
+                            }
+                            else
+                            {
+
+                                <span class="badge bg-primary">@p.Price</span>
+                                
+
+                            }
+                        </span>
+
+                        <a asp-action="Remove" asp-route-id="@p.Id" class="text-danger mx-2">
+                            <i class="bi bi-trash3-fill"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+        <a href="#" class="btn btn-success mt-3">
+            <i class="bi bi-bag-check"></i>
+            Checkout
+        </a>
+       
+        <a asp-action="RemoveAll"  class="btn btn-danger mt-3">
+            <i class="bi bi-trash3-fill"></i>
+            Remove All
+        </a>
+    </div>
+    <div class="card-footer text-muted d-flex justify-content-between">
+        <div>Count: <span class="badge bg-secondary">@Model.Count</span></div>
+        <div>Total: <span class="badge bg-secondary">@Model.Sum(x => x.Price) UAH</span></div>
+    </div>
+</div>
