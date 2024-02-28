@@ -22,10 +22,6 @@ namespace Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-<<<<<<< HEAD
-=======
-            
->>>>>>> 4ae25f8 (init new useer)
             modelBuilder.Entity<Category>().HasData(new[]
             {
                 new Category { Id = 1,Name="Electronics"},

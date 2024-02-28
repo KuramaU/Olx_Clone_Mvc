@@ -9,11 +9,7 @@ namespace Data.Entities
 {
     public class User : IdentityUser
     {
-<<<<<<< HEAD
-   
-=======
-        override public string? Id {  get; set; }
->>>>>>> 4ae25f8 (init new useer)
+   override public string? Id {  get; set; }
         public string? Name { get; set; }
         // --navigation properties
         public ICollection<Product> Products { get; set; }
