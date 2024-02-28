@@ -15,8 +15,8 @@ namespace Data.Entities
 
         public decimal Price { get; set; }
 
-       
 
+      
         public int CategoryId { get; set; }
         [Range(0, int.MaxValue)]
         public decimal?  Discout { get; set; }
