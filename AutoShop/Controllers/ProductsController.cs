@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Shop.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator,User")]
     public class ProductsController : Controller
     {
         private ShopDbContextcs context;
@@ -27,11 +27,28 @@ namespace Shop.Controllers
         public IActionResult Index()
         {
             // read products from db
-            var prod = context.Products.Include(x => x.Category).ToList();
+            //var prod = context.Products.Include(x => x.Category).ToList();
 
-            
+
+            //return View(prod);
+            var userRole = User.IsInRole("Administrator") ? Roles.Administrator : Roles.User;
+
+            List<Product> prod;
+
+            if (userRole == Roles.Administrator)
+            {
+                // Якщо користувач - адміністратор, відображаємо всі продукти
+                prod = context.Products.Include(x => x.Category).ToList();
+            }
+            else
+            {
+                // Якщо користувач - звичайний користувач, фільтруємо продукти за його id
+                var userEmail = HttpContext.User.Identity.Name; // Отримуємо ідентифікатор користувача(email)
+                prod = context.Products.Where(x => x.User.Email == userEmail).Include(x=>x.Category)
+                                        .ToList();
+            }
+
             return View(prod);
-
         }
 
         public IActionResult Create()
@@ -44,14 +61,31 @@ namespace Shop.Controllers
         public IActionResult Create(Product product)
         {
 
+            //if (!ModelState.IsValid)
+            //{
+            //    LoadCategories();
+            //    return View("Create");
+            //}
+
+
+            //context.Products.Add(product);
+            //context.SaveChanges();
+
+            //return RedirectToAction("Index");
             if (!ModelState.IsValid)
             {
                 LoadCategories();
                 return View("Create");
             }
 
+            // Отримуємо ідентифікатор поточного користувача
+            var userEmail = HttpContext.User.Identity.Name;
+
+            // Прив'язуємо ідентифікатор користувача до поля Email продукта
+            product.User = new User { Email = userEmail };
 
             context.Products.Add(product);
+           
             context.SaveChanges();
 
             return RedirectToAction("Index");
