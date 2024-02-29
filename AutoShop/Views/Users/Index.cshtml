@@ -52,7 +52,10 @@
                                 <button type="submit" class="btn btn-info">Change To User</button>
                             </form>
                         }
-                        <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger">Delete</a>
+
+                        <form asp-action="Delete" asp-route-id="@user.Id" > 
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                     </div>
                 </td>
             </tr>
