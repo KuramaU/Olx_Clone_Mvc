@@ -1,0 +1,55 @@
+﻿@* @model <Data.Entities.User>
+@using Data.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<User> userManager
+@inject RoleManager<IdentityRole> roleManager
+
+<h1>Users List</h1>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Email</td>
+                <td>
+                    @{
+                        var roles = await userManager.GetRolesAsync(user);
+                        var roleNames = string.Join(", ", roles);
+                    }
+                    @roleNames
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        @if (!roles.Contains("Administrator"))
+                        {
+                            <form asp-action="ChangeRoleToAdmin" asp-route-email="@user.Email" method="post">
+                                <button type="submit" class="btn btn-warning">Change Role To Admin</button>
+                            </form>
+                        }
+                        @if (roles.Contains("Administrator"))
+                        {
+                            <form asp-action="ChangeRoleToUser" asp-route-email="@user.Email" method="post">
+                                <button type="submit" class="btn btn-warning">Change Role To User</button>
+                            </form>
+                        }
+                        
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>Count: @Model.Count</p>
+ *@

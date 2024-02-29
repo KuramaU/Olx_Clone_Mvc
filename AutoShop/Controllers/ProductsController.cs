@@ -77,15 +77,21 @@ namespace Shop.Controllers
                 LoadCategories();
                 return View("Create");
             }
-
-            // Отримуємо ідентифікатор поточного користувача
             var userEmail = HttpContext.User.Identity.Name;
 
-            // Прив'язуємо ідентифікатор користувача до поля Email продукта
-            product.User = new User { Email = userEmail };
+            // Знаходимо користувача за його адресою електронної пошти
+            var user = context.Users.FirstOrDefault(u => u.Email == userEmail);
+
+            if (user == null)
+            {
+                // Якщо користувача не знайдено, можна відобразити повідомлення про помилку або виконати інші дії, залежно від ваших потреб
+                return NotFound();
+            }
+
+            // Прив'язуємо ідентифікатор користувача до поля User продукта
+            product.User = user;
 
             context.Products.Add(product);
-           
             context.SaveChanges();
 
             return RedirectToAction("Index");
