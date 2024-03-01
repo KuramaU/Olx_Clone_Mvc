@@ -16,7 +16,7 @@ namespace Data
         {
             
             //base.OnConfiguring(optionsBuilder);
-            string con = "Server=tcp:azurebagserver.database.windows.net,1433;Initial Catalog=BagShop_db1;Persist Security Info=False;User ID=lubomyr;Password=Qwerty@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
+            string con = "Server=tcp:mybagserver.database.windows.net,1433;Initial Catalog=mybag_db;Persist Security Info=False;User ID=Lubomyr;Password=Qwerty@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             optionsBuilder.UseSqlServer(con);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
