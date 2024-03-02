@@ -134,6 +134,7 @@ namespace Shop.Controllers
 
             return RedirectToAction("Index");
         }
+      
 
         [AllowAnonymous]
         public IActionResult Details(int id)
