@@ -38,6 +38,12 @@
         <span asp-validation-for="Description" class="form-text text-danger"></span>
     </div>
 
+    <div class="col-md-12">
+
+        <label asp-for="DistrictId" class="form-label">District</label>
+        <select asp-for="DistrictId" asp-items="@ViewBag.DistrictList" class="form-select"> </select>
+        <span asp-validation-for="DistrictId" class="form-text text-danger"></span>
+    </div>
 
   <div class="col-12">
         <div class="form-check">

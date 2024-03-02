@@ -24,7 +24,7 @@ namespace Shop.Controllers
             _context = context;
             _userManager = userManager;
         }
-
+       
         public IActionResult Index(string email)
         {
             var usersQuery = _context.Users.AsQueryable();

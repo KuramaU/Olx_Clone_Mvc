@@ -63,6 +63,19 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Districts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Districts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -176,9 +189,11 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DistrictId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Discout = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     InStock = table.Column<bool>(type: "bit", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
@@ -195,6 +210,12 @@ namespace DataAccess.Migrations
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_Districts_DistrictId",
+                        column: x => x.DistrictId,
+                        principalTable: "Districts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -215,14 +236,46 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "Id", "CategoryId", "Description", "Discout", "ImageUrl", "InStock", "Name", "Price", "UserId" },
+                table: "Districts",
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, null, null, "https://image.ceneostatic.pl/data/products/97863463/i-apple-iphone-13-128gb-polnoc.jpg", false, "iPhone 13 ", 37600m, null },
-                    { 2, 3, null, null, "https://m.media-amazon.com/images/I/61h1ijknqhL._AC_SL1179_.jpg", false, "Nike Monarh", 2600m, null },
-                    { 3, 4, null, null, "https://dedra.pl/eng_pl_Sand-shovel-with-metal-shaft-PCV-handle-26346_1.webp", false, "Shovel", 2000m, null },
-                    { 4, 5, null, null, "https://a.allegroimg.com/original/11607f/4b5e2f7b48ae92e420b90510ce2f/Magic-Yoyo-Y03-Profesjonalne-Yoyo-High-sp", false, "Yoyo", 500m, null }
+                    { 1, "Aвтономна Республiка Крим" },
+                    { 2, "Вінницька" },
+                    { 3, "Волинська" },
+                    { 4, "Днiпропетровська" },
+                    { 5, "Донецька" },
+                    { 6, "Житомирська" },
+                    { 7, "Закарпатська" },
+                    { 8, "Запорiзька" },
+                    { 9, "Iвано-Франкiвська" },
+                    { 10, "Київська" },
+                    { 11, "Кiровоградська" },
+                    { 12, "Луганська" },
+                    { 13, "Львiвська" },
+                    { 14, "Миколаївська" },
+                    { 15, "Одеська" },
+                    { 16, "Полтавська" },
+                    { 17, "Рiвненська" },
+                    { 18, "Сумська" },
+                    { 19, "Тернопiльська" },
+                    { 20, "Харкiвська" },
+                    { 21, "Херсонська" },
+                    { 22, "Хмельницька" },
+                    { 23, "Черкаська" },
+                    { 24, "Чернiвецька" },
+                    { 25, "Чернiгiвська" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "CreatedDate", "Description", "Discout", "DistrictId", "ImageUrl", "InStock", "Name", "Price", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Local), null, null, 17, "https://image.ceneostatic.pl/data/products/97863463/i-apple-iphone-13-128gb-polnoc.jpg", false, "iPhone 13 ", 37600m, null },
+                    { 2, 3, new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Local), null, null, 17, "https://m.media-amazon.com/images/I/61h1ijknqhL._AC_SL1179_.jpg", false, "Nike Monarh", 2600m, null },
+                    { 3, 4, new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Local), null, null, 17, "https://dedra.pl/eng_pl_Sand-shovel-with-metal-shaft-PCV-handle-26346_1.webp", false, "Shovel", 2000m, null },
+                    { 4, 5, new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Local), null, null, 17, "https://a.allegroimg.com/original/11607f/4b5e2f7b48ae92e420b90510ce2f/Magic-Yoyo-Y03-Profesjonalne-Yoyo-High-sp", false, "Yoyo", 500m, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -270,6 +323,11 @@ namespace DataAccess.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_DistrictId",
+                table: "Products",
+                column: "DistrictId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_UserId",
                 table: "Products",
                 column: "UserId");
@@ -303,6 +361,9 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Districts");
         }
     }
 }

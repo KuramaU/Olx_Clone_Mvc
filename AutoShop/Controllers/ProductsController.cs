@@ -24,6 +24,11 @@ namespace Shop.Controllers
             ViewBag.CategoryList = new SelectList(context.Categories.ToList(), "Id", "Name");
 
         }
+        private void LoadDistricts()
+        {
+            ViewBag.DistrictList = new SelectList(context.Districts.ToList(), "Id", "Name");
+
+        }
         public IActionResult Index()
         {
             // read products from db
@@ -39,6 +44,7 @@ namespace Shop.Controllers
             {
                 // Якщо користувач - адміністратор, відображаємо всі продукти
                 prod = context.Products.Include(x => x.Category).ToList();
+                prod = context.Products.Include(x => x.District).ToList();
             }
             else
             {
@@ -54,6 +60,7 @@ namespace Shop.Controllers
         public IActionResult Create()
         {
             LoadCategories();
+            LoadDistricts();
               return View();
         }
         [HttpPost]
@@ -75,6 +82,7 @@ namespace Shop.Controllers
             if (!ModelState.IsValid)
             {
                 LoadCategories();
+                LoadDistricts();
                 return View("Create");
             }
             var userEmail = HttpContext.User.Identity.Name;
@@ -106,6 +114,7 @@ namespace Shop.Controllers
                 return NotFound();
 
             LoadCategories();
+            LoadDistricts();
             return View(item);
         }
         [HttpPost]
@@ -115,6 +124,7 @@ namespace Shop.Controllers
             if (!ModelState.IsValid)
             {
                 LoadCategories();
+                LoadDistricts();
                 return View("Edit");
             }
 
@@ -129,7 +139,9 @@ namespace Shop.Controllers
         public IActionResult Details(int id)
         {
             // read products from db
+           
             var item = context.Products.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
+            item = context.Products.Include(x => x.District).FirstOrDefault(x => x.Id == id);
             if (item == null)
             {
                 return NotFound();
@@ -141,6 +153,7 @@ namespace Shop.Controllers
         {
             // read products from db
             var item = context.Products.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
+            item = context.Products.Include(x => x.District).FirstOrDefault(x => x.Id == id);
             if (item == null)
             {
                 return NotFound();

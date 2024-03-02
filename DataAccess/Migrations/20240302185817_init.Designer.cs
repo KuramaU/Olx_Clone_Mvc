@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContextcs))]
-    [Migration("20240228213332_init")]
+    [Migration("20240302185817_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,6 +83,150 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Data.Entities.District", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Districts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Aвтономна Республiка Крим"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Вінницька"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Волинська"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Днiпропетровська"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Донецька"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Житомирська"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Закарпатська"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Запорiзька"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Iвано-Франкiвська"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Київська"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Кiровоградська"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Луганська"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Львiвська"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Миколаївська"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Одеська"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Полтавська"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Рiвненська"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Сумська"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Тернопiльська"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Харкiвська"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "Херсонська"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Name = "Хмельницька"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Name = "Черкаська"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Name = "Чернiвецька"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Name = "Чернiгiвська"
+                        });
+                });
+
             modelBuilder.Entity("Data.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -94,12 +238,18 @@ namespace DataAccess.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<decimal?>("Discout")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -121,6 +271,8 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("DistrictId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Products");
@@ -130,6 +282,8 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
+                            CreatedDate = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            DistrictId = 17,
                             ImageUrl = "https://image.ceneostatic.pl/data/products/97863463/i-apple-iphone-13-128gb-polnoc.jpg",
                             InStock = false,
                             Name = "iPhone 13 ",
@@ -139,6 +293,8 @@ namespace DataAccess.Migrations
                         {
                             Id = 2,
                             CategoryId = 3,
+                            CreatedDate = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            DistrictId = 17,
                             ImageUrl = "https://m.media-amazon.com/images/I/61h1ijknqhL._AC_SL1179_.jpg",
                             InStock = false,
                             Name = "Nike Monarh",
@@ -148,6 +304,8 @@ namespace DataAccess.Migrations
                         {
                             Id = 3,
                             CategoryId = 4,
+                            CreatedDate = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            DistrictId = 17,
                             ImageUrl = "https://dedra.pl/eng_pl_Sand-shovel-with-metal-shaft-PCV-handle-26346_1.webp",
                             InStock = false,
                             Name = "Shovel",
@@ -157,6 +315,8 @@ namespace DataAccess.Migrations
                         {
                             Id = 4,
                             CategoryId = 5,
+                            CreatedDate = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            DistrictId = 17,
                             ImageUrl = "https://a.allegroimg.com/original/11607f/4b5e2f7b48ae92e420b90510ce2f/Magic-Yoyo-Y03-Profesjonalne-Yoyo-High-sp",
                             InStock = false,
                             Name = "Yoyo",
@@ -373,11 +533,19 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Data.Entities.District", "District")
+                        .WithMany("Products")
+                        .HasForeignKey("DistrictId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Data.Entities.User", "User")
                         .WithMany("Products")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Category");
+
+                    b.Navigation("District");
 
                     b.Navigation("User");
                 });
@@ -434,6 +602,11 @@ namespace DataAccess.Migrations
                 });
 
             modelBuilder.Entity("Data.Entities.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Data.Entities.District", b =>
                 {
                     b.Navigation("Products");
                 });

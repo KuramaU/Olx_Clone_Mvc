@@ -24,7 +24,7 @@ namespace Shop.Controllers
         public IActionResult Index()
         {
             var cat = context.Products.Include(x => x.Category).ToList();
-
+            cat = context.Products.Include(x => x.District).ToList();
 
             return View(cat);
 

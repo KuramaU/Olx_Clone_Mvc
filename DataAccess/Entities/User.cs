@@ -9,9 +9,12 @@ namespace Data.Entities
 {
     public class User : IdentityUser
     {
- 
+
         public string? Name { get; set; }
+        
+
         // --navigation properties
+    
         public ICollection<Product> Products { get; set; }
 
     }
