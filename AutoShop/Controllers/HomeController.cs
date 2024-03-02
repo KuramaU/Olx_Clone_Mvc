@@ -53,8 +53,10 @@ namespace Shop.Controllers
             {
                 // Логіка для випадку, коли categoryId не має значення
             }
-
-            return View(products.ToList());
+         var products_ = products.Include(p => p.Category)
+              .Include(p => p.District)
+              .ToList();
+            return View(products_);
         }
 
 

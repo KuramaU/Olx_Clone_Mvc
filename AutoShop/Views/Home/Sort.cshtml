@@ -23,13 +23,13 @@
                             var a = p.Price * (100 - p.Discout) / 100;
                             string b = a?.ToString("0.00##");
                         <p class="card-text">
-                            @p.Category?.Name  <span class="badge bg-danger">@b UAH</span>
+                          <span class="badge bg-danger">@b UAH</span>
                         </p>
                         }
                         else
                         {
                         <p class="card-text">
-                            @p.Category?.Name  <span class="badge bg-primary">@p.Price UAH</span>
+                           <span class="badge bg-primary">@p.Price UAH</span>
                         </p>
                         }
 
@@ -45,6 +45,26 @@
                     <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
                         <i class="bi bi-eye"></i>
                     </a>
+
+                    <p class="card-text">
+                        <span class="badge bg-info">обл. @p.District?.Name</span>
+                    </p>
+                    <p class="card-text">
+                        @if (p.CreatedDate.Value.Day == DateTime.Today.Day)
+                        {
+                            <span class="badge bg-white text-dark">Обновлено сьогодні o @p.CreatedDate?.ToString("HH:mm")</span>
+                        }
+                        @if (p.CreatedDate.Value == DateTime.Today.AddDays(-1))
+                        {
+                            <span class="badge bg-white text-dark">Обновлено вчора o  @p.CreatedDate?.ToString("HH:mm")</span>
+
+                        }
+                        @if (p.CreatedDate.Value.Day != DateTime.Today.Day && p.CreatedDate != DateTime.Today.AddDays(-1))
+                        {
+                            <span class="badge bg-white text-dark">Обновлено @p.CreatedDate.Value.Day.@p.CreatedDate.Value.Month.@p.CreatedDate.Value.Year</span>
+
+                        }
+                    </p>
                 </div>
             </div>
         </div>
