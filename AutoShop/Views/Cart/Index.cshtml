@@ -4,13 +4,13 @@
 
 <div class="card text-center">
     <div class="card-header">
-        My Cart
+        Кошик
     </div>
     <div class="card-body">
-        <h5 class="card-title">Product List</h5>
+        <h5 class="card-title">Ваші замовлення</h5>
         @if (!Model.Any())
         {
-            <p>Looks like your cart is empty!</p>
+            <p>Ваший кошик пустий!</p>
         }
         else
         {
@@ -48,16 +48,16 @@
         }
         <a href="#" class="btn btn-success mt-3">
             <i class="bi bi-bag-check"></i>
-            Checkout
+            Оплатити
         </a>
        
         <a asp-action="RemoveAll"  class="btn btn-danger mt-3">
             <i class="bi bi-trash3-fill"></i>
-            Remove All
+            Вилучити все
         </a>
     </div>
     <div class="card-footer text-muted d-flex justify-content-between">
-        <div>Count: <span class="badge bg-secondary">@Model.Count</span></div>
-        <div>Total: <span class="badge bg-secondary">@Model.Sum(x => x.Price) UAH</span></div>
+        <div>Кількість: <span class="badge bg-secondary">@Model.Count</span></div>
+        <div>Всього: <span class="badge bg-secondary">@Model.Sum(x => x.Price) UAH</span></div>
     </div>
 </div>

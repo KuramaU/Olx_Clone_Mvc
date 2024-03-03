@@ -1,6 +1,6 @@
 ﻿@model List<Data.Entities.Product>
-<h1>Products List</h1>
-<a asp-controller="Products" asp-action="Create" class="btn btn-primary">Create New Product</a>
+<h1>Мої оголошення</h1>
+<a asp-controller="Products" asp-action="Create" class="btn btn-primary">Створити нове оголошення</a>
 
 <hr />
 @*Razor Syntax: @if() @{..C#..} @for ...*@
@@ -16,13 +16,13 @@
     <thead class="table-dark">
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Availability</th>
-            <th scope="col">Category</th>
-            <th scope="col">Location</th>
-            <th scope="col">Price UAH</th>
-            <th scope="col">Discout</th>
-            <th scope="col" >Actions</th>
+            <th scope="col">Назва</th>
+            <th scope="col">Наявність</th>
+            <th scope="col">Категорія</th>
+            <th scope="col">Розташування</th>
+            <th scope="col">Ціна UAH</th>
+            <th scope="col">Знижка</th>
+            <th scope="col" >Дії</th>
         </tr>
     </thead>
     <tbody>
@@ -34,15 +34,15 @@
                 <td>
                    @if(p.InStock)
                     {
-                        <span class="badge bg-success">In Stock</span>
+                        <span class="badge bg-success">В наявності</span>
                     }
                     else
                     {
-                        <span class="badge bg-secondary">Out of Stock</span>
+                        <span class="badge bg-secondary">Немає в наявності</span>
                     }
                 </td>
-                <td>@(p.Category?.Name ?? "not loaded")</td>
-                <td>@(p.District?.Name ?? "not loaded")</td>
+                <td>@(p.Category?.Name ?? "не підгруженно")</td>
+                <td>@(p.District?.Name ?? "не підгруженно")</td>
                 <td>
                     @if (p.Discout != null)
                     {
@@ -79,4 +79,4 @@
     </tbody>
 </table>
 
-<p>Count: @Model.Count</p>
+<p>Кількість: @Model.Count</p>

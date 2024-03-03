@@ -4,7 +4,7 @@
     <div class="card-header">
         <ul class="nav nav-pills card-header-pills">
             <li class="nav-item">
-                <a class="nav-link bg-dark active" asp-action="Index">Back</a>
+                <a class="nav-link bg-dark active" asp-action="Index">Назад</a>
             </li>
         </ul>
     </div>
@@ -28,8 +28,8 @@
         {
             <p>Price: <span class="badge bg-primary">@Model.Price UAH</span></p>
         }
-        <p>Discount: <span class="badge bg-secondary">@(Model.Discout ?? 0)%</span></p>
-        <h4>Description</h4>
+        <p>Знижка: <span class="badge bg-secondary">@(Model.Discout ?? 0)%</span></p>
+        <h4>Опис</h4>
         <p>@Model.Description</p>
 
     </div>

@@ -49,20 +49,25 @@ namespace Data
              new District {Id = 22, Name="Хмельницька"},
              new District {Id = 23, Name="Черкаська"},
               new District {Id = 24, Name="Чернiвецька"},
-                  new District{Id = 25, Name="Чернiгiвська"}
+                  new District{Id = 25, Name="Чернiгiвська"},
             });
 
 
             modelBuilder.Entity<Category>().HasData(new[]
             {
-                new Category { Id = 1,Name="Electronics"},
-                new Category { Id = 2,Name="Sport"},
-                new Category { Id = 3,Name="Fashoin"},
-                new Category { Id = 4,Name="Home & Garden"},
-                new Category { Id = 5,Name="Toys & Hobbies"},
-                new Category { Id = 6,Name="Transport"},
-                new Category { Id = 7,Name="Art"},
-                new Category { Id = 8,Name="Musical Instuments"},
+                new Category { Id = 1,Name="Електроніка"},
+                new Category { Id = 2,Name="Хобі та спорт"},
+                new Category { Id = 3,Name="Мода і стиль"},
+                new Category { Id = 4,Name="Дім і сад"},
+                new Category { Id = 5,Name="Дитячі товари"},
+                new Category { Id = 6,Name="Транспорт"},
+                new Category { Id = 7,Name="Нерухомість"},
+                new Category { Id = 8,Name="Будівництво та ремонт"},
+               
+                new Category { Id = 9,Name="Робота"},
+                new Category { Id = 10,Name="Послуги"},
+                new Category { Id = 11,Name="Віддам безкоштовно"},
+                  new Category { Id = 12,Name="Оренда та прокат"},
             });
             modelBuilder.Entity<Product>().HasData(new[]
           {

@@ -1,7 +1,7 @@
 ﻿@model List<Data.Entities.Product>
 
 <div class="text=center">
-    <h1 class="display-4">Product Catalog</h1>
+    <h1 class="display-4">Каталог продуктів</h1>
    
 </div>
 
@@ -40,28 +40,28 @@
                 <div class="card-footer text-center">
                     <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
                         <i class="bi bi-bag-plus"></i>
-                        Add to Cart
+                        Додати до кошика
                     </a>
                     <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
-                        <i class="bi bi-eye"></i>
+                        <i class="bi bi-eye">  </i>
                     </a>
 
                     <p class="card-text">
                          <span class="badge bg-info">обл. @p.District?.Name</span>
                     </p>
                     <p class="card-text">
-                        @if (p.CreatedDate.Value.Day == DateTime.Today.Day)
+                        @if (p.CreatedDate?.Day == DateTime.Today.Day)
                         {
                             <span class="badge bg-white text-dark">Обновлено сьогодні o @p.CreatedDate?.ToString("HH:mm")</span>
                         }
-                        @if (p.CreatedDate.Value == DateTime.Today.AddDays(-1))
+                        @if (p.CreatedDate?.Day == DateTime.Today.Day-1)
                         {
                             <span class="badge bg-white text-dark">Обновлено вчора o  @p.CreatedDate?.ToString("HH:mm")</span>
 
                         }
-                        @if(p.CreatedDate.Value.Day != DateTime.Today.Day&&p.CreatedDate != DateTime.Today.AddDays(-1))
+                        @if (p.CreatedDate?.Day != DateTime.Today.Day && p.CreatedDate?.Day != DateTime.Today.Day - 1)
                         {
-                            <span class="badge bg-white text-dark">Обновлено @p.CreatedDate.Value.Day.@p.CreatedDate.Value.Month.@p.CreatedDate.Value.Year</span>
+                            <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
 
                         }
                     </p>

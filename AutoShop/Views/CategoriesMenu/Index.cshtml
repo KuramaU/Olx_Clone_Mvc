@@ -1,15 +1,31 @@
-﻿@model List<Data.Entities.Product>
+﻿@model List<Data.Entities.Category>
+
 <div class="text-center">
-    <h1 class="display-4">Categories Menu</h1>
+    <h1 class="display-4">Головна</h1>
 </div>
 
-@foreach (var prod in Model)
-{
-    <li class="active has-sub">       
-        <div class="card-footer text-center">
-            <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@prod.CategoryId">
-                @prod.Category.Name
-            </a>
+<div class="row">
+    @foreach (var category in Model.Take(6))
+    {
+        <div class="col-md-2">
+            <div class="card-footer text-center">
+                <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">
+                    @category.Name
+                </a>
+            </div>
         </div>
-    </li>
-}
+    }
+</div>
+
+<div class="row">
+    @foreach (var category in Model.Skip(6))
+    {
+        <div class="col-md-2">
+            <div class="card-footer text-center">
+                <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">
+                    @category.Name
+                </a>
+            </div>
+        </div>
+    }
+</div>

@@ -26,22 +26,29 @@
                     <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="CategoriesMenu" asp-action="Index">Categories</a>
+                            <a class="nav-link text-dark" asp-controller="CategoriesMenu" asp-action="Index">Категорії</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Catalog</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Каталог</a>
                         </li>
-                        @if (User.IsInRole("Administrator") || User.IsInRole( "User"))
+                        @if ( User.IsInRole( "User"))
                                                 {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Products</a>
+                                <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Мої оголошення</a>
                             </li>
+                        }
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Товари користувачів</a>
+                                </li>
                         }
                          @if (User.IsInRole("Administrator"))
                          {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">Users</a>
+                            <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">Користувачі</a>
                         </li>
                          }
                         
@@ -56,12 +63,10 @@
                         </li>
                
                             <form asp-controller="Home" asp-action="Index" class="form-inline">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="SearchString">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Пошук" name="SearchString">
                             </form>
                       
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                       
                         </ul>
                     <div class="text-end">
                         <button class="button-4" role="button">Додати оголошення</button>
@@ -80,11 +85,12 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container" >
-            &copy; 2023 - all rights reserved  - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer text-muted fixed-bottom">
+        <div class="container">
+            &copy; 2023 - all rights reserved - <a asp-area="" asp-controller="Home" asp-action="Privacy">Політика сайту</a>
         </div>
     </footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

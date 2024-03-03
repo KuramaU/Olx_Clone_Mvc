@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContextcs))]
-    partial class ShopDbContextcsModelSnapshot : ModelSnapshot
+    [Migration("20240303002037_change_laun")]
+    partial class change_laun
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,21 +84,26 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 9,
-                            Name = "Робота"
+                            Name = "Нерухомість"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Послуги"
+                            Name = "Робота"
                         },
                         new
                         {
                             Id = 11,
-                            Name = "Віддам безкоштовно"
+                            Name = "Послуги"
                         },
                         new
                         {
                             Id = 12,
+                            Name = "Віддам безкоштовно"
+                        },
+                        new
+                        {
+                            Id = 13,
                             Name = "Оренда та прокат"
                         });
                 });

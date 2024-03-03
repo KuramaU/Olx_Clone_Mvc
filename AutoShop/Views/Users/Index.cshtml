@@ -43,18 +43,18 @@
                         @if (!roles.Contains("Administrator"))
                         {
                             <form asp-action="ChangeRoleToAdmin" asp-route-email="@user.Email" method="post">
-                                <button type="submit" class="btn btn-info">Change To Admin</button>
+                                <button type="submit" class="btn btn-info">Надати права адміністратора</button>
                             </form>
                         }
                         @if (roles.Contains("Administrator"))
                         {
                             <form asp-action="ChangeRoleToUser" asp-route-email="@user.Email" method="post">
-                                <button type="submit" class="btn btn-info">Change To User</button>
+                                <button type="submit" class="btn btn-info">Забрати права</button>
                             </form>
                         }
 
                         <form asp-action="Delete" asp-route-id="@user.Id" > 
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">Видалити</button>
                             </form>
                     </div>
                 </td>

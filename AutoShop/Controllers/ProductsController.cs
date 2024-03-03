@@ -52,6 +52,9 @@ namespace Shop.Controllers
                 var userEmail = HttpContext.User.Identity.Name; // Отримуємо ідентифікатор користувача(email)
                 prod = context.Products.Where(x => x.User.Email == userEmail).Include(x=>x.Category)
                                         .ToList();
+                prod = context.Products.Where(x => x.User.Email == userEmail).Include(x => x.District)
+                                      .ToList();
+
             }
 
             return View(prod);
@@ -128,7 +131,7 @@ namespace Shop.Controllers
                 return View("Edit");
             }
 
-
+            product.CreatedDate= DateTime.Now;
             context.Products.Update(product);
             context.SaveChanges();
 
