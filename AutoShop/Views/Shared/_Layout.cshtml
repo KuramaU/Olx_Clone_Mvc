@@ -67,11 +67,23 @@
                       
                        
                         </ul>
-                    <div class="text-end">
-                        <button class="button-4" role="button">Додати оголошення</button>
-                    </div>
-                        <partial name="_LoginPartial"/>
-                         
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="text-end">
+
+                            <a asp-controller="Products" asp-action="Create" class="button-4" role="button">Додати оголошення</a>
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="text-end">
+                            <a id="login" asp-area="Identity" asp-page="/Account/Login" class="button-4" role="button">Додати оголошення</a>
+                           
+                        </div>
+                    }
+                    <partial name="_LoginPartial"/>
+                   
                     
                 </div>
             </div>
