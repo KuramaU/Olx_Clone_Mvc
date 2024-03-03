@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
-
+using Shop.ViewModels;
 namespace Shop.Controllers
 {
     public class CategoriesMenuController : Controller
@@ -17,16 +17,24 @@ namespace Shop.Controllers
 
         public IActionResult Index()
         {
-            // Отримати список продуктів
-            var products = context.Products.Include(x => x.Category).ToList();
-            // Отримати список категорій
-            var categories = context.Categories.ToList();
+            //// Отримати список продуктів
+            //var products = context.Products.Include(x => x.Category).ToList();
+            //// Отримати список категорій
+            //var categories = context.Categories.ToList();
 
-            // Передати список категорій в представлення через ViewBag
-            ViewBag.CategoryList = new SelectList(categories, "Id", "Name");
+            //// Передати список категорій в представлення через ViewBag
+            //ViewBag.CategoryList = new SelectList(categories, "Id", "Name");
+            //ViewBag.ProductList = new SelectList(products, "Id","Name");
+            //// Передати список продуктів в представлення
+            //return View(ViewBag);
 
-            // Передати список продуктів в представлення
-            return View(categories);
+            var viewModel = new CategoryProductViewModel
+            {
+                Categories = context.Categories.ToList(),
+                Products = context.Products.Include(x => x.Category).ToList()
+            };
+
+            return View(viewModel);
         }
     }
 }

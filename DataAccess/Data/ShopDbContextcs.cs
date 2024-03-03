@@ -16,8 +16,8 @@ namespace Data
         {
 
             //base.OnConfiguring(optionsBuilder);
-           string con = "Server=tcp:mybagserver.database.windows.net,1433;Initial Catalog=mybag_db_1;Persist Security Info=False;User ID=Lubomyr;Password=Qwerty@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            //string con = "Data Source=DESKTOP-JSOA9J5;Initial Catalog=mybag_db_1;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;";
+          // string con = "Server=tcp:mybagserver.database.windows.net,1433;Initial Catalog=mybag_db_1;Persist Security Info=False;User ID=Lubomyr;Password=Qwerty@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            string con = "Data Source=DESKTOP-JSOA9J5;Initial Catalog=mybag_db_1;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;";
             optionsBuilder.UseSqlServer(con);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -71,10 +71,10 @@ namespace Data
             });
             modelBuilder.Entity<Product>().HasData(new[]
           {
-            new Product() { Id = 1, Name = "iPhone 13 ", Price=37600,  CategoryId=1, DistrictId=17,CreatedDate=DateTime.Today, ImageUrl="https://image.ceneostatic.pl/data/products/97863463/i-apple-iphone-13-128gb-polnoc.jpg"  },
-            new Product() { Id = 2, Name = "Nike Monarh" , Price=2600, CategoryId=3,  DistrictId=17, CreatedDate=DateTime.Today ,ImageUrl="https://m.media-amazon.com/images/I/61h1ijknqhL._AC_SL1179_.jpg" },
-            new Product() {Id = 3, Name = "Shovel" , Price=2000, CategoryId=4, DistrictId=17, CreatedDate=DateTime.Today, ImageUrl="https://dedra.pl/eng_pl_Sand-shovel-with-metal-shaft-PCV-handle-26346_1.webp"},
-            new Product() { Id = 4, Name = "Yoyo", Price=500,CategoryId=5,  DistrictId=17, CreatedDate=DateTime.Today ,ImageUrl="https://a.allegroimg.com/original/11607f/4b5e2f7b48ae92e420b90510ce2f/Magic-Yoyo-Y03-Profesjonalne-Yoyo-High-sp"}
+            new Product() { Id = 1, Name = "iPhone 13 ", Price=37600, D_VIP=DateTime.Today.AddDays(-8),   CategoryId=1, DistrictId=17,CreatedDate=DateTime.Today, ImageUrl="https://image.ceneostatic.pl/data/products/97863463/i-apple-iphone-13-128gb-polnoc.jpg"  },
+            new Product() { Id = 2, Name = "Nike Monarh" , Price=2600,D_VIP=DateTime.Today.AddDays(-2) ,CategoryId=3,  DistrictId=17, CreatedDate=DateTime.Today ,ImageUrl="https://m.media-amazon.com/images/I/61h1ijknqhL._AC_SL1179_.jpg" },
+            new Product() {Id = 3, Name = "Shovel" , Price=2000,D_VIP=DateTime.Today ,CategoryId=4, DistrictId=17, CreatedDate=DateTime.Today, ImageUrl="https://dedra.pl/eng_pl_Sand-shovel-with-metal-shaft-PCV-handle-26346_1.webp"},
+            new Product() { Id = 4, Name = "Yoyo", Price=500,D_VIP=DateTime.Today.AddDays(-1),CategoryId=5,  DistrictId=17, CreatedDate=DateTime.Today ,ImageUrl="https://a.allegroimg.com/original/11607f/4b5e2f7b48ae92e420b90510ce2f/Magic-Yoyo-Y03-Profesjonalne-Yoyo-High-sp"}
 
             });
         }

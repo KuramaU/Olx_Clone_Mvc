@@ -21,11 +21,14 @@
             <th scope="col">Категорія</th>
             <th scope="col">Розташування</th>
             <th scope="col">Ціна UAH</th>
-            <th scope="col">Знижка</th>
+            <th scope="col">Vip</th>
+            <th scope="col">вТОП-1</th>
+            <th scope="col">вТОП-7</th>
             <th scope="col" >Дії</th>
         </tr>
     </thead>
     <tbody>
+     
         @foreach (var p in Model)
         {
             <tr class="align-middle">
@@ -59,7 +62,9 @@
                       
                     }
                 </td>
-                <td>@(p.Discout ?? 0)%</td>
+                <td>@p.IsVIP.ToString()</td>
+                <td>@p.IsUp_one.ToString()</td>
+                <td>@p.IsUp_seven.ToString()</td>
                  <td>
                     <div class="btn-group" role="group">
                         <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-info">
@@ -71,6 +76,12 @@
                         <a asp-action="Delete" asp-route-id="@p.Id" class="btn btn-danger">
                             <i class="bi bi-trash"></i>
                         </a>
+
+                        <a asp-action="Vip" asp-route-id="@p.Id" class="btn btn-outline-success">
+                           Зміна статусу 
+                        </a>
+                      
+                       
                     </div>
                 </td>
               

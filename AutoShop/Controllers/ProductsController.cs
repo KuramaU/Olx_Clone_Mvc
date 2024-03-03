@@ -137,7 +137,35 @@ namespace Shop.Controllers
 
             return RedirectToAction("Index");
         }
-      
+        public IActionResult Vip(int id)
+        {
+            var item = context.Products.Find(id);
+
+            if (item == null)
+                return NotFound();
+
+            LoadCategories();
+            LoadDistricts();
+            return View(item);
+        }
+        [HttpPost]
+        public IActionResult Vip(Product product)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                LoadCategories();
+                LoadDistricts();
+                return View("Vip");
+            }
+
+          
+            context.Products.Update(product);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
 
         [AllowAnonymous]
         public IActionResult Details(int id)
@@ -163,6 +191,80 @@ namespace Shop.Controllers
                 return NotFound();
             }
             return View(item);
+        }
+        public IActionResult SETVIPSTATUS(int id)
+        {
+           
+            var item = context.Products.Find(id);
+
+            if (item == null)
+                return NotFound();
+            item.D_VIP=DateTime.Now;
+            item.IsVIP = true;
+          
+            context.Products.Update(item);
+            context.SaveChanges(); //submit changes
+            return RedirectToAction("Index");
+
+        }
+        public IActionResult UP_ONE_DAY(int id)
+        {
+
+            var item = context.Products.Find(id);
+
+            if (item == null)
+                return NotFound();
+
+            item.IsUp_seven =false;
+            item.D_Up_seven = null;
+
+            item.IsUp_one = true;
+            item.D_Up_one = DateTime.Now;
+
+
+            context.Products.Update(item);
+            context.SaveChanges(); //submit changes
+            return RedirectToAction("Index");
+
+        }
+        public IActionResult UP_SEVEN_DAYS(int id)
+        {
+
+            var item = context.Products.Find(id);
+
+            if (item == null)
+                return NotFound();
+            item.IsUp_one = false;
+            item.D_Up_one = null;
+
+            item.IsUp_seven = true;
+            item.D_Up_seven = DateTime.Now;
+
+            context.Products.Update(item);
+            context.SaveChanges(); //submit changes
+            return RedirectToAction("Index");
+
+        }
+        public IActionResult DELETE_ALL_STATUSES(int id)
+        {
+
+            var item = context.Products.Find(id);
+
+            if (item == null)
+                return NotFound();
+            item.IsUp_one = false;
+            item.D_Up_one = null;
+
+            item.IsUp_seven = false;
+            item.D_Up_seven = null;
+
+            item.D_VIP = null;
+            item.IsVIP = false;
+
+            context.Products.Update(item);
+            context.SaveChanges(); //submit changes
+            return RedirectToAction("Index");
+
         }
         public IActionResult Delete(int id)
         {

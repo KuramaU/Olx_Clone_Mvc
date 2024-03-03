@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContextcs))]
-    partial class ShopDbContextcsModelSnapshot : ModelSnapshot
+    [Migration("20240303164225_create_vip")]
+    partial class create_vip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,15 +261,6 @@ namespace DataAccess.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("D_Up_one")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("D_Up_seven")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("D_VIP")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
@@ -282,12 +275,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("InStock")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsUp_one")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsUp_seven")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("IsVIP")
@@ -319,7 +306,6 @@ namespace DataAccess.Migrations
                             Id = 1,
                             CategoryId = 1,
                             CreatedDate = new DateTime(2024, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
-                            D_VIP = new DateTime(2024, 2, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             DistrictId = 17,
                             ImageUrl = "https://image.ceneostatic.pl/data/products/97863463/i-apple-iphone-13-128gb-polnoc.jpg",
                             InStock = false,
@@ -331,7 +317,6 @@ namespace DataAccess.Migrations
                             Id = 2,
                             CategoryId = 3,
                             CreatedDate = new DateTime(2024, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
-                            D_VIP = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             DistrictId = 17,
                             ImageUrl = "https://m.media-amazon.com/images/I/61h1ijknqhL._AC_SL1179_.jpg",
                             InStock = false,
@@ -343,7 +328,6 @@ namespace DataAccess.Migrations
                             Id = 3,
                             CategoryId = 4,
                             CreatedDate = new DateTime(2024, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
-                            D_VIP = new DateTime(2024, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             DistrictId = 17,
                             ImageUrl = "https://dedra.pl/eng_pl_Sand-shovel-with-metal-shaft-PCV-handle-26346_1.webp",
                             InStock = false,
@@ -355,7 +339,6 @@ namespace DataAccess.Migrations
                             Id = 4,
                             CategoryId = 5,
                             CreatedDate = new DateTime(2024, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
-                            D_VIP = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Local),
                             DistrictId = 17,
                             ImageUrl = "https://a.allegroimg.com/original/11607f/4b5e2f7b48ae92e420b90510ce2f/Magic-Yoyo-Y03-Profesjonalne-Yoyo-High-sp",
                             InStock = false,
