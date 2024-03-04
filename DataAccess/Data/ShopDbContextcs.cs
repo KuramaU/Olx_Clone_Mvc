@@ -14,9 +14,11 @@ namespace Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+
             //base.OnConfiguring(optionsBuilder);
-            string con = "Server=tcp:azurebagserver.database.windows.net,1433;Initial Catalog=BagShop_db1;Persist Security Info=False;User ID=lubomyr;Password=Qwerty@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
+
+            //string con = "Server=tcp:azurebagserver.database.windows.net,1433;Initial Catalog=BagShop_db1;Persist Security Info=False;User ID=lubomyr;Password=Qwerty@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
+            string con = "Data Source=DESKTOP-G3DSI7E;Initial Catalog=mybag_db_1;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;";
             optionsBuilder.UseSqlServer(con);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

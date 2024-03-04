@@ -49,9 +49,9 @@
                                 </a>
                         </li>
                
-                            <form asp-controller="Home" asp-action="Index" class="form-inline">
+                         @*    <form asp-controller="Home" asp-action="Index" class="form-inline">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="SearchString">
-                            </form>
+                            </form> *@
                       
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -69,6 +69,9 @@
     </header>
 
     <div class="container">
+        <form asp-controller="Home" asp-action="Index" class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="SearchString">
+        </form>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
