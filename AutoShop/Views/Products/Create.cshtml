@@ -1,49 +1,55 @@
 ﻿@model Data.Entities.Product;
-<h1>Create New Product</h1>
+<h1>Створити нове оголошення</h1>
 <form asp-action="Create" class="row g-3">
     <div class="col-md-12">
-        <label asp-for="Name" method="post" class="form-label">Name</label>
-      <input asp-for="Name" type="text" class="form-control" placeholder="Enter product name">
+        <label asp-for="Name" method="post" class="form-label">Назва</label>
+        <input asp-for="Name" type="text" class="form-control" placeholder="Введіть назву товару">
         <span asp-validation-for="Name" class="form-text text-danger"></span>
   </div>
 
   <div class="col-md-6">
-        <label asp-for="Price" class="form-label">Price</label>
-        <input asp-for="Price" type="number" class="form-control"  placeholder="Enter product price">
+        <label asp-for="Price" class="form-label">Ціна</label>
+        <input asp-for="Price" type="number" class="form-control" placeholder="Введіть ціну">
         <span asp-validation-for="Price" class="form-text text-danger"></span>
     </div>
 
   <div class="col-md-6">
-        <label asp-for="Discout" class="form-label">Discout</label>
-        <input asp-for="Discout" type="number" class="form-control" placeholder="Enter product discout">
+        <label asp-for="Discout" class="form-label">Знижка</label>
+        <input asp-for="Discout" type="number" class="form-control" placeholder="Введіть знижку">
         <span asp-validation-for="Discout" class="form-text text-danger"></span>
     </div>
 
     <div class="col-md-12">
      
-        <label asp-for="CategoryId" class="form-label">Category</label>
-        <select asp-for="CategoryId" asp-items="@ViewBag.CategoryList" class="form-select"> </select>
+        <label asp-for="CategoryId" class="form-label">Категорії</label>
+        <select asp-for="CategoryId" asp-items="@ViewBag.CategoryList" class="form-select">Виберіть категорію </select>
         <span asp-validation-for="CategoryId" class="form-text text-danger"></span>
     </div>
     <div class="col-md-12">
      
-        <label asp-for="ImageUrl" class="form-label">Image</label>
-        <textarea asp-for="ImageUrl" class="form-control" rows="1" placeholder="Enter product Image(Url)"></textarea>
+        <label asp-for="ImageUrl" class="form-label">Додайте фото вашого продукту</label>
+        <textarea asp-for="ImageUrl" class="form-control" rows="1" placeholder="Введіть посилання на фотографію(Url)"></textarea>
         <span asp-validation-for="ImageUrl" class="form-text text-danger"></span>
     </div>
 
     <div class="col-mb-12">
-        <label asp-for="Description" class="form-label">Description</label>
-        <textarea asp-for="Description" class="form-control"  rows="3" placeholder="Enter product discription"></textarea>
+        <label asp-for="Description" class="form-label">Додайте Опис</label>
+        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Введіть опис товару"></textarea>
         <span asp-validation-for="Description" class="form-text text-danger"></span>
     </div>
 
+    <div class="col-md-12">
+
+        <label asp-for="DistrictId" class="form-label">Місцезнаходження</label>
+        <select asp-for="DistrictId" asp-items="@ViewBag.DistrictList" class="form-select">Область </select>
+        <span asp-validation-for="DistrictId" class="form-text text-danger"></span>
+    </div>
 
   <div class="col-12">
         <div class="form-check">
    <input asp-for="InStock" class="form-check-input" type="checkbox" >
       <label asp-for ="InStock" class="form-check-label">
-       In Stock
+                В наявності
      </label>
              <span asp-validation-for="InStock"class="form-text text-danger"></span>
     </div>
@@ -55,6 +61,6 @@
 
 
   <div class="col-6">
-    <button type="submit" class="btn btn-success w-100">Create</button>
+    <button type="submit" class="btn btn-success w-100">Готово</button>
   </div>
 </form>

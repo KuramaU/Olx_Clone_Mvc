@@ -11,13 +11,14 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="icon" href="~/icons8-shopping-bag-96-orange.png"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bag</a>
+                <a class="navbar-brand" asp-area="" asp-controller="CategoriesMenu" asp-action="Index">Bag</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,19 +26,30 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="CategoriesMenu" asp-action="Index">Categories</a>
-                        </li>
+                    
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Catalog</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Каталог</a>
                         </li>
-                        @if (User.IsInRole("Administrator") || User.IsInRole( "User"))
+                        @if ( User.IsInRole( "User"))
                                                 {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Products</a>
+                                <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Мої оголошення</a>
                             </li>
                         }
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Товари користувачів</a>
+                                </li>
+                        }
+                         @if (User.IsInRole("Administrator"))
+                         {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">Користувачі</a>
+                        </li>
+                         }
                         
                         
                         <li class="nav-item">
@@ -49,19 +61,29 @@
                                 </a>
                         </li>
                
-                         @*    <form asp-controller="Home" asp-action="Index" class="form-inline">
+                            <form asp-controller="Home" asp-action="Index" class="form-inline">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="SearchString">
-                            </form> *@
+                            </form>
                       
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                       
                         </ul>
-                    <div class="text-end">
-                        <button class="button-4" role="button">Додати оголошення</button>
-                    </div>
-                        <partial name="_LoginPartial"/>
-                         
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="text-end">
+
+                            <a asp-controller="Products" asp-action="Create" class="button-4" role="button">Додати оголошення</a>
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="text-end">
+                            <a id="login" asp-area="Identity" asp-page="/Account/Login" class="button-4" role="button">Додати оголошення</a>
+                           
+                        </div>
+                    }
+                    <partial name="_LoginPartial"/>
+                   
                     
                 </div>
             </div>
@@ -77,11 +99,12 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container" >
-            &copy; 2023 - all rights reserved  - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer text-muted fixed-bottom">
+        <div class="container">
+            &copy; 2023 - all rights reserved - <a asp-area="" asp-controller="Home" asp-action="Privacy">Політика сайту</a>
         </div>
     </footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

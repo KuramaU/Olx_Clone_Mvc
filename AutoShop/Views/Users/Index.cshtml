@@ -1,0 +1,66 @@
+﻿@model List<Data.Entities.User>
+@using Data.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<User> userManager
+
+<h1>Users List</h1>
+
+<div>
+    <form asp-controller="Users" asp-action="Index" method="get">
+        <div class="form-group">
+            <input type="text" class="form-control" name="email" placeholder="Search by Email">
+           
+        </div>
+        <span></span>
+    </form>
+</div>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Email</td>
+                <td>
+                    @{
+                        var roles = await userManager.GetRolesAsync(user);
+                        var roleNames = string.Join(", ", roles);
+                    }
+                    @roleNames
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        @if (!roles.Contains("Administrator"))
+                        {
+                            <form asp-action="ChangeRoleToAdmin" asp-route-email="@user.Email" method="post">
+                                <button type="submit" class="btn btn-info">Надати права адміністратора</button>
+                            </form>
+                        }
+                        @if (roles.Contains("Administrator"))
+                        {
+                            <form asp-action="ChangeRoleToUser" asp-route-email="@user.Email" method="post">
+                                <button type="submit" class="btn btn-info">Забрати права</button>
+                            </form>
+                        }
+
+                        <form asp-action="Delete" asp-route-id="@user.Id" > 
+                            <button type="submit" class="btn btn-danger">Видалити</button>
+                            </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>Count: @Model.Count</p>

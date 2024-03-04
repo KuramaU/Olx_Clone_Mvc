@@ -1,6 +1,8 @@
 ﻿using Data;
+using Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Shop.Helpers;
 using Shop.Models;
 using System.Diagnostics;
 
@@ -14,13 +16,9 @@ namespace Shop.Controllers
         {
             this.context = contextcs;
         }
-        //public IActionResult Index()
-        //{
-        //    var products = context.Products.Include(x => x.Category).ToList();
-        //    return View(products); // ~/Home/Index.cshtml
-        //}
-    
-     
+        
+
+
         public async Task<IActionResult> Index(string searchString)
         {
             if (context.Products == null)
@@ -35,8 +33,10 @@ namespace Shop.Controllers
             {
                 products_s = products_s.Where(s => s.Name!.Contains(searchString));
             }
-
-            return View(await products_s.ToListAsync());
+            var products= await products_s.Include(p => p.Category)
+                .Include(p => p.District)
+                .ToListAsync();
+            return View(products);
         }
 
         public IActionResult Sort(int? categoryId)
@@ -53,8 +53,10 @@ namespace Shop.Controllers
             {
                 // Логіка для випадку, коли categoryId не має значення
             }
-
-            return View(products.ToList());
+         var products_ = products.Include(p => p.Category)
+              .Include(p => p.District)
+              .ToList();
+            return View(products_);
         }
 
 

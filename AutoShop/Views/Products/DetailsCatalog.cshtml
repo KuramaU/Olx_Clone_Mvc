@@ -5,12 +5,13 @@
     <div class="card-header">
         <ul class="nav nav-pills card-header-pills">
             <li class="nav-item">
-                <a class="nav-link bg-dark active" asp-controller="Home" asp-action="Index">Back</a>
+                <a class="nav-link bg-dark active" asp-controller="Home" asp-action="Index">Назад</a>
             </li>
         </ul>
     </div>
     <div class="card-body product-card">
         <p class="card-text">@Model.Category.Name</p>
+        <p class="fa fa-map-marker">обл. @Model.District.Name</p>
            <h3 class="card-title">@Model.Name</h3>
         <img src="@(Model.ImageUrl ??  "https://pixsector.com/cache/517d8be6/av5c8336583e291842624.png")" class="card-img-top " alt="...">
         @if(Model.Discout!=null)
@@ -18,19 +19,19 @@
            var a= Model.Price * (100-Model.Discout)/100;
            string b = a?.ToString("0.00##");
            <p> <span class="badge bg-danger text-decoration-line-through">@Model.Price UAH</span>
-               <br>Price: <span class="badge bg-danger ">@b UAH</span>
+               <br>Ціна: <span class="badge bg-danger ">@b UAH</span>
            </p>
         }else
         {
-        <p>Price: <span class="badge bg-primary">@Model.Price UAH</span></p>
+        <p>Ціна: <span class="badge bg-primary">@Model.Price UAH</span></p>
         }
 
-        <p>Discount: <span class="badge bg-secondary">@(Model.Discout ?? 0)%</span></p>
-        <h4>Description</h4>
+        <p>Знижка: <span class="badge bg-secondary">@(Model.Discout ?? 0)%</span></p>
+        <h4>Опис</h4>
         <p>@Model.Description</p>
         <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-outline-success">
             <i class="bi bi-bag-plus"></i>
-            Buy
+            Додати до кошика
         </a>
     </div>
 </div>
