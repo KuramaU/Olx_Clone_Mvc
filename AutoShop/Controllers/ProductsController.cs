@@ -31,8 +31,13 @@ namespace Shop.Controllers
         {
             ViewBag.DistrictList = new SelectList(context.Districts.ToList(), "Id", "Name");
 
-        }
 
+        }
+        private void LoadImages()
+        {
+            ViewBag.ImagesList = new SelectList(context.Images.ToList(), "Id", "Name");
+
+        }
         public IActionResult Index()
         {
             // read products from db
@@ -72,6 +77,7 @@ namespace Shop.Controllers
         {
             LoadCategories();
             LoadDistricts();
+            LoadImages();
               return View();
         }
       
@@ -83,6 +89,7 @@ namespace Shop.Controllers
             {
                 LoadCategories();
                 LoadDistricts();
+                LoadImages();
                 return View("Create");
             }
 
@@ -141,6 +148,7 @@ namespace Shop.Controllers
 
             LoadCategories();
             LoadDistricts();
+            LoadImages();
             return View(item);
         }
         //[HttpPost]
@@ -167,6 +175,7 @@ namespace Shop.Controllers
         //    {
         //        LoadCategories();
         //        LoadDistricts();
+        //        LoadImages();
         //        return View(product);
         //    }
 
@@ -194,38 +203,45 @@ namespace Shop.Controllers
         //    //    existingProduct.InStock = product.InStock;
 
         //    //// Видаляємо старі фотографії продукту
-        //    //existingProduct.Images.Clear();
-        //    product.Images.Clear();
+        //    if (product.Images != null && product.Images.Any())
+        //    {
+        //        product.Images.Clear();
+        //    }
+        //    else
+        //    {
+        //        product.Images = new List<ProductImage>();
+        //    }
 
-        //    product.Images = new List<ProductImage>();
         //    // Якщо користувач відправив нові файли зображень, оновлюємо їх
         //    if (UploadImages != null && UploadImages.Any())
+        //    {
+        //        foreach (var file in UploadImages)
         //        {
-        //            foreach (var file in UploadImages)
+        //            if (file != null && file.Length > 0)
         //            {
-        //                if (file != null && file.Length > 0)
+        //                // Зчитуємо дані файлу у масив байтів
+        //                using (var ms = new MemoryStream())
         //                {
-        //                    // Зчитуємо дані файлу у масив байтів
-        //                    using (var ms = new MemoryStream())
-        //                    {
-        //                        file.CopyTo(ms);
-        //                        var imageData = ms.ToArray();
+        //                    file.CopyTo(ms);
+        //                    var imageData = ms.ToArray();
 
         //                    // Додаємо нове зображення до списку зображень продукту
         //                    //existingProduct.Images.Add(new ProductImage { ImageData = imageData });
-        //                    product.Images.Add(new ProductImage { ImageData = imageData });
+        //                    product.Images.Add(new ProductImage { ImageData = imageData, ProductId=product.Id });
         //                }
         //            }
 
         //        }
 
-        //    // Оновлюємо продукт в базі даних
-        //    //context.Products.Update(existingProduct);
+        //        // Оновлюємо продукт в базі даних
+        //        //context.Products.Update(existingProduct);
+        //        //context.Products.Update(product);
+        //        //// Зберігаємо зміни у базі даних
+        //        //context.SaveChanges();
+        //    }
         //    context.Products.Update(product);
         //    // Зберігаємо зміни у базі даних
         //    context.SaveChanges();
-        //    }
-
         //    // Перенаправляємо користувача на сторінку зі списком продуктів
         //    return RedirectToAction("Index");
         //}
@@ -261,6 +277,8 @@ namespace Shop.Controllers
 
                 // Видаляємо старі фотографії продукту
                 existingProduct.Images.Clear();
+               
+
                 existingProduct.Images = new List<ProductImage>();
                 // Якщо користувач відправив нові файли зображень, оновлюємо їх
                 if (UploadImages != null && UploadImages.Any())
@@ -281,11 +299,12 @@ namespace Shop.Controllers
                         }
                     }
                     // Зберігаємо зміни у базі даних, щоб нові фотографії були збережені
-                    context.SaveChanges();
+                 
                 }
-
+                product = existingProduct;
                 // Оновлюємо продукт в базі даних
-                context.Products.Update(existingProduct);
+                context.Products.Update(product);
+                context.SaveChanges();
                 // Зберігаємо зміни у базі даних (включаючи оновлення і видалення фотографій)
                 context.SaveChanges();
             }
