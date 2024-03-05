@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContextcs))]
-    partial class ShopDbContextcsModelSnapshot : ModelSnapshot
+    [Migration("20240305152414_addphotoforcategories")]
+    partial class addphotoforcategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,73 +48,73 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             Name = "Електроніка",
-                            URL = "elect.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\elect.png"
                         },
                         new
                         {
                             Id = 2,
                             Name = "Хобі та спорт",
-                            URL = "sport.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\sport.png"
                         },
                         new
                         {
                             Id = 3,
                             Name = "Мода і стиль",
-                            URL = "beauty.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\beauty.png"
                         },
                         new
                         {
                             Id = 4,
                             Name = "Дім і сад",
-                            URL = "home.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\home.png"
                         },
                         new
                         {
                             Id = 5,
                             Name = "Дитячі товари",
-                            URL = "children.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\children.png"
                         },
                         new
                         {
                             Id = 6,
                             Name = "Транспорт",
-                            URL = "transport.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\transport.png"
                         },
                         new
                         {
                             Id = 7,
                             Name = "Нерухомість",
-                            URL = "buildings.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\buildings.png"
                         },
                         new
                         {
                             Id = 8,
                             Name = "Будівництво та ремонт",
-                            URL = "fixing.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\fixing.png"
                         },
                         new
                         {
                             Id = 9,
                             Name = "Робота",
-                            URL = "work.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\work.png"
                         },
                         new
                         {
                             Id = 10,
                             Name = "Послуги",
-                            URL = "services.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\services.png"
                         },
                         new
                         {
                             Id = 11,
                             Name = "Віддам безкоштовно",
-                            URL = "forfree.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\forfree.png"
                         },
                         new
                         {
                             Id = 12,
                             Name = "Оренда та прокат",
-                            URL = "orenda.png"
+                            URL = "D:\\Шаг\\mvc shop\\BAGShop 22.04.23\\AutoShop\\wwwroot\\orenda.png"
                         });
                 });
 

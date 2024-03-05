@@ -61,19 +61,19 @@ namespace Data
 
             modelBuilder.Entity<Category>().HasData(new[]
             {
-                new Category { Id = 1,Name="Електроніка"},
-                new Category { Id = 2,Name="Хобі та спорт"},
-                new Category { Id = 3,Name="Мода і стиль"},
-                new Category { Id = 4,Name="Дім і сад"},
-                new Category { Id = 5,Name="Дитячі товари"},
-                new Category { Id = 6,Name="Транспорт"},
-                new Category { Id = 7,Name="Нерухомість"},
-                new Category { Id = 8,Name="Будівництво та ремонт"},
+                new Category { Id = 1,Name="Електроніка", URL="elect.png"},
+                new Category { Id = 2,Name="Хобі та спорт", URL = "sport.png"},
+                new Category { Id = 3,Name="Мода і стиль", URL = "beauty.png"},
+                new Category { Id = 4,Name="Дім і сад", URL = "home.png"},
+                new Category { Id = 5,Name="Дитячі товари",URL="children.png"},
+                new Category { Id = 6,Name="Транспорт" , URL = "transport.png"},
+                new Category { Id = 7,Name="Нерухомість" , URL = "buildings.png"},
+                new Category { Id = 8,Name="Будівництво та ремонт", URL = "fixing.png"},
                
-                new Category { Id = 9,Name="Робота"},
-                new Category { Id = 10,Name="Послуги"},
-                new Category { Id = 11,Name="Віддам безкоштовно"},
-                  new Category { Id = 12,Name="Оренда та прокат"},
+                new Category { Id = 9,Name="Робота", URL = "work.png"},
+                new Category { Id = 10,Name="Послуги", URL = "services.png"},
+                new Category { Id = 11,Name="Віддам безкоштовно", URL = "forfree.png"},
+                  new Category { Id = 12,Name="Оренда та прокат", URL = "orenda.png"},
             });
             modelBuilder.Entity<ProductImage>().HasData(new[]
 {

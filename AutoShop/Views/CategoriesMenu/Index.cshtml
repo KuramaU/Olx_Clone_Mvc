@@ -23,21 +23,21 @@
     .image-container {
         width: 100px;
         height: 100px;
-        overflow: hidden;
-        border: 2px solid #e5e5e5;
+        border: 1px solid #e5e5e5;
         border-radius: 50%;
         text-align: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        overflow: hidden; /* Переміщено сюди для залишку від обрізання */
     }
 
         .image-container img {
-            max-width: 50%;
-            max-height: 50%;
-            width: auto;
-            height: auto;
+            max-width: 100%; /* Змінено на максимальну ширину 100% */
+            max-height: 100%; /* Змінено на максимальну висоту 100% */
+            width: 50px;
+            height: 50px;
         }
     /* Общие стили для текста ссылок */
     a {
@@ -130,7 +130,7 @@
     }
 </style>
 
-</style>
+
 
 <div class="category-block">
     <!-- Первый горизонтальный ряд -->
@@ -140,7 +140,7 @@
             <div class="category-card">
                 <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">
                     <div class="image-container">
-                        <img src="~/image1.png" alt="@category.Name" class="rounded-circle" />
+                        <img src="~/@category.URL.ToString()" alt="@category.Name" />
                     </div>
                     <p class="text-center">@category.Name</p>
                 </a>
@@ -155,7 +155,7 @@
             <div class="category-card">
                 <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">
                     <div class="image-container">
-                        <img src="~/image1.png" alt="@category.Name" class="rounded-circle" />
+                        <img src="~/@category.URL.ToString()" alt="@category.Name"  />
                     </div>
                     <p class="text-center">@category.Name</p>
                 </a>
