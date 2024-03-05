@@ -1,30 +1,172 @@
 ﻿@model Shop.ViewModels.CategoryProductViewModel
+
 <style>
-    .top-margin {
-        margin-top: 2cm;
+    .category-block {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 50px;
     }
 
     .category-row {
-        margin-bottom: 1cm;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px; /* Добавим небольшой отступ между рядами */
+    }
+
+    .category-card {
+        text-align: center;
+        margin: 10px;
+        width: 100px;
+    }
+
+    .image-container {
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        border: 2px solid #e5e5e5;
+        border-radius: 50%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .image-container img {
+            max-width: 50%;
+            max-height: 50%;
+            width: auto;
+            height: auto;
+        }
+    /* Общие стили для текста ссылок */
+    a {
+        color: #000; /* Цвет текста */
+        text-decoration: none; /* Убираем подчеркивание */
+    }
+
+        /* Стили для текста ссылок при наведении */
+        a:hover {
+            text-decoration: none; /* Подчеркиваем при наведении */
+            color: #FFA93C;
+        }
+
+        /* Стили для посещенных ссылок */
+        a:visited {
+            color: #purple; /* Цвет для посещенных ссылок */
+        }
+    /* Стили для надписи "VIP-оголошення" */
+    .text-start {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px; /* Отступ сверху */
+    }
+
+    .display-4 small {
+        font-size: smaller;
+        color: #000; /* Цвет текста */
+        font-weight: bolder; /* Жирный текст */
+    }
+
+    /* Стили для кнопки */
+    .button-right {
+        margin: 0; /* Сбрасываем внутренние отступы */
+        background-color: #FFA93C; /* Оранжевый фон */
+        color: #fff; /* Белый текст */
+        border: none; /* Убираем границу */
+    }
+
+        .button-right:hover {
+            background-color: #fff; /* Белый фон при наведении */
+            color: #FFA93C; /* Оранжевый текст при наведении */
+        }
+
+    .small-card {
+        max-width: 200px; /* Регулируйте значение в зависимости от желаемого размера */
+    }
+
+    .container-products {
+        margin-top: 2rem; /* Верхний отступ для блока с карточками товаров */
+        margin-bottom: 20px; /* Нижний отступ для блока с карточками товаров */
+    }
+
+    .blue-bar {
+        background-color: #1861ac; /* Цвет синей полоски */
+        color: #fff; /* Цвет белого текста */
+        padding: 1.5rem; /* Внутренний отступ для синей полоски */
+        margin-top: 2rem; /* Верхний отступ для синей полоски */
+        margin-bottom: 20px;
+        width: 100% !important;
+        text-align: center; /* Выравнивание текста по центру */
+    }
+
+        .blue-bar p {
+            font-size: 1.5rem; /* Изменение размера текста */
+        }
+
+        .blue-bar .button-right {
+            margin-top: 10px; /* Отступ от надписи */
+            padding: 15px 30px; /* Увеличение отступов кнопки */
+            background-color: #FFA93C; /* Оранжевый фон */
+            color: #fff; /* Белый текст */
+            border: none; /* Убираем границу */
+            font-weight: bold; /* Жирный текст */
+            font-size: 1.2rem; /* Увеличение размера текста в кнопке */
+        }
+
+            .blue-bar .button-right:hover {
+                background-color: #fff; /* Белый фон при наведении */
+                color: #FFA93C; /* Оранжевый текст при наведении */
+            }
+
+    .wide-blue-bar {
+        background-color: #1861ac;
+        color: #fff;
+        padding: 1.5rem 0; /* Внутренний отступ сверху и снизу */
+        text-align: center; /* Выравнивание текста по центру */
+        margin-top: 20px; /* Верхний отступ */
+        margin-bottom: 20px; /* Нижний отступ */
     }
 </style>
 
-<div class="top-margin">
-    <!-- Додаємо клас, щоб застосувати відступ -->
-    <div class="row category-row">
-        <!-- Додаємо клас для рядків категорій -->
+</style>
+
+<div class="category-block">
+    <!-- Первый горизонтальный ряд -->
+    <div class="category-row">
         @foreach (var category in Model.Categories.Take(6))
         {
-            <div class="col-md-2">
-                <div class="card-footer text-center">
-                    <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">
-                        @category.Name
-                    </a>
-                </div>
+            <div class="category-card">
+                <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">
+                    <div class="image-container">
+                        <img src="~/image1.png" alt="@category.Name" class="rounded-circle" />
+                    </div>
+                    <p class="text-center">@category.Name</p>
+                </a>
             </div>
         }
     </div>
-    <div class="row category-row">
+
+    <!-- Второй горизонтальный ряд -->
+    <div class="category-row">
+        @foreach (var category in Model.Categories.Skip(6))
+        {
+            <div class="category-card">
+                <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">
+                    <div class="image-container">
+                        <img src="~/image1.png" alt="@category.Name" class="rounded-circle" />
+                    </div>
+                    <p class="text-center">@category.Name</p>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+
+   @*  <div class="row category-row">
         <!-- Додаємо клас для рядків категорій -->
         @foreach (var category in Model.Categories.Skip(6))
         {
@@ -36,12 +178,15 @@
                 </div>
             </div>
         }
-    </div>
-    <div class="text-start">
-        <h3 class="display-4">
-            <small style="font-size: smaller;">VIP-оголошення</small>
-        </h3>
-    </div>
+    </div> *@
+<div class="text-start">
+    <h3 class="display-4">
+        <small style="font-size: smaller;">VIP-оголошення</small>
+    </h3>
+    <a href="#" class="btn btn-primary button-right">Дивитися усе</a>
+</div>
+
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach (var p in Model.Products.Where(x => x.IsVIP == true))
         {
@@ -95,4 +240,82 @@
             </div>
         }
     </div>
+<div class="blue-bar">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <p class="text-white">Почніть свій бізнес на bag вже сьогодні</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <button class="btn btn-light">Зареєструватись</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-start">
+    <h3 class="display-4">
+        <small style="font-size: smaller;">Ви нещодавно переглядали</small>
+    </h3>
+    <a href="#" class="btn btn-primary button-right">Дивитися усе</a>
+</div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var p in Model.Products.Where(x => x.IsVIP == true))
+    {
+        <div class="col">
+            <div class="card h-100 product-card">
+                <img src="@(p.ImageUrl ??  "https://pixsector.com/cache/517d8be6/av5c8336583e291842624.png")" class="card-img-top" alt="...">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@p.Name</h5>
+                    @if (p.Discout != null)
+                    {
+                        var a = p.Price * (100 - p.Discout) / 100;
+                        string b = a?.ToString("0.00##");
+                        <p class="card-text">
+                            <span class="badge bg-danger">@b UAH</span>
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="card-text">
+                            <span class="badge bg-primary">@p.Price UAH</span>
+                        </p>
+                    }
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
+                        <i class="bi bi-bag-plus"></i>
+                        Додати до кошика
+                    </a>
+                    <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
+                        <i class="bi bi-eye">  </i>
+                    </a>
+                    <p class="card-text">
+                        <span class="badge bg-info">обл. @p.District?.Name</span>
+                    </p>
+                    <p class="card-text">
+                        @if (p.CreatedDate?.Day == DateTime.Today.Day)
+                        {
+                            <span class="badge bg-white text-dark">Обновлено сьогодні o @p.CreatedDate?.ToString("HH:mm")</span>
+                        }
+                        @if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
+                        {
+                            <span class="badge bg-white text-dark">Обновлено вчора o  @p.CreatedDate?.ToString("HH:mm")</span>
+                        }
+                        @if (p.CreatedDate?.Day != DateTime.Today.Day && p.CreatedDate?.Day != DateTime.Today.Day - 1)
+                        {
+                            <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
+                        }
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="wide-blue-bar">
+    <p>
+        Усі онлайн-оголошення України на bag — тут ви знайдете те, що шукали! Натиснувши на кнопку Додати оголошення, ви зможете розмістити оголошення на будь-яку тематику легко й швидко. За допомогою сервісу bag ви зможете купити чи продати з рук у руки практично все, що завгодно.
+
+    </p>
+</div>
+
 </div>

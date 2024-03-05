@@ -16,45 +16,113 @@ html {
 body {
   margin-bottom: 60px;
 }
-/* Стили для формы поиска */
-form.form-inline {
-    display: inline-block;
-    align-items: center; /* Выравнивание элементов по центру */
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
+
+.navbar-brand.cart-link {
+    font-size: 18px; /* Размер шрифта */
+    font-weight: bold; /* Жирный шрифт */
+    color: #FFFFFF; /* Цвет текста */
+    text-decoration: none; /* Убирает подчеркивание текста (если нужно) */
+    margin-left: 190px; /* Отступ справа от элемента */
+    margin-right: 190px;
 }
 
-    /* Стили для поля ввода поиска */
-    form.form-inline input[type="search"] {
-        margin: 19px;
-        padding: 10px 363px 15px 27px;
-        border: 1px solid #b7b7b7;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
+    .navbar-brand.cart-link:hover {
+        color: gold; /* Изменение цвета текста при наведении */
+    }
+/* Добавьте этот код в ваши стили */
+
+.nav-link {
+    font-size: 16px; /* Размер шрифта */
+    font-weight: bold; /* Жирный шрифт (если нужно) */
+    color: #333; /* Цвет текста */
+    text-decoration: none; /* Убирает подчеркивание текста (если нужно) */
+    margin-left: 10px;
+}
+
+    .nav-link:hover {
+        color: #1861ac; /* Изменение цвета текста при наведении */
     }
 
-    /* Стили для кнопки поиска */
-    form.form-inline button {
-        font: normal 16px/normal Georgia, serif;
-        color: rgba(244,136,53,1);
-        -o-text-overflow: clip;
-        text-overflow: clip;
-        background: #FFFFFF;
-        -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) inset;
-        box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) inset;
-        text-shadow: 1px 1px 0 rgba(255,255,255,0.66);
-        -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-        -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-        -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-        transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-    }
+    .button-login {
+    appearance: none;
+    background-color: #FAFBFC;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292E;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+}
+
+.button-login:hover {
+    background-color: #F3F4F6;
+    text-decoration: none;
+    transition-duration: 0.1s;
+}
+
+.button-login:disabled {
+    background-color: #FAFBFC;
+    border-color: rgba(27, 31, 35, 0.15);
+    color: #959DA5;
+    cursor: default;
+}
+
+.button-login:active {
+    background-color: #EDEFF2;
+    box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+    transition: none 0s;
+}
+
+.button-login:focus {
+    outline: 1px transparent;
+}
+
+.button-login:before {
+    display: none;
+}
+
+
+.search-container {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+.input-group {
+    display: flex;
+}
+
+.form-control {
+    border-radius: 8px 0 0 8px; /* Закругление левого края поля ввода */
+}
+
+.btn {
+    border-radius: 0 8px 8px 0; /* Закругление правого края кнопки */
+}
+
 
         form.form-inline button:hover {
-            background-color: #1861ac; /* Изменяем цвет фона при наведении */
+            background-color: #FFA22D; /* Изменяем цвет фона при наведении */
         }
 
-header, footer {
+header {
     background-color: #FFA22D;
 }
 .button-4 {
@@ -114,4 +182,30 @@ header, footer {
     padding: 10px 10px 10px 0px;
     height:200px;
     object-fit:contain;
+}
+.custom-footer {
+    padding: 1rem;
+    text-align: center;
+    background-color: #f8f9fa; /* Цвет фона футера */
+}
+.footer ul {
+    padding: 0;
+    list-style: none;
+}
+
+.footer li {
+    margin-bottom: 10px; /* Расстояние между ссылками */
+}
+
+.footer a {
+    text-decoration: none;
+    color: #6c757d; /* Цвет текста ссылок */
+}
+
+    .footer a:hover {
+        text-decoration: underline; /* Подчеркивание при наведении на ссылку */
+    }
+.list-unstyled li {
+    margin: 0;
+    padding: 0;
 }
