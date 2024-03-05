@@ -13,7 +13,13 @@
         <p class="card-text">@Model.Category.Name</p>
         <p class="fa fa-map-marker">обл. @Model.District.Name</p>
            <h3 class="card-title">@Model.Name</h3>
-        <img src="@(Model.Images.FirstOrDefault())" class="card-img-top " alt="...">
+        @if (Model.Images != null && Model.Images.Any())
+        {
+            foreach (var image in Model.Images)
+            {
+                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(image.ImageData))" alt="..." />
+            }
+        }
         @if(Model.Discout!=null)
         {
            var a= Model.Price * (100-Model.Discout)/100;
