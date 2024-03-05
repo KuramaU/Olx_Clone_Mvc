@@ -13,7 +13,7 @@
         <p class="card-text">@Model.Category.Name</p>
         <p class="fa fa-map-marker">обл. @Model.District.Name</p>
            <h3 class="card-title">@Model.Name</h3>
-        <img src="@(Model.ImageUrl ??  "https://pixsector.com/cache/517d8be6/av5c8336583e291842624.png")" class="card-img-top " alt="...">
+        <img src="@(Model.Images.FirstOrDefault())" class="card-img-top " alt="...">
         @if(Model.Discout!=null)
         {
            var a= Model.Price * (100-Model.Discout)/100;

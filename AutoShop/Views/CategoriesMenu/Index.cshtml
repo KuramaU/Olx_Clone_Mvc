@@ -1,5 +1,4 @@
 ﻿@model Shop.ViewModels.CategoryProductViewModel
-
 <style>
     .category-block {
         display: flex;
@@ -193,6 +192,74 @@
             <div class="col">
                 <div class="card h-100 product-card">
                     <img src="@(p.ImageUrl ??  "https://pixsector.com/cache/517d8be6/av5c8336583e291842624.png")" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@p.Name</h5>
+                        @if (p.Discout != null)
+                        {
+                            var a = p.Price * (100 - p.Discout) / 100;
+                            string b = a?.ToString("0.00##");
+                            <p class="card-text">
+                                <span class="badge bg-danger">@b UAH</span>
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="card-text">
+                                <span class="badge bg-primary">@p.Price UAH</span>
+                            </p>
+                        }
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
+                            <i class="bi bi-bag-plus"></i>
+                            Додати до кошика
+                        </a>
+                        <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
+                            <i class="bi bi-eye">  </i>
+                        </a>
+                        <p class="card-text">
+                            <span class="badge bg-info">обл. @p.District?.Name</span>
+                        </p>
+                        <p class="card-text">
+                            @if (p.CreatedDate?.Day == DateTime.Today.Day)
+                            {
+                                <span class="badge bg-white text-dark">Обновлено сьогодні o @p.CreatedDate?.ToString("HH:mm")</span>
+                            }
+                            @if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
+                            {
+                                <span class="badge bg-white text-dark">Обновлено вчора o  @p.CreatedDate?.ToString("HH:mm")</span>
+                            }
+                            @if (p.CreatedDate?.Day != DateTime.Today.Day && p.CreatedDate?.Day != DateTime.Today.Day - 1)
+                            {
+                                <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="text-start">
+        <h3 class="display-4">
+            <small style="font-size: smaller;">VIP-оголошення</small>
+        </h3>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var p in Model.Products.Where(x => x.IsVIP == true))
+        {
+            <div class="col">
+                <div class="card h-100 product-card">
+                    @foreach (var im in Model.Images.Where(id => id.ProductId == p.Id))
+                    {
+                         @if (p.Images != null && p.Images.Any())
+                            {
+
+                                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images[0].ImageData))" alt="..." @* style="max-width: 100px;" *@ />
+
+                            }   
+                    } 
+
+                
                     <div class="card-body text-center">
                         <h5 class="card-title">@p.Name</h5>
                         @if (p.Discout != null)

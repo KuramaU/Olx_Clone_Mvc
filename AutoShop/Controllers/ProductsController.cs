@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using Microsoft.AspNetCore.Http;
 using Shop.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Shop.ViewModels;
 
 namespace Shop.Controllers
 {
@@ -14,6 +15,8 @@ namespace Shop.Controllers
     public class ProductsController : Controller
     {
         private ShopDbContextcs context;
+       
+
         public ProductsController(ShopDbContextcs context)
         {
 
@@ -29,6 +32,7 @@ namespace Shop.Controllers
             ViewBag.DistrictList = new SelectList(context.Districts.ToList(), "Id", "Name");
 
         }
+
         public IActionResult Index()
         {
             // read products from db
@@ -39,23 +43,27 @@ namespace Shop.Controllers
             var userRole = User.IsInRole("Administrator") ? Roles.Administrator : Roles.User;
 
             List<Product> prod;
-
+            
             if (userRole == Roles.Administrator)
             {
                 // Якщо користувач - адміністратор, відображаємо всі продукти
                 prod = context.Products.Include(x => x.Category).ToList();
                 prod = context.Products.Include(x => x.District).ToList();
+                 prod = context.Products.Include(x => x.Images).ToList();
+
             }
             else
             {
                 // Якщо користувач - звичайний користувач, фільтруємо продукти за його id
-                var userEmail = HttpContext.User.Identity.Name; // Отримуємо ідентифікатор користувача(email)
+                var userEmail = HttpContext.User.Identity.Name;
+               // Отримуємо ідентифікатор користувача(email)
                 prod = context.Products.Where(x => x.User.Email == userEmail).Include(x=>x.Category)
                                         .ToList();
                 prod = context.Products.Where(x => x.User.Email == userEmail).Include(x => x.District)
                                       .ToList();
-
+                prod = context.Products.Where(x => x.User.Email == userEmail).Include(x => x.Images).ToList();
             }
+
 
             return View(prod);
         }
@@ -66,49 +74,64 @@ namespace Shop.Controllers
             LoadDistricts();
               return View();
         }
+      
         [HttpPost]
-       
-        public IActionResult Create(Product product)
+
+        public ActionResult Create(Product product)
         {
-
-            //if (!ModelState.IsValid)
-            //{
-            //    LoadCategories();
-            //    return View("Create");
-            //}
-
-
-            //context.Products.Add(product);
-            //context.SaveChanges();
-
-            //return RedirectToAction("Index");
             if (!ModelState.IsValid)
             {
                 LoadCategories();
                 LoadDistricts();
                 return View("Create");
             }
-            var userEmail = HttpContext.User.Identity.Name;
 
-            // Знаходимо користувача за його адресою електронної пошти
+            var userEmail = HttpContext.User.Identity.Name;
             var user = context.Users.FirstOrDefault(u => u.Email == userEmail);
 
             if (user == null)
             {
-                // Якщо користувача не знайдено, можна відобразити повідомлення про помилку або виконати інші дії, залежно від ваших потреб
                 return NotFound();
             }
 
-            // Прив'язуємо ідентифікатор користувача до поля User продукта
             product.User = user;
+
+            // Ініціалізуємо колекцію Images, якщо вона ще не була ініціалізована
+            if (product.Images == null)
+            {
+                product.Images = new List<ProductImage>();
+            }
+
+            if (product.UploadImages != null && product.UploadImages.Count > 0)
+            {
+                foreach (var file in product.UploadImages)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        file.CopyTo(memoryStream);
+
+                        // Зберегти дані файлу до байтового масиву
+                        var data = memoryStream.ToArray();
+
+                        var productImage = new ProductImage
+                        {
+                            // Встановити URL або шлях файлу завантаженого зображення
+                            ImageData = data,
+                            Product=product,
+                            ProductId = product.Id // Замість productImage.Product = product;
+                        };
+
+                        // Додати зображення продукту до колекції
+                        product.Images.Add(productImage);
+                    }
+                }
+            }
 
             context.Products.Add(product);
             context.SaveChanges();
 
             return RedirectToAction("Index");
         }
-
-
         public IActionResult Edit(int id)
         {
             var item = context.Products.Find(id);
@@ -120,23 +143,157 @@ namespace Shop.Controllers
             LoadDistricts();
             return View(item);
         }
-        [HttpPost]
-        public IActionResult Edit(Product product)
-        {
+        //[HttpPost]
+        //public IActionResult Edit(Product product)
+        //{
 
+        //    if (!ModelState.IsValid)
+        //    {
+        //        LoadCategories();
+        //        LoadDistricts();
+        //        return View("Edit");
+        //    }
+
+        //    product.CreatedDate= DateTime.Now;
+        //    context.Products.Update(product);
+        //    context.SaveChanges();
+
+        //    return RedirectToAction("Index");
+        //}
+        //[HttpPost]
+        //public IActionResult Edit(Product product, List<IFormFile> UploadImages)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        LoadCategories();
+        //        LoadDistricts();
+        //        return View(product);
+        //    }
+
+        //    // Оновлюємо дату створення продукту на поточний момент
+        //    product.CreatedDate = DateTime.Now;
+
+        //    // Отримуємо ідентифікатор продукту
+        //    // int productId = product.Id;
+
+        //    // Отримуємо дані про продукт з бази даних
+        //    //var existingProduct = context.Products
+        //    //                              .Include(p => p.Images)
+        //    //                              .FirstOrDefault(p => p.Id == productId);
+
+        //    // Якщо дані про продукт знайдено, оновлюємо їх
+        //    //if (existingProduct != null)
+        //    //{
+        //    //    // Оновлюємо загальні дані про продукт
+        //    //    existingProduct.Name = product.Name;
+        //    //    existingProduct.Price = product.Price;
+        //    //    existingProduct.Discout = product.Discout;
+        //    //    existingProduct.Description = product.Description;
+        //    //    existingProduct.CategoryId = product.CategoryId;
+        //    //    existingProduct.DistrictId = product.DistrictId;
+        //    //    existingProduct.InStock = product.InStock;
+
+        //    //// Видаляємо старі фотографії продукту
+        //    //existingProduct.Images.Clear();
+        //    product.Images.Clear();
+
+        //    product.Images = new List<ProductImage>();
+        //    // Якщо користувач відправив нові файли зображень, оновлюємо їх
+        //    if (UploadImages != null && UploadImages.Any())
+        //        {
+        //            foreach (var file in UploadImages)
+        //            {
+        //                if (file != null && file.Length > 0)
+        //                {
+        //                    // Зчитуємо дані файлу у масив байтів
+        //                    using (var ms = new MemoryStream())
+        //                    {
+        //                        file.CopyTo(ms);
+        //                        var imageData = ms.ToArray();
+
+        //                    // Додаємо нове зображення до списку зображень продукту
+        //                    //existingProduct.Images.Add(new ProductImage { ImageData = imageData });
+        //                    product.Images.Add(new ProductImage { ImageData = imageData });
+        //                }
+        //            }
+
+        //        }
+
+        //    // Оновлюємо продукт в базі даних
+        //    //context.Products.Update(existingProduct);
+        //    context.Products.Update(product);
+        //    // Зберігаємо зміни у базі даних
+        //    context.SaveChanges();
+        //    }
+
+        //    // Перенаправляємо користувача на сторінку зі списком продуктів
+        //    return RedirectToAction("Index");
+        //}
+        [HttpPost]
+        public IActionResult Edit(Product product, List<IFormFile> UploadImages)
+        {
             if (!ModelState.IsValid)
             {
                 LoadCategories();
                 LoadDistricts();
-                return View("Edit");
+                return View(product);
             }
 
-            product.CreatedDate= DateTime.Now;
-            context.Products.Update(product);
-            context.SaveChanges();
+            // Оновлюємо дату створення продукту на поточний момент
+            product.CreatedDate = DateTime.Now;
 
+            // Отримуємо дані про продукт з бази даних
+            var existingProduct = context.Products
+                                          .Include(p => p.Images)
+                                          .FirstOrDefault(p => p.Id == product.Id);
+
+            // Якщо дані про продукт знайдено, оновлюємо їх
+            if (existingProduct != null)
+            {
+                // Оновлюємо загальні дані про продукт
+                existingProduct.Name = product.Name;
+                existingProduct.Price = product.Price;
+                existingProduct.Discout = product.Discout;
+                existingProduct.Description = product.Description;
+                existingProduct.CategoryId = product.CategoryId;
+                existingProduct.DistrictId = product.DistrictId;
+                existingProduct.InStock = product.InStock;
+
+                // Видаляємо старі фотографії продукту
+                existingProduct.Images.Clear();
+                existingProduct.Images = new List<ProductImage>();
+                // Якщо користувач відправив нові файли зображень, оновлюємо їх
+                if (UploadImages != null && UploadImages.Any())
+                {
+                    foreach (var file in UploadImages)
+                    {
+                        if (file != null && file.Length > 0)
+                        {
+                            // Зчитуємо дані файлу у масив байтів
+                            using (var ms = new MemoryStream())
+                            {
+                                file.CopyTo(ms);
+                                var imageData = ms.ToArray();
+
+                                // Додаємо нове зображення до списку зображень продукту
+                                existingProduct.Images.Add(new ProductImage { ImageData = imageData });
+                            }
+                        }
+                    }
+                    // Зберігаємо зміни у базі даних, щоб нові фотографії були збережені
+                    context.SaveChanges();
+                }
+
+                // Оновлюємо продукт в базі даних
+                context.Products.Update(existingProduct);
+                // Зберігаємо зміни у базі даних (включаючи оновлення і видалення фотографій)
+                context.SaveChanges();
+            }
+
+            // Перенаправляємо користувача на сторінку зі списком продуктів
             return RedirectToAction("Index");
         }
+
         public IActionResult Vip(int id)
         {
             var item = context.Products.Find(id);
@@ -174,10 +331,12 @@ namespace Shop.Controllers
            
             var item = context.Products.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
             item = context.Products.Include(x => x.District).FirstOrDefault(x => x.Id == id);
+            item = context.Products.Include(x => x.Images).FirstOrDefault(x => x.Id == id);
             if (item == null)
             {
                 return NotFound();
             }
+            
             return View(item);
         }
         [AllowAnonymous]
@@ -186,6 +345,7 @@ namespace Shop.Controllers
             // read products from db
             var item = context.Products.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
             item = context.Products.Include(x => x.District).FirstOrDefault(x => x.Id == id);
+            item = context.Products.Include(x => x.Images).FirstOrDefault(x => x.Id == id);
             if (item == null)
             {
                 return NotFound();

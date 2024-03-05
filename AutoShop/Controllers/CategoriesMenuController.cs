@@ -28,10 +28,11 @@ namespace Shop.Controllers
             //// Передати список продуктів в представлення
             //return View(ViewBag);
 
-            var viewModel = new CategoryProductViewModel
+            var viewModel = new ProductViewModel
             {
                 Categories = context.Categories.ToList(),
-                Products = context.Products.Include(x => x.Category).ToList()
+                Products = context.Products.Include(x => x.Category).ToList(),
+                 Images = context.Images.Include(x=>x.Product).ToList()
             };
 
             return View(viewModel);

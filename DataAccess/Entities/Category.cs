@@ -8,5 +8,6 @@
 
        // --navigation properties
         public ICollection<Product> Products { get; set; }
+
     }
 }
