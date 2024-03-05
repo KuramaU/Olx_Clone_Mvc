@@ -1,4 +1,5 @@
-﻿@model List<Data.Entities.Product>
+﻿
+@model Shop.ViewModels.ProductViewModel
 
 <div class="text=center">
     <h1 class="display-4">Каталог продуктів</h1>
@@ -9,7 +10,7 @@
 <div class="row row-cols-1 row-cols-md-3 g-4">
     @{
         // Сортуємо всі продукти за датою у спадаючому порядку
-        var sortedProducts = Model.Where(p => p.D_Up_seven.HasValue || p.D_Up_one.HasValue)
+        var sortedProducts = Model.Products.Where(p => p.D_Up_seven.HasValue || p.D_Up_one.HasValue)
         .OrderByDescending(p => p.D_Up_seven ?? DateTime.MinValue)
         .ThenByDescending(p => p.D_Up_one ?? DateTime.MinValue)
         .ToList();
@@ -19,7 +20,14 @@
     {
         <div class="col">
             <div class="card h-100 product-card">
-                <img src="@(p.ImageUrl ??  "https://pixsector.com/cache/517d8be6/av5c8336583e291842624.png")" class="card-img-top" alt="...">
+               
+                    @if (p.Images != null && p.Images.Any())
+                    {
+                       
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images[0].ImageData))" alt="..."  />
+                        
+                    } 
+                    
                 <div class="card-body text-center">
                     <h5 class="card-title">@p.Name</h5>
 
@@ -69,11 +77,18 @@
         </div>
     }
 
-    @foreach(var p in Model.Where(p=>p.IsUp_seven!=true && p.IsUp_one!=true))
+    @foreach(var p in Model.Products.Where(p=>p.IsUp_seven!=true && p.IsUp_one!=true))
     {
         <div class="col">
             <div class="card h-100 product-card">
-                <img src="@(p.ImageUrl ??  "https://pixsector.com/cache/517d8be6/av5c8336583e291842624.png")" class="card-img-top" alt="...">
+            
+                    @if (p.Images != null && p.Images.Any())
+                    {
+
+                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images[0].ImageData))" alt="..." @* style="max-width: 100px;" *@ />
+
+                    
+                }   
                 <div class="card-body text-center">
                     <h5 class="card-title">@p.Name</h5>
                   
@@ -135,3 +150,4 @@
   
  
     </div>
+   

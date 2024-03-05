@@ -19,7 +19,12 @@
     {
         <div class="col">
             <div class="card h-100 product-card">
-                <img src="@(p.ImageUrl ??  "https://pixsector.com/cache/517d8be6/av5c8336583e291842624.png")" class="card-img-top" alt="...">
+                @if (p.Images != null && p.Images.Any())
+                {
+
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images[0].ImageData))" alt="..." />
+
+                }
                 <div class="card-body text-center">
                     <h5 class="card-title">@p.Name</h5>
 

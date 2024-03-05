@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Helpers;
 using Shop.Models;
+using Shop.ViewModels;
 using System.Diagnostics;
 
 namespace Shop.Controllers
@@ -36,7 +37,14 @@ namespace Shop.Controllers
             var products= await products_s.Include(p => p.Category)
                 .Include(p => p.District)
                 .ToListAsync();
-            return View(products);
+
+            var viewModel = new ProductViewModel
+            {
+                Categories = context.Categories.ToList(),
+                Products = products.ToList(),
+                Images = context.Images.Include(x => x.Product).ToList()
+            };
+            return View(viewModel);
         }
 
         public IActionResult Sort(int? categoryId)

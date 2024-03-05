@@ -8,9 +8,10 @@ using Shop.Services;
 
 namespace Shop.ViewModels
 {
-    public class CategoryProductViewModel
+    public class ProductViewModel
     {
         public List<Category> Categories { get; set; }
         public List<Product> Products { get; set; }
+        public List<ProductImage> Images { get; set; }
     }
 }

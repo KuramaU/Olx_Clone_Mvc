@@ -3,7 +3,7 @@
 
 <h1>Оновити данні продукта</h1>
 
-<form id="productForm" asp-action="Edit" method="post" class="row g-3">
+<form id="productForm" asp-action="Edit" method="post" class="row g-3" enctype="multipart/form-data">
     <input asp-for="Id" hidden />
 
     <div class="col-md-12">
@@ -30,10 +30,35 @@
         <span asp-validation-for="CategoryId" class="form-text text-danger"></span>
     </div>
 
+    @*  фотономер1 *@
     <div class="col-md-12">
-        <label asp-for="ImageUrl" class="form-label">Додайте фото вашого продукту</label>
-        <textarea asp-for="ImageUrl" class="form-control" rows="1" placeholder="Введіть посилання на фотографію(Url)"></textarea>
-        <span asp-validation-for="ImageUrl" class="form-text text-danger"></span>
+        <label asp-for="UploadImages" method="post" class="form-label">Додайте фото вашого продукту</label>
+        <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control">
+        <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+    </div>
+    @*  фотономер2 *@
+    <div class="col-md-12">
+        <label asp-for="UploadImages" method="post" class="form-label">Додайте фото вашого продукту</label>
+        <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control">
+        <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+    </div>
+    @*  фотономер3 *@
+    <div class="col-md-12">
+        <label asp-for="UploadImages" method="post" class="form-label">Додайте фото вашого продукту</label>
+        <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control">
+        <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+    </div>
+    @*  фотономер4 *@
+    <div class="col-md-12">
+        <label asp-for="UploadImages" method="post" class="form-label">Додайте фото вашого продукту</label>
+        <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control">
+        <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+    </div>
+    @*  фотономер5 *@
+    <div class="col-md-12">
+        <label asp-for="UploadImages" method="post" class="form-label">Додайте фото вашого продукту</label>
+        <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control">
+        <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
     </div>
 
     <div class="col-mb-12">

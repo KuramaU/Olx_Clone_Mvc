@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContextcs))]
-    partial class ShopDbContextcsModelSnapshot : ModelSnapshot
+    [Migration("20240305002405_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +36,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("URL")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -45,74 +44,62 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Електроніка",
-                            URL = "elect.png"
+                            Name = "Електроніка"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Хобі та спорт",
-                            URL = "sport.png"
+                            Name = "Хобі та спорт"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Мода і стиль",
-                            URL = "beauty.png"
+                            Name = "Мода і стиль"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Дім і сад",
-                            URL = "home.png"
+                            Name = "Дім і сад"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Дитячі товари",
-                            URL = "children.png"
+                            Name = "Дитячі товари"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Транспорт",
-                            URL = "transport.png"
+                            Name = "Транспорт"
                         },
                         new
                         {
                             Id = 7,
-                            Name = "Нерухомість",
-                            URL = "buildings.png"
+                            Name = "Нерухомість"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "Будівництво та ремонт",
-                            URL = "fixing.png"
+                            Name = "Будівництво та ремонт"
                         },
                         new
                         {
                             Id = 9,
-                            Name = "Робота",
-                            URL = "work.png"
+                            Name = "Робота"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Послуги",
-                            URL = "services.png"
+                            Name = "Послуги"
                         },
                         new
                         {
                             Id = 11,
-                            Name = "Віддам безкоштовно",
-                            URL = "forfree.png"
+                            Name = "Віддам безкоштовно"
                         },
                         new
                         {
                             Id = 12,
-                            Name = "Оренда та прокат",
-                            URL = "orenda.png"
+                            Name = "Оренда та прокат"
                         });
                 });
 

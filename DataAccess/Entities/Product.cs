@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Data.Entities
@@ -25,7 +27,7 @@ namespace Data.Entities
         [Range(0, int.MaxValue)]
         public decimal?  Discout { get; set; }
 
-        public string? ImageUrl { get; set; }
+        //public string? ImageUrl { get; set; }
          public DateTime? CreatedDate { get; set; } = DateTime.Today;
         
         public bool InStock { get; set; }
@@ -41,7 +43,9 @@ namespace Data.Entities
 
 
         public User? User { get; set; }
-
-
+        public List<ProductImage>? Images { get; set; }
+        [NotMapped]
+        public List<IFormFile>? UploadImages { get; set; }
     }
+
 }
