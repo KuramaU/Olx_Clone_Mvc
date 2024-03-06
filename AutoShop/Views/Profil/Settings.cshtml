@@ -1,0 +1,123 @@
+﻿@model Shop.ViewModels.ProductViewModel
+<style>
+    .wide-blue-bar {
+        background-color: #1861ac;
+        color: #fff;
+        padding: 1.5rem 0; /* Внутренний отступ сверху и снизу */
+        text-align: center; /* Выравнивание текста по центру */
+        margin-top: 20px; /* Верхний отступ */
+        margin-bottom: 20px; /* Нижний отступ */
+    }
+ }</style>
+
+<body>
+
+    <h3 class="display-4">
+        <small style="font-size: smaller;">Ваш профіль</small>
+    </h3>
+    <div class="wide-blue-bar">
+        <p>
+            Зверніть увагу, що угоди з Bag Доставка не оформлюються за сторонніми посиланнями і в ручному режимі! Дуже рекомендуємо ігнорувати такі повідомлення з лінком на Bag Доставка, відправлені вам поза Bag, наприклад, у Viber / SMS / Telegram. Дізнайтеся більше про шахрайство в інтернеті тут. Про те, як працює послуга Bag Доставка, читайте тут.
+        </p>
+    </div>
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            
+             
+            <div class="container-fluid">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+
+
+                        <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Profil" asp-action="Index">Оголошення</a>
+
+                        </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Profil" asp-action="Settings"><b>Налаштування</b></a>
+                    </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="#" asp-action="#">Платежі та рахунки Bag</a>
+                            </li>
+                     
+                       
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="#" asp-action="#">Bag доставка</a>
+                  
+                       
+
+
+                    
+
+                    </ul>
+
+
+
+                </div>
+            </div>
+        </nav>
+ 
+    </body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary rounded">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Персональні дані</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown1" aria-controls="navbarNavDarkDropdown1" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown1">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink1" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink1">
+                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Телефон</a>
+                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Email">Пошта</a>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Додано відступи між менюшками -->
+<div style="margin-bottom: 20px;"></div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary rounded">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-area="Identity" asp-page="/Account/Manage/ChangePassword">Змінити пароль</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown2" aria-controls="navbarNavDarkDropdown2" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Додано відступи між менюшками -->
+<div style="margin-bottom: 20px;"></div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary rounded">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Сповіщення</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown3" aria-controls="navbarNavDarkDropdown3" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Додано відступи між менюшками -->
+<div style="margin-bottom: 20px;"></div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary rounded">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-area="Identity" asp-page="/Account/Manage/PersonalData">Видалити акаунт</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown4" aria-controls="navbarNavDarkDropdown4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+
+
+
+

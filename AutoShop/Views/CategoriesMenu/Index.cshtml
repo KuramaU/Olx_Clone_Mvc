@@ -131,7 +131,16 @@
 </style>
 
 
-
+<div class="search-container">
+    <form asp-controller="Home" asp-action="Index" class="form-inline">
+        <div class="input-group">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="SearchString">
+            <button type="submit" class="btn btn-outline-secondary">
+                <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
+            </button>
+        </div>
+    </form>
+</div> 
 <div class="category-block">
     <!-- Первый горизонтальный ряд -->
     <div class="category-row">
@@ -186,87 +195,86 @@
 </div>
 
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (var p in Model.Products.Where(x => x.IsVIP == true))
-    {
-        <div class="col">
-            <div class="card h-100 product-card">
-                @foreach (var im in Model.Images.Where(id => id.ProductId == p.Id))
-                {
-                    @if (p.Images != null && p.Images.Any())
-                    {
+ <div class="row row-cols-1 row-cols-md-3 g-4">
+      
+              @foreach (var p in Model.Products.Where(x => x.IsVIP == true))
+              {
+     
+                  <div class="col">
+                      <div class="card h-100 product-card">
+                             <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
+                    @if (Model.Images.Where(id => id.ProductId == p.Id) != null && Model.Images.Where(id => id.ProductId == p.Id).Any())
+                              {
 
-                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images[0].ImageData))" alt="..." @* style="max-width: 100px;" *@ />
-
-                    }
-                }
-                <div class="card-body text-center">
-                        <h5 class="card-title">@p.Name</h5>
-                        @if (p.Discout != null)
-                        {
-                            var a = p.Price * (100 - p.Discout) / 100;
-                            string b = a?.ToString("0.00##");
-                            <p class="card-text">
-                                <span class="badge bg-danger">@b UAH</span>
-                            </p>
-                        }
-                        else
-                        {
-                            <p class="card-text">
-                                <span class="badge bg-primary">@p.Price UAH</span>
-                            </p>
-                        }
-                    </div>
-                    <div class="card-footer text-center">
-                        <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
-                            <i class="bi bi-bag-plus"></i>
-                            Додати до кошика
-                        </a>
-                        <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
-                            <i class="bi bi-eye">  </i>
-                        </a>
-                        <p class="card-text">
-                            <span class="badge bg-info">обл. @p.District?.Name</span>
-                        </p>
-                        <p class="card-text">
-                            @if (p.CreatedDate?.Day == DateTime.Today.Day)
-                            {
-                                <span class="badge bg-white text-dark">Обновлено сьогодні o @p.CreatedDate?.ToString("HH:mm")</span>
-                            }
-                            @if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
-                            {
-                                <span class="badge bg-white text-dark">Обновлено вчора o  @p.CreatedDate?.ToString("HH:mm")</span>
-                            }
-                            @if (p.CreatedDate?.Day != DateTime.Today.Day && p.CreatedDate?.Day != DateTime.Today.Day - 1)
-                            {
-                                <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
-                            }
-                        </p>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.Where(id => id.ProductId == p.Id).First().ImageData))" alt="..." />
+            
+                              }
+                          
+                          <div class="card-body text-center">
+                                  <h5 class="card-title">@p.Name</h5>
+                                  @if (p.Discout != null)
+                                  {
+                                      var a = p.Price * (100 - p.Discout) / 100;
+                                      string b = a?.ToString("0.00##");
+                                      <p class="card-text">
+                                          <span class="badge bg-danger">@b UAH</span>
+                                      </p>
+                                  }
+                                  else
+                                  {
+                                      <p class="card-text">
+                                          <span class="badge bg-primary">@p.Price UAH</span>
+                                      </p>
+                                  }
+                            </div>
+                              <div class="card-footer text-center">
+                                 
+                                  <p class="card-text">
+                                      <span class="badge bg-info">обл. @p.District?.Name</span>
+                                  </p>
+                                  <p class="card-text">
+                                      @if (p.CreatedDate?.Day == DateTime.Today.Day)
+                                      {
+                                          <span class="badge bg-white text-dark">Обновлено сьогодні o @p.CreatedDate?.ToString("HH:mm")</span>
+                                      }
+                                      @if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
+                                      {
+                                          <span class="badge bg-white text-dark">Обновлено вчора o  @p.CreatedDate?.ToString("HH:mm")</span>
+                                      }
+                                      @if (p.CreatedDate?.Day != DateTime.Today.Day && p.CreatedDate?.Day != DateTime.Today.Day - 1)
+                                      {
+                                          <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
+                                      }
+                                  </p>
+                              </div>
+                              </a>
+                          </div>
+                      </div>
     
-<div class="blue-bar">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-8">
-                <p class="text-white">Почніть свій бізнес на bag вже сьогодні</p>
-            </div>
-            <div class="col-md-4 text-end">
-                <button class="btn btn-light">Зареєструватись</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="text-start">
-    <h3 class="display-4">
-        <small style="font-size: smaller;">Ви нещодавно переглядали</small>
-    </h3>
-    <a href="#" class="btn btn-primary button-right">Дивитися усе</a>
-</div>
+                  }
+  
+             
+    @if (!User.Identity.IsAuthenticated)
+    {
+           
+           
+              <div class="blue-bar">
+                  <div class="container">
+                      <div class="row align-items-center">
+                          <div class="col-md-8">
+                              <p class="text-white">Почніть свій бізнес на bag вже сьогодні</p>
+                          </div>
+                          <div class="col-md-4 text-end">
+                              <a id="login" asp-area="Identity" asp-page="/Account/Login" class="btn btn-light" role="button">Зареєструватись</a>
+                              
+                          </div>
+                      </div>
+                  </div>
+              </div>
+   }
 
+
+</div>
 <div class="wide-blue-bar">
     <p>
         Усі онлайн-оголошення України на bag — тут ви знайдете те, що шукали! Натиснувши на кнопку Додати оголошення, ви зможете розмістити оголошення на будь-яку тематику легко й швидко. За допомогою сервісу bag ви зможете купити чи продати з рук у руки практично все, що завгодно.
@@ -274,4 +282,3 @@
     </p>
 </div>
 
-</div>

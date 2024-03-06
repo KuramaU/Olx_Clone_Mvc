@@ -30,7 +30,7 @@ namespace Shop.Controllers
             var products_s = from m in context.Products
                              select m;
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
                 products_s = products_s.Where(s => s.Name!.Contains(searchString));
             }
@@ -64,7 +64,13 @@ namespace Shop.Controllers
          var products_ = products.Include(p => p.Category)
               .Include(p => p.District)
               .ToList();
-            return View(products_);
+            var viewModel = new ProductViewModel
+            {
+                Categories = context.Categories.ToList(),
+                Products = products_.ToList(),
+                Images = context.Images.Include(x => x.Product).ToList()
+            };
+            return View(viewModel);
         }
 
 

@@ -1,15 +1,11 @@
-﻿@model List<Data.Entities.Product>
+﻿@model Shop.ViewModels.ProductViewModel;
 
-<div class="text=center">
-    <h1 class="display-4">Каталог продуктів</h1>
-   
-</div>
 
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
     @{
         // Сортуємо всі продукти за датою у спадаючому порядку
-        var sortedProducts = Model.Where(p => p.D_Up_seven.HasValue || p.D_Up_one.HasValue)
+        var sortedProducts = Model.Products.Where(p => p.D_Up_seven.HasValue || p.D_Up_one.HasValue)
         .OrderByDescending(p => p.D_Up_seven ?? DateTime.MinValue)
         .ThenByDescending(p => p.D_Up_one ?? DateTime.MinValue)
         .ToList();
@@ -19,10 +15,72 @@
     {
         <div class="col">
             <div class="card h-100 product-card">
+               
                 @if (p.Images != null && p.Images.Any())
                 {
 
-                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images[0].ImageData))" alt="..." />
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.FirstOrDefault().ImageData))" alt="..." />
+                    
+
+                }
+                <div class="card-body text-center">
+                    <h5 class="card-title">@p.Name</h5>
+
+                    @if (p.Discout != null)
+                    {
+                        var discountedPrice = p.Price * (100 - p.Discout) / 100;
+                        <p class="card-text">
+                            <span class="badge bg-danger">@discountedPrice UAH</span>
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="card-text">
+                            <span class="badge bg-primary">@p.Price UAH</span>
+                        </p>
+                    }
+                </div>
+
+                <div class="card-footer text-center">
+                    <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
+                        <i class="bi bi-bag-plus"></i>
+                        Додати до кошика
+                    </a>
+                    <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
+                        <i class="bi bi-eye">  </i>
+                    </a>
+
+                    <p class="card-text">
+                        <span class="badge bg-info">обл. @p.District?.Name</span>
+                    </p>
+                    <p class="card-text">
+                        @if (p.CreatedDate?.Day == DateTime.Today.Day)
+                        {
+                            <span class="badge bg-white text-dark">Обновлено сьогодні о @p.CreatedDate?.ToString("HH:mm")</span>
+                        }
+                        else if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
+                        {
+                            <span class="badge bg-white text-dark">Обновлено вчора о @p.CreatedDate?.ToString("HH:mm")</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.ToString("dd.MM.yyyy HH:mm")</span>
+                        }
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+   
+    @foreach (var p in Model.Products.Where(x => x.IsUp_seven != true && x.IsUp_one!=true))
+    {
+        <div class="col">
+            <div class="card h-100 product-card">
+                @if (p.Images != null && p.Images.Any())
+                {
+                    
+                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.First().ImageData))" alt="..." />
+                    
 
                 }
                 <div class="card-body text-center">

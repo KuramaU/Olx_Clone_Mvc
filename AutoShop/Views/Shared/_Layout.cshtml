@@ -30,31 +30,31 @@
                     <ul class="navbar-nav flex-grow-1">
 
                     
-
+@* 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Каталог</a>
-                        </li>
+                        </li> *@
                         @if ( User.IsInRole( "User"))
                                                 {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Мої оголошення</a>
+                                <a class="nav-link text-dark" asp-controller="Products" asp-action="Index"><img width="30px" height="30px" src="~/box.png" /></a>
                             </li>
                         }
                         @if (User.IsInRole("Administrator"))
                         {
                             
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Товари користувачів</a>
+                                <a class="nav-link text-dark" asp-controller="Products" asp-action="Index"><img width="30px" height="30px" src="~/box.png" /></a>
                                 </li>
                         }
                          @if (User.IsInRole("Administrator"))
                          {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">Користувачі</a>
+                                <a class="nav-link text-dark" asp-controller="Users" asp-action="Index"> <img width="30px" height="30px" src="~/patient.png" /></a>
                         </li>
                          }
                         
-                        
+                        @* 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">
                                 <i class="bi bi-cart"></i>
@@ -62,11 +62,9 @@
                                     @cartService.GetCount()
                                 </span>
                                 </a>
-                        </li>
-               
-                            @* <form asp-controller="Home" asp-action="Index" class="form-inline">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="SearchString">
-                            </form> *@
+                        </li> *@
+                        <partial name="_LoginPartial" />
+                            
                       
                        
                         </ul>
@@ -87,7 +85,7 @@
                            
                         </div>
                     }
-                    <partial name="_LoginPartial"/>
+                
                    
                     
                 </div>
@@ -95,7 +93,7 @@
         </nav>
     </header>
     <div class="container">
-        <div class="search-container">
+       @*  <div class="search-container">
             <form asp-controller="Home" asp-action="Index" class="form-inline">
                 <div class="input-group">
                     <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="SearchString">
@@ -104,7 +102,7 @@
                     </button>
                 </div>
             </form>
-        </div>
+        </div> *@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
