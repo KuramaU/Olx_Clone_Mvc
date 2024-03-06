@@ -1,4 +1,5 @@
-﻿@model Data.Entities.Product;
+﻿
+@* @model Data.Entities.Product;
 
 
 <div class="card text-center">
@@ -41,3 +42,180 @@
         </a>
     </div>
 </div>
+ *@
+@model Data.Entities.Product;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Model.Name - Product Page</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #f9f9f9; /* Светлый фон для всего сайта */
+            color: #333; /* Цвет текста */
+        }
+
+        #carouselExampleControls {
+            margin-top: 20px;
+            max-width: 800px; /* Максимальная ширина блока с изображениями */
+            width: 100%; /* Занимает доступное пространство по ширине */
+            margin: 0 auto; /* Центрирование блока по горизонтали */
+        }
+
+            #carouselExampleControls .carousel-inner {
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            #carouselExampleControls img {
+                width: 100%; /* Занимает доступное пространство по ширине внутри блока карусели */
+                height: 100%; /* Занимает доступное пространство по высоте внутри блока карусели */
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            }
+
+        .product-info, .user-info {
+            padding: 20px;
+            border: 1px solid #e1e1e1; /* Светлый бордюр для блоков информации */
+            border-radius: 8px;
+            margin-top: 20px;
+            background-color: #fff; /* Белый фон для блоков информации */
+        }
+
+        .user-avatar img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        .btn-olx {
+            background-color: #ffdb4d; /* Цвет фона для кнопок OLX */
+            color: #333; /* Цвет текста для кнопок OLX */
+            border: 1px solid #e1e1e1; /* Светлый бордюр для кнопок OLX */
+            border-radius: 8px;
+        }
+
+        .location-card {
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        .contact-card {
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        .description-block {
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                @* Блок с изображениями *@
+                <div id="carouselExampleControls" class="carousel slide product-card" data-ride="carousel">
+                    <div class="carousel-inner">
+                        @if (Model.Images != null && Model.Images.Any())
+                        {
+                            for (int i = 0; i < Model.Images.Count; i++)
+                            {
+                                <div class="carousel-item @(i == 0 ? "active" : "")">
+                                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Images[i].ImageData))" alt="..." class="d-block w-100" />
+                                </div>
+                            }
+                        }
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                @* Информация о продукте *@
+                <div class="card product-card">
+                    <div class="product-info">
+                        <p class="card-text">@Model.Category.Name</p>
+                        <p class="fa fa-map-marker">обл. @Model.District.Name</p>
+                        <h3 class="card-title">@Model.Name</h3>
+                        <!-- ... Другая информация о продукте ... -->
+                    </div>
+                </div>
+                @* Информация о пользователе *@
+                <div class="card user-card">
+                    <div class="user-info">
+                        <h4>Інформація про користувача</h4>
+                        <p>Ім'я: Леонід </p>
+                        <p>Email: leonid@gmail.com</p>
+                        <!-- Добавьте другие свойства пользователя по необходимости -->
+                    </div>
+                    <div class="user-avatar">
+                        <img src="~/image2.png" alt="Avatar" class="img-fluid" />
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="#" class="btn btn-olx">Дивитися інші оголошення автора ></a>
+                    </div>
+                </div>
+                <!-- Блок с местонахождением -->
+                <div class="location-card">
+                    <h4>Місцезнаходження</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">Рівне, Україна.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="~/image5.png" alt="Местоположение" class="img-fluid float-right" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-top: 30px;">
+                    </div>
+                </div>
+                <!-- Блок "Связаться с продавцом" -->
+                <div class="contact-card">
+                    <h4>Связаться з продавцем</h4>
+                    <div class="card">
+                        <div class="text-center mt-3">
+                            <button class="btn btn-warning text-white rounded-pill mb-2">Написати повідомлення</button><br>
+                            <button class="btn btn-light text-warning rounded-pill border border-warning">Номер телефону</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @* Описание продукта *@
+                <div class="description-block">
+                    <div class="product-info">
+                        <h4>Опис</h4>
+                        <p>@Model.Description</p>
+                        <p>Рандомное описание:</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение скриптов и стилей -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Другие скрипты -->
+</body>
+</html>
+

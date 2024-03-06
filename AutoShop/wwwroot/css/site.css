@@ -209,3 +209,24 @@ header {
     margin: 0;
     padding: 0;
 }
+.navbar-brand {
+    font-family: 'REZ';
+    font-style: normal;
+    color: #FFFFFF;
+}
+.navbar-nav .nav-link img {
+    max-height: 30px;
+    max-width: 30px;
+}
+/* ƒл€ правого выравнивани€ элементов */
+.navbar-left {
+    margin-left: 50px;
+}
+
+/* ƒл€ распределени€ элементов по горизонтали с учетом пространства между ними */
+.navbar-distribute {
+    display: flex;
+    gap: 10px; /* ¬ы можете изменить значение пространства по вашему усмотрению */
+}
+
+

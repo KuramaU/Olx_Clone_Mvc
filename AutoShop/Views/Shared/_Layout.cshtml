@@ -27,42 +27,46 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-
-                    
-
+                    <ul class="navbar-nav flex-grow-1 navbar-distribute">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Каталог</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                <img src="~/image2.png" alt="Каталог" class="navbar-img" />
+                            </a>
                         </li>
-                        @if ( User.IsInRole( "User"))
-                                                {
+                        @if (User.IsInRole("User"))
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Мої оголошення</a>
                             </li>
                         }
                         @if (User.IsInRole("Administrator"))
                         {
-                            
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Товари користувачів</a>
-                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Products" asp-action="Index">
+                                    <img src="~/image3.png" alt="Товари користувачів" class="navbar-img" />
+                                </a>
+                            </li>
                         }
-                         @if (User.IsInRole("Administrator"))
-                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">Користувачі</a>
-                        </li>
-                         }
-                        
-                        
-                        <li class="nav-item">
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Users" asp-action="Index">
+                                    <img src="~/image4.png" alt="Користувачі" class="navbar-img" />
+                                </a>
+                            </li>
+                        }
+                        <li class="nav-item navbar-right">
                             <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">
                                 <i class="bi bi-cart"></i>
-                                <span class="position-absolute cart-badge  translate-middle badge rounded-pill bg-primary">
+                                <span class="position-absolute cart-badge translate-middle badge rounded-pill bg-primary">
                                     @cartService.GetCount()
                                 </span>
-                                </a>
+                            </a>
                         </li>
+                    </ul>
+                </div>
+
+
                
                             @* <form asp-controller="Home" asp-action="Index" class="form-inline">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="SearchString">
