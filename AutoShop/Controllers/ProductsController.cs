@@ -134,9 +134,9 @@ namespace Shop.Controllers
                 }
             }
            
-            context.Products.Add(product);
             product.CreatedDate = DateTime.Now;
-            context.Products.Update(product);
+      
+            context.Products.Add(product);
             context.SaveChanges();
 
             return RedirectToAction("Index", "CategoriesMenu");

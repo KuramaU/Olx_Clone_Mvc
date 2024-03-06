@@ -1,5 +1,12 @@
 ﻿@model Shop.ViewModels.ProductViewModel
 <style>
+  
+    body {
+        background-color: whitesmoke; /* Сірий колір фону */
+    }
+    .search-container{
+        background-color:white;
+    }
     .category-block {
         display: flex;
         justify-content: space-around;
@@ -18,6 +25,7 @@
         text-align: center;
         margin: 10px;
         width: 100px;
+      
     }
 
     .image-container {
@@ -31,6 +39,7 @@
         justify-content: center;
         align-items: center;
         overflow: hidden; /* Переміщено сюди для залишку від обрізання */
+        background-color: white;
     }
 
         .image-container img {
@@ -38,6 +47,7 @@
             max-height: 100%; /* Змінено на максимальну висоту 100% */
             width: 50px;
             height: 50px;
+
         }
     /* Общие стили для текста ссылок */
     a {
@@ -128,13 +138,14 @@
         margin-top: 20px; /* Верхний отступ */
         margin-bottom: 20px; /* Нижний отступ */
     }
+
 </style>
 
-
-<div class="search-container">
+<body>
+<div class="search-container" >
     <form asp-controller="Home" asp-action="Index" class="form-inline">
         <div class="input-group">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="SearchString">
+                <input class="form-control" type="search" placeholder="Шукаю" aria-label="Search" name="SearchString">
             <button type="submit" class="btn btn-outline-secondary">
                 <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
             </button>
@@ -266,4 +277,4 @@
 
     </p>
 </div>
-
+</body>

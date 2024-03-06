@@ -1,7 +1,26 @@
 ﻿@model Shop.ViewModels.ProductViewModel;
+ <style> body {
+        background-color: whitesmoke; /* Сірий колір фону */
+    }
 
+    .search-container {
+        background-color: white;
+    }
 
-
+    
+ </style>
+<body>
+<div class="search-container">
+    <form asp-controller="Home" asp-action="Index" class="form-inline">
+        <div class="input-group">
+            <input class="form-control" type="search" placeholder="Пошук" aria-label="Search" name="SearchString">
+            <button type="submit" class="btn btn-outline-secondary">
+                <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
+            </button>
+        </div>
+    </form>
+</div>
+<hr />
 <div class="row row-cols-1 row-cols-md-3 g-4">
     @{
         // Сортуємо всі продукти за датою у спадаючому порядку
@@ -132,4 +151,5 @@
         </div>
     }
 
-</div>
+    </div>
+</body>

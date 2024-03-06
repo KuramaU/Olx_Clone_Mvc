@@ -4,25 +4,34 @@
 
 @inject UserManager<User> userManager
 
-<h1>Users List</h1>
 
+    <style>
+        body{
+            background-color:whitesmoke;
+        }
+    </style>
+    <body>
 <div>
     <form asp-controller="Users" asp-action="Index" method="get">
-        <div class="form-group">
+        @* <div class="form-group">
             <input type="text" class="form-control" name="email" placeholder="Search by Email">
            
+        </div> *@
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="Введіть пошту" aria-label="Search" name="email">
+         
         </div>
-        <span></span>
+        
     </form>
 </div>
-
+<hr />
 <table class="table">
     <thead class="table-dark">
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-            <th scope="col">Actions</th>
+            <th scope="col">Пошта</th>
+            <th scope="col">Роль</th>
+            <th scope="col">Дії</th>
         </tr>
     </thead>
     <tbody>
@@ -63,4 +72,5 @@
     </tbody>
 </table>
 
-<p>Count: @Model.Count</p>
+<p>Кількість: @Model.Count</p>
+</body>

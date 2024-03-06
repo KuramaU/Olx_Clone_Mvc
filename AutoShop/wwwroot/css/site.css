@@ -24,6 +24,7 @@ body {
     text-decoration: none; /* Убирает подчеркивание текста (если нужно) */
     margin-left: 190px; /* Отступ справа от элемента */
     margin-right: 190px;
+ 
 }
 
     .navbar-brand.cart-link:hover {

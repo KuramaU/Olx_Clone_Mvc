@@ -1,8 +1,10 @@
 ﻿@using Shop.Services;
 @inject ICartService cartService
 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,17 +18,17 @@
 
 
 </head>
-<body>
+<body >
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand cart-link" asp-area="" asp-controller="CategoriesMenu" asp-action="Index">Bag</a>
+                <a class="navbar-brand cart-link" asp-area="" asp-controller="CategoriesMenu" asp-action="Index"><strong>Bag</strong></a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse text-center collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
                     
@@ -109,7 +111,7 @@
             @RenderBody()
         </main>
     </div>
-
+  
 
 
     <footer class="border-top footer text-muted custom-footer">

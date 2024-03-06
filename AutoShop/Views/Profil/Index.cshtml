@@ -8,12 +8,21 @@
         margin-top: 20px; /* Верхний отступ */
         margin-bottom: 20px; /* Нижний отступ */
     }
+    .img{
+        max-width: 185px;
+        max-height: 130px;
+    }
+    body{
+        background-color: whitesmoke;
+    }
+
+  
  </style>
 
-<body>
 
+ <body>
     <h3 class="display-4">
-        <small style="font-size: smaller;">Ваш профіль</small>
+        <small style="font-size: smaller;"><b>Ваш профіль</b></small>
     </h3>
     <div class="wide-blue-bar">
         <p>
@@ -42,28 +51,72 @@
                                 <a class="nav-link text-dark" asp-controller="#" asp-action="#">Платежі та рахунки Bag</a>
                             </li>
                      
-                       
 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="#" asp-action="#">Bag доставка</a>
                   
-                       
-
-
-                    
 
                     </ul>
-
-
 
                 </div>
             </div>
         </nav>
- 
-    </body>
 
+    @foreach (var p in Model.Products)
+    {
+        <div class="container mt-5 mb-5">
+            <div class="d-flex justify-content-center row">
+                <div class="col-md-12">
+                    <div class="row p-2 bg-white border rounded">
+                        <div class="col-md-2 mt-1">
+                            @if (Model.Images.Where(id => id.ProductId == p.Id) != null && Model.Images.Where(id => id.ProductId == p.Id).Any())
+                            {
+                                <div class="img-container" style="max-width: 185px; max-height: 130px; overflow: hidden;">
+                                    <img class="img-fluid img-responsive rounded product-image" src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.Where(id => id.ProductId == p.Id).First().ImageData))" alt="...">
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <h5 class="card-title">@p.Name</h5>
+                            <div class="d-flex flex-row">
+                                <div class="ratings mr-2">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                </div><span><small>ID: @p.Id</small></span>
+                            </div>
+                            <div class="mt-1 mb-1 spec-1"><span><b>•@p.Category.Name</b></span></div>
+                            <p class="text-justify text-truncate para mb-0"><i class="bi bi-geo-alt-fill"></i>область @p.District.Name<br><br></p>
+                        </div>
+                        <div class="align-items-center align-content-center col-md-4 border-left mt-1">
+                            <div class="d-flex flex-row align-items-center">
+                                <h4 class="mr-1">@p.Price грн</h4>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                        <div class="card-footer text-end">
+                            <div>
+                                <a asp-action="Details" asp-controller="Products" asp-route-id="@p.Id" class="btn">
+                                    Переглянути
+                                </a>
+                                <a asp-action="Edit" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
+                                    Редагувати
+                                </a>
+                                <a asp-action="Delete" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
+                                    Архівувати
+                                </a>
+                                <a asp-action="Vip" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
+                                    Рекламувати
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 
-
+</body>
+@* 
 <div class="row row-cols-1 row-cols-md-3 g-4">
     
    
@@ -145,8 +198,6 @@
         }
     
 
-</div>
-
-
-
+</div> *@
+ 
 
