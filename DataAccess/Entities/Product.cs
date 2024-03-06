@@ -28,7 +28,7 @@ namespace Data.Entities
         public decimal?  Discout { get; set; }
 
         //public string? ImageUrl { get; set; }
-         public DateTime? CreatedDate { get; set; } = DateTime.Today;
+         public DateTime? CreatedDate { get; set; } = DateTime.Now;
         
         public bool InStock { get; set; }
 

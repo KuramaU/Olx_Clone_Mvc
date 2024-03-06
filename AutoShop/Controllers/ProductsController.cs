@@ -133,11 +133,13 @@ namespace Shop.Controllers
                     }
                 }
             }
-
+           
             context.Products.Add(product);
+            product.CreatedDate = DateTime.Now;
+            context.Products.Update(product);
             context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "CategoriesMenu");
         }
         public IActionResult Edit(int id)
         {
@@ -151,100 +153,7 @@ namespace Shop.Controllers
             LoadImages();
             return View(item);
         }
-        //[HttpPost]
-        //public IActionResult Edit(Product product)
-        //{
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        LoadCategories();
-        //        LoadDistricts();
-        //        return View("Edit");
-        //    }
-
-        //    product.CreatedDate= DateTime.Now;
-        //    context.Products.Update(product);
-        //    context.SaveChanges();
-
-        //    return RedirectToAction("Index");
-        //}
-        //[HttpPost]
-        //public IActionResult Edit(Product product, List<IFormFile> UploadImages)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        LoadCategories();
-        //        LoadDistricts();
-        //        LoadImages();
-        //        return View(product);
-        //    }
-
-        //    // Оновлюємо дату створення продукту на поточний момент
-        //    product.CreatedDate = DateTime.Now;
-
-        //    // Отримуємо ідентифікатор продукту
-        //    // int productId = product.Id;
-
-        //    // Отримуємо дані про продукт з бази даних
-        //    //var existingProduct = context.Products
-        //    //                              .Include(p => p.Images)
-        //    //                              .FirstOrDefault(p => p.Id == productId);
-
-        //    // Якщо дані про продукт знайдено, оновлюємо їх
-        //    //if (existingProduct != null)
-        //    //{
-        //    //    // Оновлюємо загальні дані про продукт
-        //    //    existingProduct.Name = product.Name;
-        //    //    existingProduct.Price = product.Price;
-        //    //    existingProduct.Discout = product.Discout;
-        //    //    existingProduct.Description = product.Description;
-        //    //    existingProduct.CategoryId = product.CategoryId;
-        //    //    existingProduct.DistrictId = product.DistrictId;
-        //    //    existingProduct.InStock = product.InStock;
-
-        //    //// Видаляємо старі фотографії продукту
-        //    if (product.Images != null && product.Images.Any())
-        //    {
-        //        product.Images.Clear();
-        //    }
-        //    else
-        //    {
-        //        product.Images = new List<ProductImage>();
-        //    }
-
-        //    // Якщо користувач відправив нові файли зображень, оновлюємо їх
-        //    if (UploadImages != null && UploadImages.Any())
-        //    {
-        //        foreach (var file in UploadImages)
-        //        {
-        //            if (file != null && file.Length > 0)
-        //            {
-        //                // Зчитуємо дані файлу у масив байтів
-        //                using (var ms = new MemoryStream())
-        //                {
-        //                    file.CopyTo(ms);
-        //                    var imageData = ms.ToArray();
-
-        //                    // Додаємо нове зображення до списку зображень продукту
-        //                    //existingProduct.Images.Add(new ProductImage { ImageData = imageData });
-        //                    product.Images.Add(new ProductImage { ImageData = imageData, ProductId=product.Id });
-        //                }
-        //            }
-
-        //        }
-
-        //        // Оновлюємо продукт в базі даних
-        //        //context.Products.Update(existingProduct);
-        //        //context.Products.Update(product);
-        //        //// Зберігаємо зміни у базі даних
-        //        //context.SaveChanges();
-        //    }
-        //    context.Products.Update(product);
-        //    // Зберігаємо зміни у базі даних
-        //    context.SaveChanges();
-        //    // Перенаправляємо користувача на сторінку зі списком продуктів
-        //    return RedirectToAction("Index");
-        //}
+       
         [HttpPost]
         public IActionResult Edit(Product product, List<IFormFile> UploadImages)
         {
@@ -256,8 +165,7 @@ namespace Shop.Controllers
             }
 
             // Оновлюємо дату створення продукту на поточний момент
-            product.CreatedDate = DateTime.Now;
-
+         
             // Отримуємо дані про продукт з бази даних
             var existingProduct = context.Products
                                           .Include(p => p.Images)
@@ -302,6 +210,8 @@ namespace Shop.Controllers
                  
                 }
                 product = existingProduct;
+                product.CreatedDate = DateTime.Now;
+                
                 // Оновлюємо продукт в базі даних
                 context.Products.Update(product);
                 context.SaveChanges();
@@ -310,7 +220,7 @@ namespace Shop.Controllers
             }
 
             // Перенаправляємо користувача на сторінку зі списком продуктів
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Profil");
         }
 
         public IActionResult Vip(int id)
@@ -339,7 +249,7 @@ namespace Shop.Controllers
             context.Products.Update(product);
             context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Profil");
         }
 
 
@@ -383,7 +293,7 @@ namespace Shop.Controllers
           
             context.Products.Update(item);
             context.SaveChanges(); //submit changes
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Profil");
 
         }
         public IActionResult UP_ONE_DAY(int id)
@@ -403,7 +313,7 @@ namespace Shop.Controllers
 
             context.Products.Update(item);
             context.SaveChanges(); //submit changes
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Profil");
 
         }
         public IActionResult UP_SEVEN_DAYS(int id)
@@ -421,7 +331,7 @@ namespace Shop.Controllers
 
             context.Products.Update(item);
             context.SaveChanges(); //submit changes
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Profil");
 
         }
         public IActionResult DELETE_ALL_STATUSES(int id)
@@ -442,7 +352,7 @@ namespace Shop.Controllers
 
             context.Products.Update(item);
             context.SaveChanges(); //submit changes
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Profil");
 
         }
         public IActionResult Delete(int id)
@@ -456,7 +366,7 @@ namespace Shop.Controllers
             context.Remove(item);
             context.SaveChanges(); //submit changes
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Profil");
         }
      
 

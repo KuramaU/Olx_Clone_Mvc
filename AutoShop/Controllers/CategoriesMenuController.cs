@@ -32,7 +32,8 @@ namespace Shop.Controllers
             {
                 Categories = context.Categories.ToList(),
                 Products = context.Products.Include(x => x.Category).ToList(),
-                 Images = context.Images.Include(x=>x.Product).ToList()
+                 Images = context.Images.Include(x=>x.Product).ToList(),
+                 Districs =context.Districts.ToList(),
             };
 
             return View(viewModel);

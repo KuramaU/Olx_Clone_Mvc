@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Shop.Helpers;
 using Data.Entities;
 using MVC_BagShop.Helpers;
-
 var builder = WebApplication.CreateBuilder(args);
 string connStr = builder.Configuration.GetConnectionString("DefaultConnection");
 // Add services to the container.
