@@ -34,7 +34,7 @@
     {
         <div class="col">
             <div class="card h-100 product-card">
-               
+                 <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
                     @if (p.Images != null && p.Images.Any())
                     {
 
@@ -65,13 +65,13 @@
                 </div>
 
                 <div class="card-footer text-center">
-                    <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
+                   @*  <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
                         <i class="bi bi-bag-plus"></i>
                         Додати до кошика
                     </a>
                     <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
                         <i class="bi bi-eye">  </i>
-                    </a>
+                    </a> *@
 
                     <p class="card-text">
                         <span class="badge bg-info">обл. @p.District?.Name</span>
@@ -91,6 +91,7 @@
                         }
                     </p>
                 </div>
+                </a>
             </div>
         </div>
     }
@@ -99,7 +100,7 @@
     {
             <div class="col">
                 <div class="card h-100 product-card">
-
+                      <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
                     @if (p.Images != null && p.Images.Any())
                     {
 
@@ -136,13 +137,13 @@
                 </div>
 
                 <div class="card-footer text-center">
-                    <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
+                  @*   <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
                         <i class="bi bi-bag-plus"></i>
                         Додати до кошика
                     </a>
                     <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
                         <i class="bi bi-eye">  </i>
-                    </a>
+                    </a> *@
 
                     <p class="card-text">
                          <span class="badge bg-info">обл. @p.District?.Name</span>
@@ -165,6 +166,7 @@
                     </p>
                    
                 </div>
+                </a>
             </div>
         </div>
     }
