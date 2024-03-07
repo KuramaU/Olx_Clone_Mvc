@@ -3,48 +3,109 @@
 @{
     ViewData["Title"] = "Реєстрація";
 }
+<style>
+    body {
+        background-color: rgba(255, 162, 45, 0.7); /* Змінюємо фон на вказаний колір */
+    }
 
-<h1>@ViewData["Title"]</h1>
+    .white-box {
+        background-color: whitesmoke; /* Білий фон для дівів */
+        padding: 35px; /* Зменшуємо внутрішній відступ */
+        margin-top: 10px; /* Відступ від верху */
+        border-radius: 5px; /* Закруглені кути */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тінь */
+        max-width: 608px; /* Максимальна ширина */
+        margin: 0 auto; /* Вирівнювання по центру */
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Створити новий аккаунт.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating mt-2">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Input.Email"></label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-         
-            <div class="form-floating mt-2">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.Password"></label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mt-2">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.ConfirmPassword"></label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
+    .form-group {
+        margin-bottom: 15px; /* Відступ між елементами форми */
+    }
 
-            @if (User.IsInRole("Administrator"))
-            {
-                <div>
-                    <div class="checkbox mt-2">
-                        <label class="form-label" asp-for="Input.IsAdmin">
-                            <input class="form-check-input" asp-for="Input.IsAdmin" />
+    .btn-custom {
+        background-color:white;
+       border-color:lightgray;
+        width: 100%;
+        margin-bottom: 10px;
+
+    }
+
+    .link {
+        color: orange;
+    }
+</style>
+
+<div class="white-box">
+    <!-- Додаємо клас white-box -->
+    <div class="text-center mt-3">
+        <div class="row">
+            <div class="col-md-7 mx-auto">
+                <button type="button" class="btn btn-custom d-flex justify-content-between align-items-center">
+                    <span><small><b>Продовжити через Facebook</b></small></span>
+                    <img src="~/facebook.png"  style="height: 20px;">
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7 mx-auto">
+                <button type="button" class="btn btn-custom d-flex justify-content-between align-items-center">
+                    <span><small><b>Продовжити через Google</b></small></span>
+                    <img src="~/google.png" style="height: 20px;">
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7 mx-auto">
+                <button type="button" class="btn btn-custom d-flex justify-content-between align-items-center">
+                    <span><small><b>Продовжити через Apple</b></small></span>
+                    <img src="~/apple.png" style="height: 20px;">
+                </button>
+            </div>
+        </div>
+        <div class="col-md-7 mx-auto mt-3" style="text-align: center; border-bottom: 2px solid black; line-height: 0;">
+            <span style="background-color: whitesmoke; padding: 0 10px;"><b>або</b></span>
+        </div>
+    </div>
+    
+    <h2 class="mt-3" style="text-align: center; font-size: 13px;"><b>@ViewData["Title"]</b></h2>
+
+    <div class="row">
+        <div class="col-md-7 mx-auto">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+
+                <!-- Видалено лінію <hr /> -->
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Електрона пошта" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Пароль" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Пароль" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                @if (User.IsInRole("Administrator"))
+                {
+                    <div class="checkbox">
+                        <label asp-for="Input.IsAdmin">
+                            <input asp-for="Input.IsAdmin" class="form-check-input" />
                             @Html.DisplayNameFor(m => m.Input.IsAdmin)
                         </label>
                     </div>
-                </div>
-            }
-           
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Зареєструватися</button>
-        </form>
+                }
+
+                <button id="registerSubmit" type="submit" class="btn btn-lg btn-warning btn-register col-md-12 style=" style="background-color: orange; color: white;">Зареєструватися</button>
+                <span class="col-md-12 "><small> <b>Вже маєте акаунт?</b> <a href="#" class="link signup-lin">Увійдіть!</a></small></span>
+            </form>
+        </div>
     </div>
-   
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
