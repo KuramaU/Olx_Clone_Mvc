@@ -16,7 +16,10 @@
         background-color: whitesmoke;
     }
 
-  
+    .button-login
+    {
+        background-color:orange;
+    }
  </style>
 
 
@@ -61,7 +64,7 @@
                 </div>
             </div>
         </nav>
-
+        @if(Model.Products.Any()){
     @foreach (var p in Model.Products)
     {
         <div class="container mt-5 mb-5">
@@ -72,9 +75,16 @@
                             @if (Model.Images.Where(id => id.ProductId == p.Id) != null && Model.Images.Where(id => id.ProductId == p.Id).Any())
                             {
                                 <div class="img-container" style="max-width: 185px; max-height: 130px; overflow: hidden;">
-                                    <img class="img-fluid img-responsive rounded product-image" src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.Where(id => id.ProductId == p.Id).First().ImageData))" alt="...">
-                                </div>
-                            }
+                                 
+                                            <img class="img-fluid img-responsive rounded product-image" src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.Where(id => id.ProductId == p.Id).First().ImageData)) " alt="...">
+                                     
+                                    </div>
+                                }
+                                else
+                                {
+                                    <img class="img-fluid img-responsive rounded product-image" src="~/default.png" alt="...">
+                                }
+
                         </div>
                         <div class="col-md-6 mt-1">
                             <h5 class="card-title">@p.Name</h5>
@@ -95,15 +105,23 @@
                         <hr class="mt-2">
                         <div class="card-footer text-end">
                             <div>
-                                <a asp-action="Details" asp-controller="Products" asp-route-id="@p.Id" class="btn">
+                                <a asp-action="DetailsCatalog" asp-controller="Products" asp-route-id="@p.Id" class="btn">
                                     Переглянути
                                 </a>
                                 <a asp-action="Edit" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
                                     Редагувати
                                 </a>
-                                <a asp-action="Delete" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
-                                    Архівувати
-                                </a>
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <a asp-action="Delete" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
+                                        Видалити
+                                    </a>
+                                }else
+                                {
+                                    <a asp-action="Archiwe" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
+                                       Архівувати
+                                    </a>
+                                }
                                 <a asp-action="Vip" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
                                     Рекламувати
                                 </a>
@@ -113,8 +131,15 @@
                 </div>
             </div>
         </div>
+        }
     }
+    else
+    {
+        <div class="text-center">
 
+            <a asp-controller="Products" asp-action="Create" class="button-login"   role="button">Створити оголошення</a>
+        </div>
+    }
 </body>
 @* 
 <div class="row row-cols-1 row-cols-md-3 g-4">

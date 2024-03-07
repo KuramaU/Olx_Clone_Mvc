@@ -4,6 +4,7 @@ using Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using Shop.ViewModels;
+using Shop.Helpers;
 namespace Shop.Controllers
 {
     public class ProfilController : Controller
@@ -17,27 +18,54 @@ namespace Shop.Controllers
 
         public IActionResult Index()
         {
-            
-            var user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
-            var products = context.Products.Include(x => x.Category).ToList();
-            if (user != null)
-            { // Перевірка, чи знайдено користувача з вказаним email
-                var viewModel = new ProductViewModel
+            var userRole = User.IsInRole("Administrator") ? Roles.Administrator : Roles.User;
+            if (userRole == Roles.Administrator)
+            {
+                var user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
+                var products = context.Products.Include(x => x.Category).ToList();
+                if (user != null)
+                { // Перевірка, чи знайдено користувача з вказаним email
+                    var viewModel = new ProductViewModel
+                    {
+                        Categories = context.Categories.ToList(),
+                        Products = products,
+                        Images = context.Images.Include(x => x.Product).ToList(),
+                        Districs = context.Districts.ToList(),
+                        User = user,
+
+                    };
+
+                    return View(viewModel);
+                }
+                else
                 {
-                    Categories = context.Categories.ToList(),
-                    Products = products,
-                    Images = context.Images.Include(x => x.Product).ToList(),
-                    Districs = context.Districts.ToList(),
-                    User = user,
-
-                };
-
-                return View(viewModel);
+                    // Обробка випадку, коли користувача не знайдено
+                    return RedirectToAction("Index", "Profil"); // Приклад перенаправлення на сторінку входу
+                }
             }
             else
             {
-                // Обробка випадку, коли користувача не знайдено
-                return RedirectToAction("Index", "Profil"); // Приклад перенаправлення на сторінку входу
+                var user = context.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
+                var products = context.Products.Where(x=>x.User.Email==user.Email).Include(x => x.Category).ToList();
+                if (user != null)
+                { // Перевірка, чи знайдено користувача з вказаним email
+                    var viewModel = new ProductViewModel
+                    {
+                        Categories = context.Categories.ToList(),
+                        Products = products,
+                        Images = context.Images.Include(x => x.Product).ToList(),
+                        Districs = context.Districts.ToList(),
+                        User = user,
+
+                    };
+
+                    return View(viewModel);
+                }
+                else
+                {
+                    // Обробка випадку, коли користувача не знайдено
+                    return RedirectToAction("Index", "Profil"); // Приклад перенаправлення на сторінку входу
+                }
             }
         }
 

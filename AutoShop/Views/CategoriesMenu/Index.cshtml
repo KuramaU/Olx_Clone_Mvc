@@ -205,6 +205,10 @@
                         <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.Where(id => id.ProductId == p.Id).First().ImageData))" alt="..." />
             
                               }
+                        else
+                        {
+                            <img  src="~/default.png" alt="...">
+                        }
                           
                           <div class="card-body text-center">
                                   <h5 class="card-title">@p.Name</h5>

@@ -40,7 +40,11 @@
 
                     <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.First().ImageData))" alt="..." />
                         
-                    } 
+                    }
+                    else
+                    {
+                        <img  src="~/default.png" alt="...">
+                    }
                     
                 <div class="card-body text-center">
                     <h5 class="card-title">@p.Name</h5>
@@ -93,16 +97,20 @@
 
     @foreach(var p in Model.Products.Where(p=>p.IsUp_seven!=true && p.IsUp_one!=true))
     {
-        <div class="col">
-            <div class="card h-100 product-card">
-            
+            <div class="col">
+                <div class="card h-100 product-card">
+
                     @if (p.Images != null && p.Images.Any())
                     {
 
-                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.First().ImageData))" alt="..." />
+                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.First().ImageData))" alt="..." />
+                    }
 
-                    
-                }   
+                    else
+                    {
+                        <img  src="~/default.png" alt="...">
+                    }
+                     
                 <div class="card-body text-center">
                     <h5 class="card-title">@p.Name</h5>
                   

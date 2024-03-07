@@ -180,6 +180,7 @@ namespace Shop.Controllers
                 existingProduct.Discout = product.Discout;
                 existingProduct.Description = product.Description;
                 existingProduct.CategoryId = product.CategoryId;
+         
                 existingProduct.DistrictId = product.DistrictId;
                 existingProduct.InStock = product.InStock;
 
@@ -214,11 +215,11 @@ namespace Shop.Controllers
                 
                 // Оновлюємо продукт в базі даних
                 context.Products.Update(product);
-                context.SaveChanges();
+         
                 // Зберігаємо зміни у базі даних (включаючи оновлення і видалення фотографій)
-                context.SaveChanges();
+               
             }
-
+            context.SaveChanges();
             // Перенаправляємо користувача на сторінку зі списком продуктів
             return RedirectToAction("Index", "Profil");
         }

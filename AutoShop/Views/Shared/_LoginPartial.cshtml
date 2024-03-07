@@ -22,7 +22,13 @@
                             </a> @*  Вітання @UserManager.GetUserName(User)! *@
                            
                             <ul class="dropdown-menu " aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li class="nav-item">
 
+                                    <form class="form-inline">
+                                        <button class="nav-link btn btn-link form-inline text-dark">Вітання @UserManager.GetUserName(User)!</button>
+                                    </form>
+                                </li>
+                                <hr />
                                 <li class="nav-item">
                                     
                                     <form  class="form-inline">
@@ -52,7 +58,7 @@
                                 <hr/>
 
                                 <li class="nav-item">
-                                    <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "CategoriesMenu", new { area = "" })">
                                         <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Вийти</button>
                                     </form>
                                </li>
