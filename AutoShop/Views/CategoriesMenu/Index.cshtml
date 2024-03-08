@@ -1,4 +1,7 @@
 ﻿@model Shop.ViewModels.ProductViewModel
+@{
+    ViewData["Title"] = "Головна";
+}
 <style>
   
     body {
@@ -142,6 +145,7 @@
 </style>
 
 <body>
+
 <div class="search-container" >
     <form asp-controller="Home" asp-action="Index" class="form-inline">
         <div class="input-group">
@@ -187,7 +191,10 @@
     <h3 class="display-4">
         <small style="font-size: smaller;">VIP-оголошення</small>
     </h3>
-    <a href="#" class="btn btn-primary button-right">Дивитися усе</a>
+       
+        <a asp-controller="Home" asp-action="Sort" asp-route-cate="@Model.Products.Where(x => x.IsVIP == true)" class="btn btn-primary button-right">
+            Дивитися усе</>
+            </a>
 </div>
 
 
@@ -265,7 +272,7 @@
                               <p class="text-white">Почніть свій бізнес на bag вже сьогодні</p>
                           </div>
                           <div class="col-md-4 text-end">
-                              <a id="login" asp-area="Identity" asp-page="/Account/Login" class="btn btn-light" role="button">Зареєструватись</a>
+                              <a id="login" asp-area="Identity" asp-page="/Account/Register" class="btn btn-light" role="button">Зареєструватись</a>
                               
                           </div>
                       </div>

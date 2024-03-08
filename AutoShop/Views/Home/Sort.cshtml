@@ -1,4 +1,7 @@
 ﻿@model Shop.ViewModels.ProductViewModel;
+@{
+    ViewData["Title"] = "КаталогСорт";
+}
  <style> body {
         background-color: whitesmoke; /* Сірий колір фону */
     }
@@ -21,14 +24,28 @@
     </form>
 </div>
 <hr />
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    @{
-        // Сортуємо всі продукти за датою у спадаючому порядку
-        var sortedProducts = Model.Products.Where(p => p.D_Up_seven.HasValue || p.D_Up_one.HasValue)
-        .OrderByDescending(p => p.D_Up_seven ?? DateTime.MinValue)
-        .ThenByDescending(p => p.D_Up_one ?? DateTime.MinValue)
-        .ToList();
+
+
+    @if(Model.Products.Count>1)
+    {
+        <h4>Ми знайшли понад @(Model.Products.Count-1) оголошень</h4>
     }
+    else if (Model.Products.Count > 0)
+    {
+        <h4>Ми знайшли лише 1 оголошення</h4>
+    }
+    else
+    {
+        <h4>Ми не змогли знайти оголошення за цими критеріями </h4>
+    }
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @{
+            // Сортуємо всі продукти за датою у спадаючому порядку
+            var sortedProducts = Model.Products.Where(p => p.D_Up_seven.HasValue || p.D_Up_one.HasValue)
+            .OrderByDescending(p => p.D_Up_seven ?? DateTime.MinValue)
+            .ThenByDescending(p => p.D_Up_one ?? DateTime.MinValue)
+            .ToList();
+        }
 
     @foreach (var p in sortedProducts)
     {
