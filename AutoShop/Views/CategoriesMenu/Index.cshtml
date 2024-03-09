@@ -176,14 +176,17 @@
     <div class="category-row">
         @foreach (var category in Model.Categories.Skip(6))
         {
-            <div class="category-card">
-                <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">
+                if (category.Id!= 13)
+                {
+                    <div class="category-card">
+                        <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">
                     <div class="image-container">
                         <img src="~/@category.URL.ToString()" alt="@category.Name"  />
                     </div>
                     <p class="text-center">@category.Name</p>
                 </a>
             </div>
+            }
         }
     </div>
 </div>
@@ -191,8 +194,9 @@
     <h3 class="display-4">
         <small style="font-size: smaller;">VIP-оголошення</small>
     </h3>
-       
-        <a asp-controller="Home" asp-action="Sort" asp-route-cate="@Model.Products.Where(x => x.IsVIP == true)" class="btn btn-primary button-right">
+      
+
+        <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="13" class="btn btn-primary button-right">
             Дивитися усе</>
             </a>
 </div>

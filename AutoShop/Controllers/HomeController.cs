@@ -54,8 +54,15 @@ namespace Shop.Controllers
 
             if (categoryId.HasValue)
             {
+                if (categoryId.Value == 13) { 
                 int selectedCategoryId = categoryId.Value;
-                products = products.Where(s => s.CategoryId == selectedCategoryId);
+                products = products.Where(s => s.Category_VIP_Id == selectedCategoryId);
+            }
+                else
+                {
+                    int selectedCategoryId = categoryId.Value;
+                    products = products.Where(s => s.CategoryId == selectedCategoryId);
+                }
             }
             else
             {
@@ -72,7 +79,7 @@ namespace Shop.Controllers
             };
             return View(viewModel);
         }
-
+       
 
         public IActionResult Privacy()
         {

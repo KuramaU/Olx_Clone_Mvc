@@ -74,6 +74,7 @@ namespace Data
                 new Category { Id = 10,Name="Послуги", URL = "services.png"},
                 new Category { Id = 11,Name="Віддам безкоштовно", URL = "forfree.png"},
                   new Category { Id = 12,Name="Оренда та прокат", URL = "orenda.png"},
+                     new Category { Id = 13,Name="VIP-Оголошення", URL = "orenda.png"},
             });
             modelBuilder.Entity<ProductImage>().HasData(new[]
 {
@@ -85,7 +86,7 @@ namespace Data
 
             modelBuilder.Entity<Product>().HasData(new[]
           {
-            new Product() { Id = 1, Name = "iPhone 13 ", Price=37600, D_VIP=DateTime.Today.AddDays(-8),   CategoryId=1, DistrictId=17,CreatedDate=DateTime.Today   },
+            new Product() { Id = 1, Name = "iPhone 13 ", Price=37600, D_VIP=DateTime.Today.AddDays(-8),   CategoryId=1, Category_VIP_Id=13, DistrictId=17,CreatedDate=DateTime.Today   },
             new Product() { Id = 2, Name = "Nike Monarh" , Price=2600,D_VIP=DateTime.Today.AddDays(-2) ,CategoryId=3,  DistrictId=17, CreatedDate=DateTime.Today },
             new Product() {Id = 3, Name = "Shovel" , Price=2000,D_VIP=DateTime.Today ,CategoryId=4, DistrictId=17, CreatedDate=DateTime.Today },
             new Product() { Id = 4, Name = "Yoyo", Price=500,D_VIP=DateTime.Today.AddDays(-1),CategoryId=5,  DistrictId=17, CreatedDate=DateTime.Today   }

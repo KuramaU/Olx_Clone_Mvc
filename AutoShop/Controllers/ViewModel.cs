@@ -14,6 +14,7 @@ namespace Shop.ViewModels
         public List<District> Districs { get; set; }
         public List<Product> Products { get; set; }
         public List<ProductImage> Images { get; set; }
+        public List<ProductImage> Images_2 { get; set; }
         public User User { get; set; }
         public District District { get; set; }
         public Category Category { get; set; }

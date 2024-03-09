@@ -288,8 +288,16 @@ namespace Shop.Controllers
             var viewModel = new ProductViewModel
             {
                 Product = item,
-                Images=item.Images,
-                User = user
+
+                Images = item.Images,
+                User = user,
+
+
+                Categories = context.Categories.ToList(),
+                Products = context.Products.Include(x => x.Category).ToList(),
+                Images_2 = context.Images.Include(x => x.Product).ToList(),
+                Districs = context.Districts.ToList(),
+
             };
 
             return View(viewModel);
@@ -314,8 +322,9 @@ namespace Shop.Controllers
                 return NotFound();
             item.D_VIP=DateTime.Now;
             item.IsVIP = true;
-          
+            item.Category_VIP_Id = 13;
             context.Products.Update(item);
+            
             context.SaveChanges(); //submit changes
             return RedirectToAction("Index", "Profil");
 
@@ -373,7 +382,7 @@ namespace Shop.Controllers
 
             item.D_VIP = null;
             item.IsVIP = false;
-
+            item.Category_VIP_Id =0 ;
             context.Products.Update(item);
             context.SaveChanges(); //submit changes
             return RedirectToAction("Index", "Profil");

@@ -23,6 +23,8 @@ namespace Data.Entities
         public bool? IsVIP { get; set; }
         public DateTime? D_VIP{ get; set; }
         public int DistrictId { get; set; }
+
+        public int Category_VIP_Id { get; set; }
         public int CategoryId { get; set; }
         [Range(0, int.MaxValue)]
         public decimal?  Discout { get; set; }
@@ -36,7 +38,7 @@ namespace Data.Entities
         public string? Description { get; set; }
 
         // --navigation properties
-   
+    
         public Category? Category { get; set; }
 
         public District? District{ get; set; }
