@@ -1,226 +1,275 @@
 ﻿
-@* @model Data.Entities.Product;
 
+@model Shop.ViewModels.ProductViewModel;
 
-<div class="card text-center">
-    
-    <div class="card-body product-card">
-        <p class="card-text">@Model.Category.Name</p>
-        <p class="fa fa-map-marker">обл. @Model.District.Name</p>
-           <h3 class="card-title">@Model.Name</h3>
-        @if (Model.Images != null && Model.Images.Any())
-        {
-            foreach (var image in Model.Images)
-            {
-                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(image.ImageData))" alt="..." />
-            }
+@{
+    ViewData["Title"] = "Перегляд оголошення";
+}
+<style>
+    body {
+        background-color: whitesmoke; /* Светлый фон для всего сайта */
+        
+    }
+    .card-header{
+        background-color: white;
+    }
+
+    #carouselExampleControls {
+        margin-top: 20px;
+        max-width: 800px; /* Максимальная ширина блока с изображениями */
+        width: 100%; /* Занимает доступное пространство по ширине */
+        margin: 0 auto; /* Центрирование блока по горизонтали */
+    }
+
+        #carouselExampleControls .carousel-inner {
+            border-radius: 8px;
+            overflow: hidden;
         }
-        @if(Model.Discout!=null)
-        {
-           var a= Model.Price * (100-Model.Discout)/100;
-           string b = a?.ToString("0.00##");
-           <p> <span class="badge bg-danger text-decoration-line-through">@Model.Price UAH</span>
-               <br>Ціна: <span class="badge bg-danger ">@b UAH</span>
-           </p>
-        }else
-        {
-        <p>Ціна: <span class="badge bg-primary">@Model.Price UAH</span></p>
+
+        #carouselExampleControls img {
+            width: 100%; /* Занимает доступное пространство по ширине внутри блока карусели */
+            height: 100%; /* Занимает доступное пространство по высоте внутри блока карусели */
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
         }
 
-        <p>Знижка: <span class="badge bg-secondary">@(Model.Discout ?? 0)%</span></p>
-        <h4>Опис</h4>
-        <p>@Model.Description</p>
-        <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-outline-success">
-            <i class="bi bi-bag-plus"></i>
-            Додати до кошика
-        </a>
-    </div>
-</div>
- *@
-@model Data.Entities.Product;
+    .product-info, .user-info {
+        padding: 20px;
+        border: 1px solid #e1e1e1; /* Светлый бордюр для блоков информации */
+        border-radius: 8px;
+        margin-top: 20px;
+        background-color: #fff; /* Белый фон для блоков информации */
+    }
+
+    .user-avatar img {
+        max-width: 90px;
+        height: 90px;
+        border-radius: 50%;
+    }
+
+    .btn-olx {
+        background-color: #ffdb4d; /* Цвет фона для кнопок OLX */
+        color: #333; /* Цвет текста для кнопок OLX */
+        border: 1px solid #e1e1e1; /* Светлый бордюр для кнопок OLX */
+        border-radius: 8px;
+    }
+
+    .location-card {
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        margin-top: 20px;
+        background-color: #fff;
+    }
+
+    .contact-card {
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        margin-top: 20px;
+        background-color: #fff;
+    }
+
+    .description-block {
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        margin-top: 20px;
+        background-color: #fff;
+        padding: 20px;
+    }
+
+    .col-4 {
+        display: flex; /* Встановлюємо flex контейнер */
+        justify-content: space-between; /* Рівномірно розподіляємо елементи по контейнеру */
+    /* Відступ від нижнього краю контейнера */
+    }
+
+    .md-5 {
+        white-space: nowrap; /* Забороняємо перенесення тексту на новий рядок */
+        margin-right: 16cm; /* Встановлюємо відступ між елементами */
+  
+     
+    }
+
+    a{
+        color: orange;
+    }
+
+  
+
+    .carousel-control-prev-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+    }
+
+    .carousel-control-next-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+    }
+
+   
+    .carousel-item {
+        display: flex;
+        justify-content: center; /* Вирівнюємо по горизонталі по центру */
+        max-width: 850px;
+        max-height: 350px;
+        margin-bottom: 4px; /* Доданий зазначений margin-bottom */
+    }
+    .d-block 
+    {
+  
+      max-width: 850px;
+        max-height: 350px;
+    }
+</style>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@Model.Name - Product Page</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <style>
-        body {
-            background-color: #f9f9f9; /* Светлый фон для всего сайта */
-            color: #333; /* Цвет текста */
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
-        #carouselExampleControls {
-            margin-top: 20px;
-            max-width: 800px; /* Максимальная ширина блока с изображениями */
-            width: 100%; /* Занимает доступное пространство по ширине */
-            margin: 0 auto; /* Центрирование блока по горизонтали */
-        }
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
 
-            #carouselExampleControls .carousel-inner {
-                border-radius: 8px;
-                overflow: hidden;
-            }
-
-            #carouselExampleControls img {
-                width: 100%; /* Занимает доступное пространство по ширине внутри блока карусели */
-                height: 100%; /* Занимает доступное пространство по высоте внутри блока карусели */
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
-            }
-
-        .product-info, .user-info {
-            padding: 20px;
-            border: 1px solid #e1e1e1; /* Светлый бордюр для блоков информации */
-            border-radius: 8px;
-            margin-top: 20px;
-            background-color: #fff; /* Белый фон для блоков информации */
-        }
-
-        .user-avatar img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 50%;
-        }
-
-        .btn-olx {
-            background-color: #ffdb4d; /* Цвет фона для кнопок OLX */
-            color: #333; /* Цвет текста для кнопок OLX */
-            border: 1px solid #e1e1e1; /* Светлый бордюр для кнопок OLX */
-            border-radius: 8px;
-        }
-
-        .location-card {
-            border: 1px solid #e1e1e1;
-            border-radius: 8px;
-            margin-top: 20px;
-            background-color: #fff;
-        }
-
-        .contact-card {
-            border: 1px solid #e1e1e1;
-            border-radius: 8px;
-            margin-top: 20px;
-            background-color: #fff;
-        }
-
-        .description-block {
-            border: 1px solid #e1e1e1;
-            border-radius: 8px;
-            margin-top: 20px;
-            background-color: #fff;
-            padding: 20px;
-        }
-    </style>
 </head>
 <body>
-    <div class="container mt-4">
+
+    <div class="search-container">
+        <form asp-controller="Home" asp-action="Index" class="form-inline">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Шукаю" aria-label="Search" name="SearchString">
+                <button type="submit" class="btn btn-outline-secondary">
+                    <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
+                </button>
+            </div>
+        </form>
+    </div>
+    <!-- Page content-->
+    <div class="container mt-5">
         <div class="row">
-            <div class="col-md-8">
-                @* Блок с изображениями *@
-                <div id="carouselExampleControls" class="carousel slide product-card" data-ride="carousel">
-                    <div class="carousel-inner">
-                        @if (Model.Images != null && Model.Images.Any())
+            <!-- Blog entries-->
+            <div class="col-lg-8">
+                <!-- Featured blog post-->
+                <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
+                    <div class="carousel-inner ">
+                        @if (Model.Images !=null && Model.Images.Any())
                         {
                             for (int i = 0; i < Model.Images.Count; i++)
                             {
                                 <div class="carousel-item @(i == 0 ? "active" : "")">
-                                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Images[i].ImageData))" alt="..." class="d-block w-100" />
+                                    <img class="d-block mx-auto" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Images[i].ImageData))" alt="..." />
                                 </div>
                             }
                         }
                         else
                         {
-                            <img  src="~/default.png" alt="...">
+                            <div class="carousel-item active">
+                                <img src="~/default.png" class="d-block w-100" alt="...">
+                            </div>
                         }
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon " aria-hidden="true"></span>
-                     
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon " aria-hidden="true"></span>
-                       
-                    </a>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" >
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" >
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-            </div>
-            <div class="col-md-4">
-                @* Информация о продукте *@
-                <div class="card product-card">
-                    <div class="product-info">
-                        <p class="card-text">@Model.Category.Name</p>
-                        <p class="fa fa-map-marker">обл. @Model.District.Name</p>
-                        <h3 class="card-title">@Model.Name</h3>
-                        <!-- ... Другая информация о продукте ... -->
-                    </div>
-                </div>
-                @* Информация о пользователе *@
-                <div class="card user-card">
-                    <div class="user-info">
-                        <h4>Інформація про користувача</h4>
-                        <p>Ім'я: Леонід </p>
-                        <p>Email: leonid@gmail.com</p>
-                        <!-- Добавьте другие свойства пользователя по необходимости -->
-                    </div>
-                    <div class="user-avatar">
-                        <img src="~/image2.png" alt="Avatar" class="img-fluid" />
-                    </div>
-                    <div class="text-center mt-3">
-                        <a href="#" class="btn btn-olx">Дивитися інші оголошення автора ></a>
-                    </div>
-                </div>
-                <!-- Блок с местонахождением -->
-                <div class="location-card">
-                    <h4>Місцезнаходження</h4>
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-text">Рівне, Україна.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="~/image5.png" alt="Местоположение" class="img-fluid float-right" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-top: 30px;">
-                    </div>
-                </div>
-                <!-- Блок "Связаться с продавцом" -->
-                <div class="contact-card">
-                    <h4>Связаться з продавцем</h4>
-                    <div class="card">
-                        <div class="text-center mt-3">
-                            <button class="btn btn-warning text-white rounded-pill mb-2">Написати повідомлення</button><br>
-                            <button class="btn btn-light text-warning rounded-pill border border-warning">Номер телефону</button>
+                <!-- Опис товару -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="small text-muted"></div>
+                        <h2 class="card-title">Опис</h2>
+                        <p class="card-text">@Model.Product.Description</p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="md-5">ID: @Model.Product.Id</p>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a class="md-5">Поскаржитися</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                @* Описание продукта *@
-                <div class="description-block">
-                    <div class="product-info">
-                        <h4>Опис</h4>
-                        <p>@Model.Description</p>
-                        <p>Рандомное описание:</p>
+            <!-- Бічні панелі -->
+            <div class="col-lg-4">
+                <!-- Інформація про товар -->
+                <div class="card mb-4">
+                    <div class="card-header text-muted"><small>@Model.Product.CreatedDate.Value.ToString("dd.MM.yyyy")</small></div>
+                    <div class="card-body">
+                        <div class="input-group d-flex justify-content-between align-items-center">
+                            <div class="row">
+                                <span>@Model.Product.Name</span>
+                            </div>
+                            <div class="row">
+                                <span class="text-end"><strong>@Model.Product.Price грн</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Інформація про продавця -->
+                <div class="card mb-4">
+                    <div class="card-header"><small>Продавець</small></div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="user-avatar">
+                                    <img src="~/avatar.png" alt="Avatar" class="img-fluid" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <ul class="list-unstyled mb-0">
+                                    <li><b>@Model.Product.User.Email </b></li>
+                                    <li class="text-muted">Онлайн 11:28</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <a href="#" class="mt-2 text-black">Всі оголошення автора→</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Інформація про місцезнаходження -->
+                <div class="card mb-4">
+                    <div class="card-header">Місцезнаходження</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <ul class="list-unstyled mb-0">
+                                    <li><b><i class="bi bi-geo-alt-fill"></i></b></li>
+                                    <li>@Model.Product.District.Name область</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-5 text-end">
+                                <div>
+                                    <img src="~/image5.png" alt="Avatar" class="img-fluid" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Контактна інформація -->
+                <div class="card mb-4">
+                    <div class="card-header">Зв'язатися з продавцем</div>
+                    <div class="card-body text-center">
+                        <button class="btn btn-warning text-white mb-2">Написати повідомлення</button><br>
+                        <button class="btn btn-light text-warning text-black border border-warning">Номер телефону</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Подключение скриптов и стилей -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Другие скрипты -->
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
 
-         @section Scripts {
-    <script>
-        $(document).ready(function () {
-            $('.carousel').carousel();
-        });
-    </script>
-}
+

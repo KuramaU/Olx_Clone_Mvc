@@ -17,5 +17,7 @@ namespace Shop.ViewModels
         public User User { get; set; }
         public District District { get; set; }
         public Category Category { get; set; }
+        public Product Product { get; set; }
     }
+   
 }
