@@ -180,7 +180,8 @@ namespace Shop.Controllers
                 existingProduct.Discout = product.Discout;
                 existingProduct.Description = product.Description;
                 existingProduct.CategoryId = product.CategoryId;
-         
+                existingProduct.Phonenumber = product.Phonenumber;
+                existingProduct.Username = product.Username;
                 existingProduct.DistrictId = product.DistrictId;
                 existingProduct.InStock = product.InStock;
 

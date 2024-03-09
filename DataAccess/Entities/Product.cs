@@ -23,7 +23,8 @@ namespace Data.Entities
         public bool? IsVIP { get; set; }
         public DateTime? D_VIP{ get; set; }
         public int DistrictId { get; set; }
-
+        public int? Phonenumber { get; set; }
+        public string? Username { get; set; }
         public int Category_VIP_Id { get; set; }
         public int CategoryId { get; set; }
         [Range(0, int.MaxValue)]

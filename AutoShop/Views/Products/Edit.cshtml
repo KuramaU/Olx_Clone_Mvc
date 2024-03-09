@@ -66,7 +66,19 @@
         <textarea asp-for="Description" class="form-control" rows="3" placeholder="Введіть опис товару"></textarea>
         <span asp-validation-for="Description" class="form-text text-danger"></span>
     </div>
+    <div class="col-md-12">
 
+
+        <label asp-for="Username" method="post" class="form-label">Контактна особа</label>
+        <input asp-for="Username" type="text" class="form-control" placeholder="Ім'я">
+        <span asp-validation-for="Username" class="form-text text-danger"></span>
+    </div>
+    <div class="col-md-12">
+        <label asp-for="Phonenumber" class="form-label">Номер телефону</label>
+        <input asp-for="Phonenumber" type="number" class="form-control" placeholder="+380">
+        <span asp-validation-for="Phonenumber" class="form-text text-danger"></span>
+
+    </div>
     
   
     
@@ -77,15 +89,7 @@
         </div>
     
 
-    <div class="col-12">
-        <div class="form-check">
-            <input asp-for="InStock" class="form-check-input" type="checkbox">
-            <label asp-for="InStock" class="form-check-label">
-                В наявності
-            </label>
-            <span asp-validation-for="InStock" class="form-text text-danger"></span>
-        </div>
-    </div>
+    <
 
     <div class="col-6">
         <a asp-controller="Profil" asp-action="Index" class="btn btn-secondary w-100">Назад</a>

@@ -223,7 +223,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <ul class="list-unstyled mb-0">
-                                    <li><b>@Model.Product.User.Email </b></li>
+                                    <li><b>@Model.Product.Username </b></li>
                                     <li class="text-muted">Онлайн 11:28</li>
                                 </ul>
                             </div>
@@ -259,7 +259,8 @@
                     <div class="card-header">Зв'язатися з продавцем</div>
                     <div class="card-body text-center">
                         <button class="btn btn-warning text-white mb-2">Написати повідомлення</button><br>
-                        <button class="btn btn-light text-warning text-black border border-warning">Номер телефону</button>
+                        <button id="phoneButton" class="btn btn-light text-warning text-black border border-warning">Номер телефону</button>
+
                     </div>
                 </div>
             </div>
@@ -426,5 +427,9 @@
 
 </body>
 </html>
-
+<script>
+    document.getElementById('phoneButton').addEventListener('click', function () {
+        this.textContent = "+380 @Model.Product.Phonenumber";
+    });
+</script>
 
