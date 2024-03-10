@@ -15,7 +15,9 @@ namespace Data.Entities
 
         [Required,Range(0,int.MaxValue)]
 
+     
         public decimal Price { get; set; }
+        public bool? IS_Arhive { get; set; }
         public bool? IsUp_one{ get; set; }
         public DateTime? D_Up_one { get; set; }
         public bool? IsUp_seven { get; set; }

@@ -33,7 +33,7 @@
         .ToList();
     }
 
-    @foreach (var p in sortedProducts)
+        @foreach (var p in sortedProducts.Where(x=>x.IS_Arhive != true))
     {
         <div class="col">
             <div class="card h-100 product-card">
@@ -99,7 +99,7 @@
         </div>
     }
 
-    @foreach(var p in Model.Products.Where(p=>p.IsUp_seven!=true && p.IsUp_one!=true))
+    @foreach(var p in Model.Products.Where(p=>p.IsUp_seven!=true && p.IsUp_one!=true && p.IS_Arhive!=true))
     {
             <div class="col">
                 <div class="card h-100 product-card">

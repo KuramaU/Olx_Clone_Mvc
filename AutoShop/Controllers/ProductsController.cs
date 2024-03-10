@@ -153,6 +153,7 @@ namespace Shop.Controllers
             LoadImages();
             return View(item);
         }
+
        
         [HttpPost]
         public IActionResult Edit(Product product, List<IFormFile> UploadImages)
@@ -402,8 +403,7 @@ namespace Shop.Controllers
 
             return RedirectToAction("Index","Profil");
         }
-     
-
+      
 
     }
 }

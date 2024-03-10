@@ -47,9 +47,9 @@
             .ToList();
         }
 
-    @foreach (var p in sortedProducts)
+        @foreach (var p in sortedProducts.Where(x => x.IS_Arhive != true))
     {
-        <div class="col">
+        <div class="col-md">
             <div class="card h-100 product-card">
                  <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
                 @if (p.Images != null && p.Images.Any())
@@ -63,7 +63,7 @@
                     {
                         <img  src="~/default.png" alt="...">
                     }
-                <div class="card-body text-center">
+              <div class="card-body text-center">
                     <h5 class="card-title">@p.Name</h5>
 
                     @if (p.Discout != null)
@@ -79,7 +79,7 @@
                             <span class="badge bg-primary">@p.Price UAH</span>
                         </p>
                     }
-                </div>
+                </div> 
 
                 <div class="card-footer text-center">
                     @* <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
@@ -113,7 +113,7 @@
         </div>
     }
    
-    @foreach (var p in Model.Products.Where(x => x.IsUp_seven != true && x.IsUp_one!=true))
+    @foreach (var p in Model.Products.Where(x => x.IsUp_seven != true && x.IsUp_one!=true && x.IS_Arhive!=true))
     {
         <div class="col">
             <div class="card h-100 product-card">

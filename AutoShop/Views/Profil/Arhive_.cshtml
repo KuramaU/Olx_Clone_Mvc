@@ -1,6 +1,6 @@
 ﻿@model Shop.ViewModels.ProductViewModel
 @{
-    ViewData["Title"] = "Профіль Активні";
+    ViewData["Title"] = "Профіль Архів";
 }
 <style>
     .wide-blue-bar {
@@ -83,18 +83,18 @@
 
 
         <div class="container-fluid">
-            <div class="navbar-collapse collapse d-sm-inline-flex  justify-content-between">
+            <div class="navbar-collapse collapse d-sm-inline-flex w-50 justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
 
 
 
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Profil" asp-action="Index"><b><small>Активні</small></b></a>
+                        <a class="nav-link text-dark" asp-controller="Profil" asp-action="Index"><small>Активні</small></a>
 
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Profil" asp-action="Arhive_"><small>Архівовані</small></a>
+                        <a class="nav-link text-dark" asp-controller="Profil" asp-action="Arhive"><b><small>Архівовані</small></b></a>
                     </li>
                     
 
@@ -103,8 +103,9 @@
             </div>
         </div>
     </nav>
-        @if(Model.Products.Any()){
-    @foreach (var p in Model.Products.Where(x=>x.IS_Arhive!=true))
+    @if (Model.Products.Where(x => x.IS_Arhive == true).Any())
+    {
+    @foreach (var p in Model.Products.Where(x=>x.IS_Arhive==true))
     {
         <div class="container mt-5 mb-5">
             <div class="d-flex justify-content-center row">
@@ -148,21 +149,17 @@
                         <hr class="mt-2">
                         <div class="card-footer text-end">
                             <div>
-                                <a asp-action="DetailsCatalog" asp-controller="Products" asp-route-id="@p.Id" class="btn">
-                                    Переглянути
-                                </a>
-                                <a asp-action="Edit" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
-                                    Редагувати
-                                </a>
-                              
-                                
-                                    <a asp-action ="ARHIVE"  asp-route-id="@p.Id" class="btn ">
-                                       Архівувати 
+
+                                    <a asp-action="UnARHIVE"  asp-route-id="@p.Id" class="btn ">
+                                        Активувати
                                     </a>
-                                
-                                <a asp-action="Vip" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
-                                    Рекламувати
-                                </a>
+                             
+                                    <a asp-action="Edit" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
+                                        Редагувати
+                                    </a>
+                                    <a asp-action="Delete" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
+                                        Видалити
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -175,13 +172,92 @@
     {
         <div class="text-center">
 
-            <a asp-controller="Products" asp-action="Create" class="button-login"   role="button">Створити оголошення</a>
+            <a><b>У вас поки що немає архівованих товарів</b></a>
         </div>
     }
 </body>
+@* 
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    
+   
+       @foreach (var p in Model.Products)
+        {
+            <div class="col">
+                <div class="card h-100 product-card">
+
+                @if (Model.Images.Where(id => id.ProductId == p.Id) != null && Model.Images.Where(id => id.ProductId == p.Id).Any())
+                {
+
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.Where(id => id.ProductId == p.Id).First().ImageData))" alt="..." />
+
+                }
+
+                <div class="card-body text-center">
+                        <h5 class="card-title">@p.Name</h5>
+                        @if (p.Discout != null)
+                        {
+                            var a = p.Price * (100 - p.Discout) / 100;
+                            string b = a?.ToString("0.00##");
+                            <p class="card-text">
+                                <span class="badge bg-danger">@b UAH</span>
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="card-text">
+                                <span class="badge bg-primary">@p.Price UAH</span>
+                            </p>
+                        }
+                    </div>
+                    <div class="card-footer text-center">
+                       <div>
+                        <a asp-action="Details" asp-controller="Products" asp-route-id="@p.Id" class="btn btn-info">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a asp-action="Edit" asp-controller="Products" asp-route-id="@p.Id" class="btn btn-warning">
+                            Редагувати
+                        </a>
+                        <a asp-action="Delete" asp-controller="Products" asp-route-id="@p.Id" class="btn btn-danger">
+                            Видалити
+                        </a>
+                        <a asp-action="Vip" asp-controller="Products" asp-route-id="@p.Id" class="btn btn-success">
+                            Зміна статусу
+                        </a>
+                      
+                        </div>
 
 
  
                   
 
+                    
+
+
+                     
+                        <p class="card-text">
+                            <span class="badge bg-info">обл. @p.District?.Name</span>
+                        </p>
+                        <p class="card-text">
+                            @if (p.CreatedDate?.Day == DateTime.Today.Day)
+                            {
+                                <span class="badge bg-white text-dark">Обновлено сьогодні o @p.CreatedDate?.ToString("HH:mm")</span>
+                            }
+                            @if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
+                            {
+                                <span class="badge bg-white text-dark">Обновлено вчора o  @p.CreatedDate?.ToString("HH:mm")</span>
+                            }
+                            @if (p.CreatedDate?.Day != DateTime.Today.Day && p.CreatedDate?.Day != DateTime.Today.Day - 1)
+                            {
+                                <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
+                            }
+                        </p>
+                   </div>
+                    </div>
+                </div>
+          
+        }
+    
+
+</div> *@
+ 
 
