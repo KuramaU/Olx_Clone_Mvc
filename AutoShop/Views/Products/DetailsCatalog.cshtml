@@ -33,13 +33,7 @@
             border-top-right-radius: 8px;
         }
 
-    .product-info, .user-info {
-        padding: 20px;
-        border: 1px solid #e1e1e1; /* Светлый бордюр для блоков информации */
-        border-radius: 8px;
-        margin-top: 20px;
-        background-color: #fff; /* Белый фон для блоков информации */
-    }
+   
 
     .user-avatar img {
         max-width: 90px;
@@ -47,34 +41,7 @@
         border-radius: 50%;
     }
 
-    .btn-olx {
-        background-color: #ffdb4d; /* Цвет фона для кнопок OLX */
-        color: #333; /* Цвет текста для кнопок OLX */
-        border: 1px solid #e1e1e1; /* Светлый бордюр для кнопок OLX */
-        border-radius: 8px;
-    }
-
-    .location-card {
-        border: 1px solid #e1e1e1;
-        border-radius: 8px;
-        margin-top: 20px;
-        background-color: #fff;
-    }
-
-    .contact-card {
-        border: 1px solid #e1e1e1;
-        border-radius: 8px;
-        margin-top: 20px;
-        background-color: #fff;
-    }
-
-    .description-block {
-        border: 1px solid #e1e1e1;
-        border-radius: 8px;
-        margin-top: 20px;
-        background-color: #fff;
-        padding: 20px;
-    }
+    
 
     .col-4 {
         display: flex; /* Встановлюємо flex контейнер */
@@ -123,9 +90,8 @@
     }
 </style>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
+@* <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -134,10 +100,10 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
 
-</head>
+</head> *@
 <body>
 
-    <div class="search-container">
+    <div class="search-container" style="background-color:white;">
         <form asp-controller="Home" asp-action="Index" class="form-inline">
             <div class="input-group">
                 <input class="form-control" type="search" placeholder="Шукаю" aria-label="Search" name="SearchString">
@@ -155,7 +121,7 @@
                 <!-- Featured blog post-->
                 <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
                     <div class="carousel-inner ">
-                        @if (Model.Images !=null && Model.Images.Any())
+                        @if (Model.Images != null && Model.Images.Any())
                         {
                             for (int i = 0; i < Model.Images.Count; i++)
                             {
@@ -171,11 +137,11 @@
                             </div>
                         }
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" >
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" >
+                    <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
@@ -183,7 +149,7 @@
                 <!-- Опис товару -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <div class="small text-muted" >
+                        <div class="small text-muted">
                             @Model.Product.Category.Name
                         </div>
                         <h2 class="card-title">Опис</h2>
@@ -194,7 +160,8 @@
                                 <p class="md-5">ID: @Model.Product.Id</p>
                             </div>
                             <div class="col-6 text-end">
-                                <a class="pos" >Поскаржитися</a>
+                                <a class="pos">Поскаржитися</a>
+
                             </div>
                         </div>
                     </div>
@@ -216,7 +183,8 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- таблиці жалоби -->
+               
                 <!-- Інформація про продавця -->
                 <div class="card mb-4">
                     <div class="card-header"><small>Продавець</small></div>
@@ -277,18 +245,14 @@
         <h3 class="display-4">
             <small style="font-size: smaller;"><small><b>Оголошення від продавця</b></small></small>
         </h3>
-@* 
-        <a asp-controller="Home" asp-action="Sort" asp-route-cate="@Model.Products.Where(x => x.User != null && x.User.Email == Model.Product.User.Email)" class="btn btn-primary button-right">
-            Дивитися усе</>
-        </a>  *@
     </div>
-  
+
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
-  @if (Model.Product != null && Model.Product.User != null)
-    {
+        @if (Model.Product != null && Model.Product.User != null)
+        {
             var productsForUser = Model.Products.Where(x => x.User != null && x.User.Email == Model.Product.User.Email).Take(4);
             foreach (var p in productsForUser.Where(x => x.IS_Arhive != true))
-        {
+            {
                 if (p.Id != Model.Product.Id)
                 {
                     <div class="col">
@@ -341,23 +305,21 @@
                                             <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
                                         }
                                     </p>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-            </div>
+                    </div>
+                }
+
             }
-            
         }
-    }
     </div>
-
-
 
     <div class="text-start">
         <h3 class="display-4">
             <small style="font-size: smaller;"><small><b>Схожі оголошення</b></small></small>
         </h3>
-    
+
     </div>
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
         @if (Model.Product != null && Model.Product.User != null)
@@ -418,24 +380,164 @@
                                             <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
                                         }
                                     </p>
-                            </div>
-                        </a>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </div>
                 }
 
             }
         }
     </div>
- 
+
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
 
 </body>
-</html>
+<div id="complaintTable" class="position-fixed top-50 start-50 translate-middle" style="display: none; ">
+    <div class="card" style="background-color:antiquewhite">
+        <div class="card-header" style="background-color:antiquewhite">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h5 class="card-title text-lg-start ">Скарга</h5>
+
+                </div>
+                <div class="col-sm-8">
+                    <h5 class="card-title text-lg-end ">
+                        <button type="button" class="btn-close " aria-label="Close" onclick="closeComplaintTable()"></button>
+                    </h5>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <!-- Форма таблиці жалоби -->
+            <div class="mb-3">
+                <label for="complaintType" class="form-label">Тип скарги</label>
+                <select class="form-select" id="complaintType" onchange="showSubOptions()">
+                    <option selected disabled>Виберіть тип скарги</option>
+                    <option value="option1">Неправильні відомості про продавця</option>
+                    <option value="option2">Проблема з товаром\послугою</option>
+                    <option value="option3">Оголошення,що вводить в оману(не шайхрайське)</option>
+                    <option value="option3">Шайхрайство</option>
+                    <option value="option3">Жорстоке поводження,дискримінація,оголеність</option>
+
+                </select>
+            </div>
+            <div id="subOptions" style="display: none;">
+                <!-- Підопції в залежності від обраного типу скарги -->
+                <div class="mb-3">
+                    <!-- Додайте сюди ваші підопції (наприклад, кнопки або поля вводу) -->
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="complaintText" class="form-label">Поясніть,із чим винекла проблема</label>
+                <textarea class="form-control" id="complaintText" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary">Надіслати скаргу</button>
+        </div>
+    </div>
+</div>
 <script>
     document.getElementById('phoneButton').addEventListener('click', function () {
         this.textContent = "+380 @Model.Product.Phonenumber";
     });
+
+@* <script>
+    // Функція для відображення або приховання висувної таблиці жалоби
+     function toggleComplaintTable() {
+        var complaintTable = document.getElementById('complaintTable');
+        if (complaintTable.style.display === 'none') {
+            complaintTable.style.display = 'block';
+            // Заблокувати інші елементи на сторінці
+            document.body.classList.add('modal-open');
+            // Додатковий код для затемнення сторінки
+            var overlay = document.createElement('div');
+            overlay.id = 'overlay';
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            overlay.style.zIndex = '1000';
+            document.body.appendChild(overlay);
+        } else {
+            complaintTable.style.display = 'none';
+            // Розблокувати інші елементи на сторінці
+            document.body.classList.remove('modal-open');
+            // Видалити затемнення сторінки
+            var overlay = document.getElementById('overlay');
+            if (overlay) {
+                document.body.removeChild(overlay);
+            }
+        }
+    }
+    
+    // Додавання події кліку на кнопку "Поскаржитися"
+    document.querySelector('.pos').addEventListener('click', function () {
+        // Делегуємо функцію переключення висувної таблиці жалоби
+        toggleComplaintTable();
+    });
+
+    function closeComplaintTable() {
+        toggleComplaintTable();
+    }
+
+    function showSubOptions() {
+        var complaintType = document.getElementById('complaintType').value;
+        var subOptions = document.getElementById('subOptions');
+        if (complaintType) {
+            subOptions.style.display = 'block';
+            // Додатковий код для відображення підопцій в залежності від обраного типу скарги
+        } else {
+            subOptions.style.display = 'none';
+        }
+    }
+</script> *@
+
+
+    function toggleComplaintTable() {
+        var complaintTable = document.getElementById('complaintTable');
+        if (complaintTable.style.display === 'none') {
+         
+                   complaintTable.style.display = 'block';
+        } else {
+           
+            complaintTable.style.display = 'none';
+          
+        }
+    }
+
+    // Додавання події кліку на кнопку "Поскаржитися"
+    document.querySelector('.pos').addEventListener('click', function () {
+        // Делегуємо функцію переключення висувної таблиці жалоби
+        toggleComplaintTable();
+    });
+
+    function closeComplaintTable() {
+        toggleComplaintTable();
+              var complaintType = document.getElementById('complaintType');
+        var complaintText = document.getElementById('complaintText');
+
+        // Очищаємо значення в полях форми
+        complaintType.value = '';
+        complaintText.value = '';
+
+        // При потребі також очищаємо підопції
+        var subOptions = document.getElementById('subOptions');
+        subOptions.style.display = 'none';
+    }
+
+    function showSubOptions() {
+        var complaintType = document.getElementById('complaintType').value;
+        var subOptions = document.getElementById('subOptions');
+        if (complaintType) {
+            subOptions.style.display = 'block';
+            // Додатковий код для відображення підопцій в залежності від обраного типу скарги
+        } else {
+            subOptions.style.display = 'none';
+        }
+    }
 </script>
 
