@@ -16,6 +16,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+/* Добавьте этот код в ваши стили */
+.navbar-brand.cart-link img {
+    max-width: 80px; /* Установите желаемую максимальную ширину изображения */
+    height: auto; /* Автоматическое соотношение сторон */
+    vertical-align: middle; /* Выравнивание изображения по центру */
+}
+
 
 .navbar-brand.cart-link {
     font-size: 18px; /* Размер шрифта */
