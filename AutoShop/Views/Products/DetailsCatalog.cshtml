@@ -10,6 +10,20 @@
         background-color: whitesmoke; /* Светлый фон для всего сайта */
         
     }
+
+    .delivery-method {
+        padding-left: 3mm; /* Відступ з лівого краю таблиці */
+        padding-right: 3mm; /* Відступ з правого краю таблиці */
+    }
+
+    .delivery-image {
+        max-width: calc(100% - 3mm); /* Розраховуємо ширину з урахуванням відступів */
+        height: auto;
+        display: block;
+        margin: 5px auto; /* Відступи від країв фотографій усередині блоку доставки */
+    }
+
+
     .card-header{
         background-color: white;
     }
@@ -159,7 +173,7 @@
                 </div>
             </div>
             <!-- Бічні панелі -->
-            <div class="col-lg-4">
+            @* <div class="col-lg-4">
                 <!-- Інформація про товар -->
                 <div class="card mb-4">
                     <div class="card-header text-muted"><small>@Model.Product.CreatedDate.Value.ToString("dd.MM.yyyy")</small></div>
@@ -173,9 +187,33 @@
                             </div>
                         </div>
                     </div>
+                </div>  *@
+  <div class="col-lg-4">
+
+                <div class="card mb-4">
+                    <div class="card-header text-muted"><small>@Model.Product.CreatedDate.Value.ToString("dd.MM.yyyy")</small></div>
+                    <div class="card-body">
+                        <div class="product-details">
+                            <h4>@Model.Product.Name</h4>
+                            <h3><strong>@Model.Product.Price грн</strong></h3>
+                        </div>
+                        <div class="text-center">
+                            <button class="buy-btn btn btn-white text-warning text-black border border-warning w-100">Купити з доставкою</button>
+                        </div>
+                    </div>
+                    <!-- Варіанти доставки -->
+                    <div class="delivery-options">
+                        <div class="delivery-method">
+                            <img src="/ukrposzta.jpg" alt="Укрпошта" class="delivery-image">
+       
+                            <img src="/novaposzta1.jpg" alt="Відділення Нової Пошти" class="delivery-image">
+                            <img src="/novaposzta2.jpg" alt="Кур'єрська доставка Нової Пошти" class="delivery-image">
+                            <img src="/novaposzta3.jpg" alt="Відділення Нової Пошти" class="delivery-image">
+                            <img src="/meest.jpg" alt="Meest" class="delivery-image">
+                        </div>
+                    </div>
                 </div>
-                <!-- таблиці жалоби -->
-               
+
                 <!-- Інформація про продавця -->
                 <div class="card mb-4">
                     <div class="card-header"><small>Продавець</small></div>
