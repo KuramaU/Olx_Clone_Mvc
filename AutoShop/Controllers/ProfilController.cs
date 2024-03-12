@@ -68,35 +68,17 @@ namespace Shop.Controllers
                 }
             }
         }
+        public IActionResult BilBag()
+        {
+            return View();
+        }
+        public IActionResult BagDelivery()
+        {
+            return View();
+        }
         public IActionResult Author(string Id)
         {
-            //var userRole = User.IsInRole("Administrator") ? Roles.Administrator : Roles.User;
-            //if (userRole == Roles.Administrator) 
-            //{
-            //    var user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
-            //    var products = context.Products.Include(x => x.Category).ToList();
-            //    if (user != null)
-            //    { // Перевірка, чи знайдено користувача з вказаним email
-            //        var viewModel = new ProductViewModel
-            //        {
-            //            Categories = context.Categories.ToList(),
-            //            Products = products,
-            //            Images = context.Images.Include(x => x.Product).ToList(),
-            //            Districs = context.Districts.ToList(),
-            //            User = user,
-
-            //        };
-
-            //        return View(viewModel);
-            //    }
-            //    else
-            //    {
-            //        // Обробка випадку, коли користувача не знайдено
-            //        return RedirectToAction("Index", "Profil"); // Приклад перенаправлення на сторінку входу
-            //    }
-            //}
-            //else
-            //{
+           
                 
                 var user = context.Users.FirstOrDefault(u => u.Id == Id);
                 var products = context.Products.Where(x => x.User.Email == user.Email).Include(x => x.Category).ToList();

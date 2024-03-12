@@ -1,0 +1,75 @@
+﻿@model Shop.ViewModels.ProductViewModel
+@{
+    ViewData["Title"] = "Платежі BAG";
+}
+<style>
+    .wide-blue-bar {
+        background-color: #1861ac;
+        color: #fff;
+        padding: 1.5rem 0; /* Внутренний отступ сверху и снизу */
+        text-align: center; /* Выравнивание текста по центру */
+        margin-top: 20px; /* Верхний отступ */
+        margin-bottom: 20px; /* Нижний отступ */
+    }
+    body{
+        background-color: whitesmoke;
+    }
+ </style>
+
+<body>
+
+    <h3 class="display-4">
+        <small style="font-size: smaller;"><b>Ваш профіль</b></small>
+    </h3>
+    <div class="wide-blue-bar">
+        <p>
+            Зверніть увагу, що угоди з Bag Доставка не оформлюються за сторонніми посиланнями і в ручному режимі! Дуже рекомендуємо ігнорувати такі повідомлення з лінком на Bag Доставка, відправлені вам поза Bag, наприклад, у Viber / SMS / Telegram. Дізнайтеся більше про шахрайство в інтернеті тут. Про те, як працює послуга Bag Доставка, читайте тут.
+        </p>
+    </div>
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            
+             
+            <div class="container-fluid">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+
+
+                        <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Profil" asp-action="Index">Оголошення</a>
+
+                        </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Profil" asp-action="Settings">Налаштування</a>
+                    </li>
+                            <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Profil" asp-action="BilBag"><b>Платежі та рахунки Bag</b></a>
+                            </li>
+                     
+                       
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Profil" asp-action="BagDelivery">Bag доставка</a>
+                  
+                       
+
+
+                    
+
+                    </ul>
+
+
+
+                </div>
+            </div>
+        </nav>
+ 
+  
+
+
+
+</body>
+
+
