@@ -6,13 +6,47 @@
 
 <style>
     .navbar-nav.ml-auto {
-        margin-left: 150px;
+        margin-left: 150px; /* Используйте "auto", чтобы сдвинуть блок вправо */
     }
 
     .nav-link {
-            margin-right: 30px; /* Подстройте отступ по мере необходимости */
+        margin-right: 30px; /* Подстройте отступ по мере необходимости */
     }
+
+    .navbar-nav .nav-item {
+        margin-right: 15px; /* Расстояние между nav-item. Подстройте по мере необходимости */
+    }
+
+    .navbar-nav .nav-link {
+        display: flex;
+        align-items: center;
+        height: 100%; /* Устанавливаем высоту nav-link на 100% */
+    }
+
+        .navbar-nav .nav-link img {
+            margin-right: 5px; /* Расстояние между изображением и текстом внутри nav-link. Подстройте по мере необходимости */
+        }
+
+    .navbar-nav.ml-auto {
+        justify-content: flex-end; /* Выравнивание вправо для nav-item */
+    }
+
+    .navbar-nav .dropdown-menu .nav-item {
+        margin-right: 0; /* Сброс отступа для элементов в выпадающем меню */
+    }
+
+    .navbar-nav .dropdown-menu .nav-link {
+        display: block;
+        width: 100%; /* Занимает всю ширину контейнера */
+        height: 100%; /* Устанавливаем высоту nav-link в выпадающем меню на 100% */
+    }
+
+        .navbar-nav .dropdown-menu .nav-link img {
+            margin-right: 5px;
+        }
 </style>
+
+
 
 
 

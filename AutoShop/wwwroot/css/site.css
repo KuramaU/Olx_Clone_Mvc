@@ -47,9 +47,32 @@ body {
     margin-left: 10px;
 }
 
-    .nav-link:hover {
-        color: #1861ac; /* Изменение цвета текста при наведении */
+.navbar-nav.ml-auto {
+    margin-left: 150px;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 15px; /* Расстояние между nav-item. Подстройте по мере необходимости */
+}
+
+.navbar-nav .nav-link {
+    display: flex;
+    align-items: center;
+}
+
+    .navbar-nav .nav-link img {
+        margin-right: 5px; /* Расстояние между изображением и текстом внутри nav-link. Подстройте по мере необходимости */
     }
+
+.navbar-nav.ml-auto {
+    justify-content: flex-end; /* Выравнивание вправо для nav-item */
+}
+
+
+
+.nav-link:hover {
+    color: #1861ac; /* Изменение цвета текста при наведении */
+}
 
     .button-login {
     appearance: none;
