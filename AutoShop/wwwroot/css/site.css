@@ -157,6 +157,7 @@ header {
     vertical-align: middle;
     white-space: nowrap;
     word-wrap: break-word;
+    margin-right: 90px;
 }
 
     .button-4:hover {

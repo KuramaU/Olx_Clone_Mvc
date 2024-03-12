@@ -3,9 +3,21 @@
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+
 <style>
-   
+    .navbar-nav.ml-auto {
+        margin-left: 150px;
+    }
+
+    .nav-link {
+            margin-right: 30px; /* Подстройте отступ по мере необходимости */
+    }
 </style>
+
+
+
+
+
 <ul class="navbar-nav">
 
     @if (SignInManager.IsSignedIn(User))
@@ -72,11 +84,23 @@
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Зареєструватися</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Увійти</a>
-        </li>
+        <li class=" navbar-nav ml-auto">
+                <!-- Используйте ml-auto для выравнивания вправо -->
+                <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">
+                    <img src="~/likes.png" alt="Увійти" />
+                </a>
+            </li>
+            <li class="nav-item ml-auto">
+                <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">
+                    <img src="~/message.png" alt="Увійти" />
+                </a>
+            </li>
+            <li class="nav-item ml-auto">
+                <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">
+                    <img src="~/avatarhead.png" alt="Увійти" />
+                </a>
+            </li>
     }
+
+    
 </ul>
