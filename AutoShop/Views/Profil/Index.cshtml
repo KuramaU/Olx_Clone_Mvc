@@ -122,9 +122,11 @@
                                 }
                                 else
                                 {
+                                    <div class="img-container">
 
-                                    <img src="~/default.png" class="d-block w-100" alt="...">
-
+                                        <img class="d-block mx-auto" src="~/default.png" alt="...">
+                                    </div>
+                                    <img class="img-fluid img-responsive rounded product-image" src="~/default.png" alt="...">
                                 }
                                 </a>
                         </div>
@@ -147,9 +149,7 @@
                         <hr class="mt-2">
                         <div class="card-footer text-end">
                             <div>
-                                <a asp-action="DetailsCatalog" asp-controller="Products" asp-route-id="@p.Id" class="btn">
-                                    Переглянути
-                                </a>
+                                
                                 <a asp-action="Edit" asp-controller="Products" asp-route-id="@p.Id" class="btn ">
                                     Редагувати
                                 </a>
