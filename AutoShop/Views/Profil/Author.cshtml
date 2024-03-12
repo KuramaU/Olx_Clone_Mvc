@@ -1,0 +1,143 @@
+﻿@model Shop.ViewModels.ProductViewModel
+@{
+    ViewData["Title"] = "Оголошення автора";
+}
+<style>
+    .wide-blue-bar {
+        background-color: #1861ac;
+        color: #fff;
+        padding: 1.5rem 0; /* Внутренний отступ сверху и снизу */
+        text-align: center; /* Выравнивание текста по центру */
+        margin-top: 20px; /* Верхний отступ */
+        margin-bottom: 20px; /* Нижний отступ */
+    }
+    .img{
+        max-width: 185px;
+        max-height: 130px;
+    }
+    body{
+        background-color: whitesmoke;
+    }
+
+    .button-login
+    {
+        background-color:orange;
+    }
+      .img-container {
+        display: flex;
+        justify-content: center; /* Вирівнюємо по горизонталі по центру */
+        max-width: 185px;
+        max-height: 130px;
+        margin-bottom: 4px; /* Доданий зазначений margin-bottom */
+    }
+    .d-block 
+    {
+        max-width: 185px;
+        max-height: 130px;
+    }
+
+    .user-avatar img {
+        max-width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    .card {
+        height:150px;
+    }
+ </style>
+
+
+ <body>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="user-avatar">
+                        <img src="~/avatar.png" alt="Avatar" class="img-fluid" />
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <ul class="list-unstyled mb-3">
+                        <h2>
+                           
+                        </h2>
+                        
+                    </ul>
+                    <ul class="list-unstyled mb-3">
+                    <h2>
+                        <a><b>@Model.User.UserName</b></a>
+                    </h2>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wide-blue-bar rounded">
+        <p>
+            Зверніть увагу, що угоди з Bag Доставка не оформлюються за сторонніми посиланнями і в ручному режимі! Дуже рекомендуємо ігнорувати такі повідомлення з лінком на Bag Доставка, відправлені вам поза Bag, наприклад, у Viber / SMS / Telegram. Дізнайтеся більше про шахрайство в інтернеті тут. Про те, як працює послуга Bag Доставка, читайте тут.
+        </p>
+    </div>
+
+        
+        @if(Model.Products.Any()){
+    @foreach (var p in Model.Products.Where(x=>x.IS_Arhive!=true))
+    {
+        <div class="container mt-5 mb-5">
+            <div class="d-flex justify-content-center row">
+                <div class="col-md-12">
+                    <div class="row p-2 bg-white border rounded">
+                          
+                        <div class="col-md-2 mt-1">
+                               <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
+                            @if (Model.Images.Where(id => id.ProductId == p.Id) != null && Model.Images.Where(id => id.ProductId == p.Id).Any())
+                            {
+                                    <div class="img-container">
+
+                                        <img class="d-block mx-auto" src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.Where(id => id.ProductId == p.Id).First().ImageData)) " alt="...">
+                                     
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="img-container">
+
+                                        <img class="d-block mx-auto" src="~/default.png" alt="...">
+                                    </div>
+                                    <img class="img-fluid img-responsive rounded product-image" src="~/default.png" alt="...">
+                                }
+                                </a>
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <h5 class="card-title">@p.Name</h5>
+                            <div class="d-flex flex-row">
+                                <div class="ratings mr-2">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                </div><span><small>ID: @p.Id</small></span>
+                            </div>
+                            <div class="mt-1 mb-1 spec-1"><span><b>•@p.Category.Name</b></span></div>
+                            <p class="text-justify text-truncate para mb-0"><i class="bi bi-geo-alt-fill"></i>область @p.District.Name<br><br></p>
+                        </div>
+                        <div class="align-items-center align-content-center col-md-4 border-left mt-1">
+                            <div class="d-flex flex-row align-items-center">
+                                <h4 class="mr-1">@p.Price грн</h4>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    }
+    
+</body>
+
+
+ 
+                  
+
+

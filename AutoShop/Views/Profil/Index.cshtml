@@ -111,6 +111,7 @@
                 <div class="col-md-12">
                     <div class="row p-2 bg-white border rounded">
                         <div class="col-md-2 mt-1">
+                              <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
                             @if (Model.Images.Where(id => id.ProductId == p.Id) != null && Model.Images.Where(id => id.ProductId == p.Id).Any())
                             {
                                     <div class="img-container">
@@ -125,7 +126,7 @@
                                     <img src="~/default.png" class="d-block w-100" alt="...">
 
                                 }
-
+                                </a>
                         </div>
                         <div class="col-md-6 mt-1">
                             <h5 class="card-title">@p.Name</h5>

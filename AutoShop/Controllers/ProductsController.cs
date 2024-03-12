@@ -103,6 +103,7 @@ namespace Shop.Controllers
 
             product.User = user;
 
+
             // Ініціалізуємо колекцію Images, якщо вона ще не була ініціалізована
             if (product.Images == null)
             {

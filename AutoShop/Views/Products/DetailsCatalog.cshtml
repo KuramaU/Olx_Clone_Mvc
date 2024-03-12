@@ -91,16 +91,7 @@
 </style>
 
 
-@* <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
-
-</head> *@
 <body>
 
     <div class="search-container" style="background-color:white;">
@@ -203,7 +194,10 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <a href="#" class="mt-2 text-black">Всі оголошення автора→</a>
+                            <form>
+                                <a asp-controller="Profil" asp-route-id="@Model.Product.User.Id"  asp-action="Author" style="font-size: smaller;"><small><b>Всі оголошення автора→</b></small></a>
+                            </form>
+                           
                         </div>
                     </div>
                 </div>
