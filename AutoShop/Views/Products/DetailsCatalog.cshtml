@@ -173,23 +173,25 @@
                 </div>
             </div>
             <!-- Бічні панелі -->
-            @* <div class="col-lg-4">
+         
                 <!-- Інформація про товар -->
-                <div class="card mb-4">
-                    <div class="card-header text-muted"><small>@Model.Product.CreatedDate.Value.ToString("dd.MM.yyyy")</small></div>
-                    <div class="card-body">
-                        <div class="input-group d-flex justify-content-between align-items-center">
-                            <div class="row">
-                                <span>@Model.Product.Name</span>
+              
+              <div class="col-lg-4">
+                @if(Model.Product.Has_Delivery!=true)
+                {
+                    <div class="card mb-4">
+                        <div class="card-header text-muted"><small>@Model.Product.CreatedDate.Value.ToString("dd.MM.yyyy")</small></div>
+                        <div class="card-body">
+                            <div class="product-details">
+                                <h4>@Model.Product.Name</h4>
+                                <h3><strong>@Model.Product.Price грн</strong></h3>
                             </div>
-                            <div class="row">
-                                <span class="text-end"><strong>@Model.Product.Price грн</strong></span>
-                            </div>
+                           
                         </div>
                     </div>
-                </div>  *@
-  <div class="col-lg-4">
-
+                }
+                else if (Model.Product.Has_Delivery == true)
+                  {
                 <div class="card mb-4">
                     <div class="card-header text-muted"><small>@Model.Product.CreatedDate.Value.ToString("dd.MM.yyyy")</small></div>
                     <div class="card-body">
@@ -198,7 +200,7 @@
                             <h3><strong>@Model.Product.Price грн</strong></h3>
                         </div>
                         <div class="text-center">
-                            <button class="buy-btn btn btn-white text-warning text-black border border-warning w-100">Купити з доставкою</button>
+                            <button class="buy-btn btn btn-light text-warning text-black border border-warning w-100">Купити з доставкою</button>
                         </div>
                     </div>
                     <!-- Варіанти доставки -->
@@ -213,7 +215,7 @@
                         </div>
                     </div>
                 </div>
-
+                }
                 <!-- Інформація про продавця -->
                 <div class="card mb-4">
                     <div class="card-header"><small>Продавець</small></div>
