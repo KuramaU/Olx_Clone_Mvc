@@ -337,6 +337,75 @@
     .star-rating i {
         font-size: 14px;
         color: #ffc000;
+    }
+        /* Добавляем стили для изменения цвета иконки при наведении */
+    /* Убираем рамку при наведении на иконку сердечка */
+    .wish-icon-container .wish-icon:hover,
+    .wish-icon-container .wish-icon:focus {
+        border-color: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    /* Убираем рамку у кнопки сердечка */
+    .btn.wish-icon:focus,
+    .btn.wish-icon:active,
+    .btn.wish-icon:hover {
+        box-shadow: none !important;
+        border-color: transparent !important;
+        background-color: transparent !important;
+    }
+
+    .wish-icon-container .wish-icon:hover {
+        color: orange; /* Изменяем цвет на оранжевый при наведении */
+    }
+
+    /* Стили для изменения цвета иконки по умолчанию */
+    .wish-icon-container .wish-icon {
+        color: white; /* Устанавливаем белый цвет по умолчанию */
+        border: 1px solid black; /* Добавляем черную обводку */
+        border-radius: 50%; /* Делаем обводку круглой */
+        padding: 3px; /* Увеличиваем немного размер кнопки */
+    }
+
+        .wish-icon-container .wish-icon:hover {
+            color: orange; /* Изменяем цвет на оранжевый при наведении */
+        }
+
+    /* Стили для изменения цвета иконки по умолчанию */
+    .wish-icon-container .wish-icon {
+        color: white; /* Устанавливаем белый цвет по умолчанию */
+        position: relative; /* Позиционируем иконку относительно родительского элемента */
+    }
+
+        /* Псевдоэлементы для создания обводки */
+        .wish-icon-container .wish-icon::before,
+        .wish-icon-container .wish-icon::after {
+            content: ''; /* Добавляем содержимое */
+            position: absolute; /* Позиционируем псевдоэлементы абсолютно */
+            border-radius: 50%; /* Делаем форму круглой */
+            width: 100%; /* Задаем ширину 100% */
+            height: 100%; /* Задаем высоту 100% */
+            border: 2px solid black; /* Добавляем черную обводку */
+            top: 0; /* Располагаем вверху */
+            left: 0; /* Располагаем слева */
+        }
+
+        /* Псевдоэлемент для левой половины сердца */
+        .wish-icon-container .wish-icon::before {
+            transform: rotate(-45deg); /* Поворачиваем на -45 градусов */
+        }
+
+        /* Псевдоэлемент для правой половины сердца */
+        .wish-icon-container .wish-icon::after {
+            transform: rotate(45deg); /* Поворачиваем на 45 градусов */
+        }
+
+    .wish-icon-container {
+        margin-right: -5px;
+    }
+
+
 </style>
 
 <body>
@@ -395,70 +464,73 @@
             Дивитися усе</>
             </a>
 </div>
-   
- <div class="row row-cols-1 row-cols-md-3 g-4 ">
 
-      
-              @foreach (var p in Model.Products.Where(x => x.IsVIP == true && x.IS_Arhive!=true))
-              {
+    <div class="row row-cols-1 row-cols-md-3 g-4 ">
+        @foreach (var p in Model.Products.Where(x => x.IsVIP == true && x.IS_Arhive != true))
+        {
             <div class="col-md">
-                      <div class="card h-100 product-card">
-                             <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
-                    @if (Model.Images.Where(id => id.ProductId == p.Id) != null && Model.Images.Where(id => id.ProductId == p.Id).Any())
-                              {
-                            <div class="img-container">
-                                <img class="d-block mx-auto" src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.Where(id => id.ProductId == p.Id).First().ImageData))" alt="..." />
+                <div class="card h-100 product-card position-relative">
+                    <!-- Добавлен класс position-relative -->
+                    <!-- Контейнер для кнопки "сердечко" -->
+                    <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
+                        <button class="btn btn-outline-secondary wish-icon" style="border: none;">
+                            <!-- Само сердечко -->
+                            <i class="bi bi-heart-fill" style="font-size: 1.5em;"></i>
+                        </button>
                     </div>
-                              }
+
+                    <!-- Контент карточки продукта -->
+                    @if (Model.Images.Where(id => id.ProductId == p.Id) != null && Model.Images.Where(id => id.ProductId == p.Id).Any())
+                    {
+                        <div class="img-container">
+                            <img class="d-block mx-auto" src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.Where(id => id.ProductId == p.Id).First().ImageData))" alt="..." />
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="~/default.png" alt="...">
+                    }
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@p.Name</h5>
+                        @if (p.Discout != null)
+                        {
+                            var a = p.Price * (100 - p.Discout) / 100;
+                            string b = a?.ToString("0.00##");
+                            <p class="card-text">
+                                <span class="badge bg-danger">@b UAH</span>
+                            </p>
+                        }
                         else
                         {
-                            <img  src="~/default.png" alt="...">
+                            <p class="card-text">
+                                <span class="badge bg-primary">@p.Price UAH</span>
+                            </p>
                         }
-                          
-                          <div class="card-body text-center">
-                                  <h5 class="card-title">@p.Name</h5>
-                                  @if (p.Discout != null)
-                                  {
-                                      var a = p.Price * (100 - p.Discout) / 100;
-                                      string b = a?.ToString("0.00##");
-                                      <p class="card-text">
-                                          <span class="badge bg-danger">@b UAH</span>
-                                      </p>
-                                  }
-                                  else
-                                  {
-                                      <p class="card-text">
-                                          <span class="badge bg-primary">@p.Price UAH</span>
-                                      </p>
-                                  }
-                            </div>
-                              <div class="card-footer text-center">
-                                 
-                                  <p class="card-text">
-                                      <span class="badge bg-info">обл. @p.District?.Name</span>
-                                  </p>
-                                  <p class="card-text">
-                                      @if (p.CreatedDate?.Day == DateTime.Today.Day)
-                                      {
-                                          <span class="badge bg-white text-dark">Обновлено сьогодні o @p.CreatedDate?.ToString("HH:mm")</span>
-                                      }
-                                      @if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
-                                      {
-                                          <span class="badge bg-white text-dark">Обновлено вчора o  @p.CreatedDate?.ToString("HH:mm")</span>
-                                      }
-                                      @if (p.CreatedDate?.Day != DateTime.Today.Day && p.CreatedDate?.Day != DateTime.Today.Day - 1)
-                                      {
-                                          <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
-                                      }
-                                  </p>
-                              </div>
-                              </a>
-                          </div>
-                
-                      </div>
-    
-                  }
+                    </div>
+                    <div class="card-footer text-center">
+                        <p class="card-text">
+                            <span class="badge bg-info">обл. @p.District?.Name</span>
+                        </p>
+                        <p class="card-text">
+                            @if (p.CreatedDate?.Day == DateTime.Today.Day)
+                            {
+                                <span class="badge bg-white text-dark">Обновлено сьогодні o @p.CreatedDate?.ToString("HH:mm")</span>
+                            }
+                            @if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
+                            {
+                                <span class="badge bg-white text-dark">Обновлено вчора o  @p.CreatedDate?.ToString("HH:mm")</span>
+                            }
+                            @if (p.CreatedDate?.Day != DateTime.Today.Day && p.CreatedDate?.Day != DateTime.Today.Day - 1)
+                            {
+                                <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
+                            }
+                        </p>
+                    </div>
+                </div>
             </div>
+        }
+
+
  
      
     @if (!User.Identity.IsAuthenticated)
@@ -493,6 +565,15 @@
     $(document).ready(function () {
         $(".wish-icon i").click(function () {
             $(this).toggleClass("fa-heart fa-heart-o");
+        });
+    });
+</script>
+<script>
+    // jQuery скрипт для кнопки "сердечко"
+    $(document).ready(function () {
+        $(".wish-icon").click(function () {
+            $(this).toggleClass("btn-outline-secondary btn-danger"); // Переключаем стили кнопки
+            $(this).find("i").toggleClass("bi-heart bi-heart-fill"); // Переключаем иконку
         });
     });
 </script>
