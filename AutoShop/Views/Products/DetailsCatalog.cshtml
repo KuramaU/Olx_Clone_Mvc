@@ -200,8 +200,11 @@
                             <h3><strong>@Model.Product.Price грн</strong></h3>
                         </div>
                         <div class="text-center">
-                            <button class="buy-btn btn btn-light text-warning text-black border border-warning w-100">Купити з доставкою</button>
-                        </div>
+                            <form>
+                              
+                                <button asp-controller="Delivery" asp-route-id="@Model.Product.Id" asp-action="Index" class="buy-btn btn btn-light text-warning text-black border border-warning w-100">Купити з доставкою</button>
+                                </form>
+                            </div>
                     </div>
                     <!-- Варіанти доставки -->
                     <div class="delivery-options">
