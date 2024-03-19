@@ -1,0 +1,163 @@
+﻿
+
+@model Shop.ViewModels.ProductViewModel;
+
+@{
+    ViewData["Title"] = "Доставка Bag";
+}
+<style>
+    body {
+        background-color: whitesmoke; /* Светлый фон для всего сайта */
+        
+    }
+
+    .delivery-method {
+        padding-left: 3mm; /* Відступ з лівого краю таблиці */
+        padding-right: 3mm; /* Відступ з правого краю таблиці */
+    }
+
+    .delivery-image {
+        max-width: calc(100% - 3mm); /* Розраховуємо ширину з урахуванням відступів */
+        height: auto;
+        display: block;
+        margin: 5px auto; /* Відступи від країв фотографій усередині блоку доставки */
+    }
+
+
+    .card-header{
+        background-color: white;
+    }
+
+ 
+   
+
+
+    
+
+    .col-4 {
+        display: flex; /* Встановлюємо flex контейнер */
+        justify-content: space-between; /* Рівномірно розподіляємо елементи по контейнеру */
+    /* Відступ від нижнього краю контейнера */
+    }
+
+    .md-5 {
+        white-space: nowrap; /* Забороняємо перенесення тексту на новий рядок */
+        margin-right: 16cm; /* Встановлюємо відступ між елементами */
+  
+     
+    }
+
+    .pos{
+        color: orange;
+    }
+
+    .carousel-inner {
+        border: 2px solid gray; /* Чорна границя товщиною 2px */
+        border-radius: 5px; /* Округлені кути */
+    }
+
+
+    .carousel-control-prev-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+    }
+
+    .carousel-control-next-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+    }
+
+   
+    .carousel-item {
+        display: flex;
+        justify-content: center; /* Вирівнюємо по горизонталі по центру */
+        max-width: 850px;
+        max-height: 350px;
+        margin-bottom: 4px; /* Доданий зазначений margin-bottom */
+    }
+
+    .d-block {
+        max-width: 185px;
+        max-height: 130px;
+    }
+</style>
+
+
+
+<body>
+
+    <div data-testid="delivery-ua-payment">
+        <main class="css-1y7glq2">
+            <div style="display: flex;">
+                <!-- Ліва частина сторінки -->
+                <div style="flex: 1; padding: 20px;">
+                    <section class="css-1kb9cuu">
+                        <h4>Служба доставки</h4>
+                        <p>Оберіть спосіб отримання замовлення</p>
+                        <div class="row">
+                           
+                            <span style="display: flex; align-items: center;">
+                                <input type="checkbox" style="margin-right: 5px;">
+                                <div style="border: 1px solid white; padding: 5px;background-color:white">Новапошта</div>
+                            </span>
+                        </div>
+                        <div class="row">
+                            
+                            <span style="display: flex; align-items: center;">
+                                <input type="checkbox" style="margin-right: 5px;">
+                                <div style="border: 1px solid white; padding: 5px; background-color:white">Укрпошта</div>
+                            </span>
+                        </div>
+                    </section>
+                    
+                </div>
+
+                <!-- Права частина сторінки -->
+                <div style="flex: 1; padding: 20px;">
+                    <section class="css-wgtfpg">
+                        <div class="css-1cfn66">
+
+
+                            @if (Model.Images.Where(id => id.ProductId == Model.Products.FirstOrDefault().Id) != null && Model.Images.Where(id => id.ProductId == Model.Products.FirstOrDefault().Id).Any())
+                                {
+                                    <div class="img-container">
+
+                                    <img class="d-block mx-auto" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Products.FirstOrDefault().Images.Where(id => id.ProductId == Model.Products.FirstOrDefault().Id).First().ImageData)) " alt="...">
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="img-container">
+
+                                        <img class="d-block mx-auto" src="~/default.png" alt="...">
+                                    </div>
+
+                                }
+                              
+                          
+                            <div class="">
+                                <p class="css-1ngctco">@Model.Products.FirstOrDefault().Description</p>
+                                
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            
+            <section class="row">
+                <button type="submit" form="user-form"  class="rounded">Далі</button>
+            </section>
+            <section class="row mt-2">
+                <button style="background-color:orange; border: white" class="rounded" role="button">Відхилити</button>
+
+            </section>
+          
+        </main>
+    </div>
+
+
+</body>
+
+<script>
+   
+</script>
+
