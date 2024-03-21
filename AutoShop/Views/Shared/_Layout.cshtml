@@ -1,6 +1,10 @@
 ﻿@using Shop.Services;
 @inject ICartService cartService
-
+<style>
+    .list-unstyled li {
+        text-align: left;
+    }
+</style>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,47 +13,42 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Bag shop</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="icon" href="~/icons8-shopping-bag-96-orange.png" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-
-
-
 </head>
+
 <body>
-     @if (ViewData["Title"] != null && ViewData["Title"].ToString() != "Реєстрація" && ViewData["Title"].ToString() != "Увійти")
+    @if (ViewData["Title"] != null && ViewData["Title"].ToString() != "Реєстрація" && ViewData["Title"].ToString() != "Увійти")
     {
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
                 <div class="container-fluid">
-                    <!-- Логотип вашего магазина -->
                     <a class="navbar-brand cart-link" asp-area="" asp-controller="CategoriesMenu" asp-action="Index">
                         <img src="~/bagavatar.png" alt="Bag" />
                     </a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
+                        aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <ul class="navbar-nav flex-grow-1">
                         @if (User.IsInRole("Administrator"))
                         {
-                           
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">
                                     <img width="25px" height="25px" src="~/message.png" alt="Your Second Page" />
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class=nav-link dropdown-toggle" asp-controller="Users" asp-action="Index">
+                                <a class="nav-link dropdown-toggle" asp-controller="Users" asp-action="Index">
                                     <img width="25px" height="25px" src="~/likes.png" />
                                 </a>
                             </li>
                         }
-                        else if (User.IsInRole("User") )
+                        else if (User.IsInRole("User"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Profil" asp-action="Index">
@@ -61,10 +60,8 @@
                                     <img width="25px" height="25px" src="~/likes.png" />
                                 </a>
                             </li>
-                           
-                            
                         }
-                        else 
+                        else
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">
@@ -72,16 +69,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class=nav-link dropdown-toggle" asp-area="Identity" asp-page="/Account/Register">
+                                <a class="nav-link dropdown-toggle" asp-area="Identity" asp-page="/Account/Register">
                                     <img width="25px" height="25px" src="~/likes.png" />
                                 </a>
                             </li>
-
-
                         }
-
                         <partial name="_LoginPartial" />
-
                     </ul>
 
                     @if (User.Identity.IsAuthenticated)
@@ -96,24 +89,12 @@
                             <a id="login" asp-area="Identity" asp-page="/Account/Login" class="button-4" role="button">Додати оголошення</a>
                         </div>
                     }
-
                 </div>
             </nav>
         </header>
-
-
     }
+
     <div class="container">
-        @*  <div class="search-container">
-        <form asp-controller="Home" asp-action="Index" class="form-inline">
-        <div class="input-group">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="SearchString">
-        <button type="submit" class="btn btn-outline-secondary">
-        <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
-        </button>
-        </div>
-        </form>
-        </div> *@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -121,48 +102,56 @@
 
     @if (ViewData["Title"] != null && ViewData["Title"].ToString() != "Реєстрація" && ViewData["Title"].ToString() != "Увійти")
     {
-
         <footer class="border-top footer text-muted custom-footer">
             <div class="container">
-            <div class="row mt-3">
-                <!-- Колонка 1 -->
-                <div class="col-md-4">
-                    <ul class="list-unstyled">
-                        <li><a href="#">Мобільні додатки</a></li>
-                        <li><a href="#">Допомога та Зворотній зв'язок</a></li>
-                        <li><a href="#">Платні послуги</a></li>
-                        <li><a href="#">Бізнес на bag</a></li>
-                        <li><a href="#">Блог bag</a></li>
-                    </ul>
-                </div>
+                <div class="row mt-3">
+                    <!-- Колонка 1 -->
+                    <div class="col-md-4">
+                        <div class="ml-auto">
+                            <!-- Добавлен ml-auto для смещения содержимого вправо -->
+                            <ul class="list-unstyled">
+                                <li><a href="#">Мобільні додатки</a></li>
+                                <li><a href="#">Допомога та Зворотній зв'язок</a></li>
+                                <li><a href="#">Платні послуги</a></li>
+                                <li><a href="#">Бізнес на bag</a></li>
+                                <li><a href="#">Блог bag</a></li>
+                            </ul>
+                        </div>
+                    </div>
 
-                <!-- Колонка 2 -->
-                <div class="col-md-4">
-                    <ul class="list-unstyled">
-                        <li><a href="#">Умови користування</a></li>
-                        <li><a href="#">Політика конфіденційності</a></li>
-                        <li><a href="#">Реклама на сайті</a></li>
-                        <li><a href="#">Для преси</a></li>
-                        <li><a href="#">Як продавати й купувати?</a></li>
-                    </ul>
-                </div>
+                    <!-- Колонка 2 -->
+                    <div class="col-md-4">
+                        <div class="ml-auto">
+                            <!-- Добавлен ml-auto для смещения содержимого вправо -->
+                            <ul class="list-unstyled">
+                                <li><a href="#">Умови користування</a></li>
+                                <li><a href="#">Політика конфіденційності</a></li>
+                                <li><a href="#">Реклама на сайті</a></li>
+                                <li><a href="#">Для преси</a></li>
+                                <li><a href="#">Як продавати й купувати?</a></li>
+                            </ul>
+                        </div>
+                    </div>
 
-                <!-- Колонка 3 -->
-                <div class="col-md-4">
-                    <ul class="list-unstyled">
-                        <li><a href="#">Правила безпеки</a></li>
-                        <li><a href="#">Карта сайту</a></li>
-                        <li><a href="#">Карта регіонів</a></li>
-                        <li><a href="#">Популярні запити</a></li>
-                        <li><a href="#">Робота в Bag</a></li>
-                        <li><a href="#">Bag доставка</a></li>
-                    </ul>
+                    <!-- Колонка 3 -->
+                    <div class="col-md-4">
+                        <div class="ml-auto">
+                            <!-- Добавлен ml-auto для смещения содержимого вправо -->
+                            <ul class="list-unstyled">
+                                <li><a href="#">Правила безпеки</a></li>
+                                <li><a href="#">Карта сайту</a></li>
+                                <li><a href="#">Карта регіонів</a></li>
+                                <li><a href="#">Популярні запити</a></li>
+                                <li><a href="#">Робота в Bag</a></li>
+                                <li><a href="#">Bag доставка</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer> 
-
+        </footer>
     }
+
 
 
 
