@@ -1,50 +1,299 @@
 ﻿@model Data.Entities.Product
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Повышение объявления</title>
+    <style>
+        body {
+            background-color: #F7F7F7; /* Светло-серый цвет фона */
+            padding: 20px;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-custom {
+            background-color: #fff; /* Белый цвет фона */
+            color: #000; /* Черный цвет текста */
+            padding: 10px 20px; /* Задаем отступы вокруг текста */
+            border-radius: 5px; /* Скругляем углы */
+            cursor: pointer; /* Устанавливаем указатель мыши */
+            width: 100%; /* Ширина кнопки равна ширине родительского контейнера */
+            display: flex; /* Сделать кнопку флекс-контейнером */
+            justify-content: space-between; /* Разместить содержимое по краям */
+            align-items: center; /* Выровнять содержимое по вертикали */
+            position: relative; /* Устанавливаем позицию для позиционирования радиокнопки */
+            border: none; /* Убираем рамку */
+            font-weight:bolder; /* Делаем текст полужирным */
+        }
 
 
+
+            .btn-custom input[type="radio"] {
+                position: absolute; /* Устанавливаем абсолютную позицию для радиокнопки */
+                opacity: 0; /* Скрываем стандартную радиокнопку */
+                cursor: pointer; /* Устанавливаем указатель мыши */
+                width: 20px; /* Ширина радиокнопки */
+                height: 20px; /* Высота радиокнопки */
+                top: 50%; /* Располагаем по вертикали по центру */
+                transform: translateY(-50%); /* Корректируем положение по вертикали */
+                left: -30px; /* Располагаем слева с отступом */
+                visibility: hidden; /* Скрываем радиокнопку */
+            }
+
+            .btn-custom .checkmark {
+                width: 20px; /* Ширина зоны для отображения галочки */
+                height: 20px; /* Высота зоны для отображения галочки */
+                border-radius: 50%; /* Задаем круглые углы для зоны */
+                position: absolute; /* Устанавливаем абсолютную позицию для зоны */
+                top: 50%; /* Располагаем по вертикали по центру */
+                transform: translateY(-50%); /* Корректируем положение по вертикали */
+                left: 0; /* Располагаем слева */
+                display: flex; /* Сделать зону флекс-контейнером */
+                justify-content: center; /* Разместить содержимое по центру по горизонтали */
+                align-items: center; /* Выровнять содержимое по центру по вертикали */
+                visibility: visible; /* Показываем зону */
+                background-color: transparent; /* Убираем фон */
+                border: none; /* Убираем рамку */
+            }
+
+            .btn-custom:hover .checkmark {
+                background-color: #FFA22D; /* Оранжевый фон при наведении */
+            }
+
+            .btn-custom:hover {
+                background-color: #FFA22D; /* Оранжевый фон при наведении */
+                color: #000000; /* Цвет текста при наведении */
+            }
+
+            .btn-custom input[type="radio"]:checked + .checkmark:after {
+                content: "\2714"; /* Галочка */
+                font-size: 16px; /* Размер шрифта */
+                color: #000; /* Цвет галочки */
+            }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-start; /* Размещаем кнопки в начале контейнера */
+            margin-top: 20px;
+        }
+
+        .image-button {
+            width: 207px;
+            height: 179px;
+            background-color: transparent;
+            border: 2px solid transparent; /* Обводка прозрачная по умолчанию */
+            cursor: pointer;
+            margin-right: 40px; /* Отступ между кнопками */
+            padding: 0; /* Убираем внутренние отступы */
+            border-radius: 10px; /* Закругляем углы */
+            transition: border-color 0.3s; /* Добавляем плавное изменение цвета обводки */
+        }
+
+            .image-button img {
+                width: 100%;
+                height: 100%;
+                border-radius: 10px; /* Закругляем углы */
+            }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 20px;
+        }
+
+        .image-button:hover {
+            border-color: orange; /* Изменяем цвет обводки при наведении */
+        }
+
+        .payment-method {
+            color: #000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .payment-method-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .total-container {
+            width: 977px;
+            height: 54px;
+            background-color: #fff; /* Белый цвет фона */
+            border-radius: 10px; /* Закругляем углы */
+            margin-top: 20px; /* Отступ сверху */
+            padding: 10px 20px; /* Внутренние отступы */
+            display: flex; /* Сделать блок флекс-контейнером */
+            justify-content: flex-start; /* Разместить содержимое в начале */
+            align-items: center; /* Выровнять содержимое по центру по вертикали */
+            color: #000; /* Черный цвет текста */
+            font-size: 18px; /* Размер шрифта */
+        }
+
+            .total-container .total-amount {
+                margin-left: 30px; /* Отступ слева */
+            }
+
+        .btn-container {
+            text-align: right; /* Выравниваем кнопки по правому краю */
+        }
+
+        .orange-btn {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width:273;
+            height:60;
+            margin-right: 10px; /* Отступ между кнопками */
+            margin-left: 200px;
+        }
+
+        .white-btn {
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+            padding: 10px 20px;
+            width: 273;
+            height: 60;
+            border-radius: 5px;
+            cursor: pointer;
+           
+        }
+
+        .total-container .btn-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+        }
+
+            .total-container .btn-container .orange-btn {
+                margin-right: 10px;
+            }
+
+
+    </style>
+</head>
+<body>
 
     <div class="container mt-5">
         <h1>Підняти оголошення</h1>
         <hr />
 
-        <table class="table">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">Дії</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="align-middle">
-                    <td>
-                        <div class="btn-group-vertical" role="group">
-                        <form id="productForm1" asp-action="SETVIPSTATUS" asp-controller="Products" method="post">
-                                <input asp-for="Id" hidden />
-                                <button type="submit" class="btn btn-link">
-                                    VIP-оголошення <i class="bi bi-award-fill"></i>
-                                </button>
-                            </form>
-                            <form id="productForm2" asp-action="UP_ONE_DAY" asp-controller="Products" method="post">
-                                <input asp-for="Id" hidden />
-                                <button type="submit" class="btn btn-link">
-                                    Підняти в гору списку
-                                </button>
-                            </form>
-                            <form id="productForm3" asp-action="UP_SEVEN_DAYS" asp-controller="Products" method="post">
-                                <input asp-for="Id" hidden />
-                                <button type="submit" class="btn btn-link">
-                                    7 підняттів вгору списку(на 7 днів)
-                                </button>
-                            </form>
-                            <form id="productForm4" asp-action="DELETE_ALL_STATUSES" asp-controller="Products" method="post">
-                                <input asp-for="Id" hidden />
-                                <button type="submit" class="btn btn-link">
-                                    Забрати усі статуси
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="btn-container">
+            <form id="productForm1" asp-action="SETVIPSTATUS" asp-controller="Products" method="post">
+                <input asp-for="Id" type="hidden" />
+                <label class="btn-custom" id="btn1">
+                    <input type="radio" name="radio" />
+                    <span class="checkmark"></span> <!-- Зона для                    отображения галочки -->
+                    Підняття вгору списку <i class="bi bi-award-fill"></i>
+                    <span style="margin-left: auto;">300 грн</span>
+                </label>
+            </form>
+            <form id="productForm2" asp-action="UP_ONE_DAY" asp-controller="Products" method="post">
+                <input asp-for="Id" type="hidden" />
+                <label class="btn-custom" id="btn2">
+                    <input type="radio" name="radio" />
+                    <span class="checkmark"></span> <!-- Зона для отображения галочки -->
+                    VIP-оголошення на 7 днів
+                    <span style="margin-left: auto;">300 грн</span>
+                </label>
+            </form>
+            <form id="productForm3" asp-action="UP_SEVEN_DAYS" asp-controller="Products" method="post">
+                <input asp-for="Id" type="hidden" />
+                <label class="btn-custom" id="btn3">
+                    <input type="radio" name="radio" />
+                    <span class="checkmark"></span> <!-- Зона для отображения галочки -->
+                    7 підняттів вгору списку (на 7 днів)
+                    <span style="margin-left: auto;">300 грн</span>
+                </label>
+            </form>
+            <form id="productForm4" asp-action="DELETE_ALL_STATUSES" asp-controller="Products" method="post">
+                <input asp-for="Id" type="hidden" />
+                <label class="btn-custom" id="btn4">
+                    <input type="radio" name="radio" />
+                    <span class="checkmark"></span> <!-- Зона для отображения галочки -->
+                    Забрати всі статуси
+                    <span style="margin-left: auto;">300 грн</span>
+                </label>
+            </form>
+        </div>
+        <div class="payment-method-container">
+            <div class="payment-method">Спосіб оплати</div>
+            <div class="button-container">
+                <button class="image-button">
+                    <img src="~/bagdostavka1.png" alt="Кнопка 1">
+                </button>
+                <button class="image-button">
+                    <img src="~/privat24.png" alt="Кнопка 2">
+                </button>
+            </div>
+        </div>
+        <div class="total-container" style="position: relative; display: flex; align-items: center;">
+            <div>Усього до сплати:</div>
+            <div style="margin-left: 30px;">9 грн</div>
+            <button class="orange-btn" style="margin-left: auto; margin-right: 10px;">Оплатити</button>
+            <button class="white-btn">Відхилити</button>
+        </div>
+
+
+
+
+
+
     </div>
+
+    <script>
+        // Получаем все радиокнопки
+        var radioButtons = document.querySelectorAll('input[type="radio"]');
+
+        // Для каждой радиокнопки добавляем обработчик события "click"
+        radioButtons.forEach(function (radioButton) {
+            radioButton.addEventListener('click', function () {
+                // Получаем родительскую кнопку
+                var button = this.closest('.btn-custom');
+
+                // Проверяем, если кнопка уже была выбрана
+                if (this.checked) {
+                    if (button.classList.contains('checked')) {
+                        // Если кнопка уже была выбрана и была нажата снова, снимаем галочку
+                        this.checked = false;
+                        button.classList.remove('checked');
+                    } else {
+                        // Иначе отмечаем кнопку как выбранную
+                        button.classList.add('checked');
+                    }
+                } else {
+                    // Если радиокнопка была снята, снимаем галочку
+                    button.classList.remove('checked');
+                }
+
+                // Делаем сброс остальных кнопок, если данная радиокнопка активирована
+                if (this.checked) {
+                    radioButtons.forEach(function (otherRadioButton) {
+                        if (otherRadioButton !== radioButton) {
+                            otherRadioButton.checked = false;
+                            otherRadioButton.closest('.btn-custom').classList.remove('checked');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
 
 
