@@ -16,6 +16,7 @@ namespace Data.Entities
         // --navigation properties
     
         public ICollection<Product> Products { get; set; }
-       
+        public ICollection<FavouriteProducts>? Fav_Products { get; set; }
+
     }
 }

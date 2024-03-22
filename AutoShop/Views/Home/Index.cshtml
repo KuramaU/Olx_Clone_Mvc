@@ -10,6 +10,475 @@
       .search-container{
         background-color:white;
     }
+
+    .wish-icon-container .wish-icon:hover,
+    .wish-icon-container .wish-icon:focus {
+        border-color: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    /* Убираем рамку у кнопки сердечка */
+    .btn.wish-icon:focus,
+    .btn.wish-icon:active,
+    .btn.wish-icon:hover {
+        box-shadow: none !important;
+        border-color: transparent !important;
+        background-color: transparent !important;
+    }
+
+    .wish-icon-container .wish-icon:hover {
+        color: orange; /* Изменяем цвет на оранжевый при наведении */
+    }
+
+    /* Стили для изменения цвета иконки по умолчанию */
+    .wish-icon-container .wish-icon {
+        color: white; /* Устанавливаем белый цвет по умолчанию */
+        border: 1px solid black; /* Добавляем черную обводку */
+        border-radius: 50%; /* Делаем обводку круглой */
+        padding: 3px; /* Увеличиваем немного размер кнопки */
+    }
+
+        .wish-icon-container .wish-icon:hover {
+            color: orange; /* Изменяем цвет на оранжевый при наведении */
+        }
+
+    /* Стили для изменения цвета иконки по умолчанию */
+    .wish-icon-container .wish-icon {
+        color: white; /* Устанавливаем белый цвет по умолчанию */
+        position: relative; /* Позиционируем иконку относительно родительского элемента */
+    }
+
+        /* Псевдоэлементы для создания обводки */
+        .wish-icon-container .wish-icon::before,
+        .wish-icon-container .wish-icon::after {
+            content: ''; /* Добавляем содержимое */
+            position: absolute; /* Позиционируем псевдоэлементы абсолютно */
+            border-radius: 50%; /* Делаем форму круглой */
+            width: 100%; /* Задаем ширину 100% */
+            height: 100%; /* Задаем высоту 100% */
+            border: 2px solid black; /* Добавляем черную обводку */
+            top: 0; /* Располагаем вверху */
+            left: 0; /* Располагаем слева */
+        }
+
+        /* Псевдоэлемент для левой половины сердца */
+        .wish-icon-container .wish-icon::before {
+            transform: rotate(-45deg); /* Поворачиваем на -45 градусов */
+        }
+
+        /* Псевдоэлемент для правой половины сердца */
+        .wish-icon-container .wish-icon::after {
+            transform: rotate(45deg); /* Поворачиваем на 45 градусов */
+        }
+
+    .wish-icon-container {
+        margin-right: -5px;
+    }
+</style>
+<style>
+
+    body {
+        background-color: whitesmoke; /* Сірий колір фону */
+    }
+
+    .search-container {
+        background-color: white;
+    }
+
+    .category-block {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 50px;
+    }
+
+    .category-row {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px; /* Добавим небольшой отступ между рядами */
+    }
+
+    .category-card {
+        text-align: center;
+        margin: 10px;
+        width: 100px;
+    }
+
+    .image-container {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #e5e5e5;
+        border-radius: 50%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Переміщено сюди для залишку від обрізання */
+        background-color: white;
+    }
+
+        .image-container img {
+            max-width: 100%; /* Змінено на максимальну ширину 100% */
+            max-height: 100%; /* Змінено на максимальну висоту 100% */
+            width: 50px;
+            height: 50px;
+        }
+    /* Общие стили для текста ссылок */
+    a {
+        color: #000; /* Цвет текста */
+        text-decoration: none; /* Убираем подчеркивание */
+    }
+
+        /* Стили для текста ссылок при наведении */
+        a:hover {
+            text-decoration: none; /* Подчеркиваем при наведении */
+            color: #FFA93C;
+        }
+
+        /* Стили для посещенных ссылок */
+        a:visited {
+            color: #purple; /* Цвет для посещенных ссылок */
+        }
+    /* Стили для надписи "VIP-оголошення" */
+    .text-start {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px; /* Отступ сверху */
+    }
+
+    .display-4 small {
+        font-size: smaller;
+        color: #000; /* Цвет текста */
+        font-weight: bolder; /* Жирный текст */
+    }
+
+    /* Стили для кнопки */
+    .button-right {
+        margin: 0; /* Сбрасываем внутренние отступы */
+        background-color: #FFA93C; /* Оранжевый фон */
+        color: #fff; /* Белый текст */
+        border: none; /* Убираем границу */
+    }
+
+        .button-right:hover {
+            background-color: #fff; /* Белый фон при наведении */
+            color: #FFA93C; /* Оранжевый текст при наведении */
+        }
+
+    .small-card {
+        max-width: 200px; /* Регулируйте значение в зависимости от желаемого размера */
+    }
+
+    .container-products {
+        margin-top: 2rem; /* Верхний отступ для блока с карточками товаров */
+        margin-bottom: 20px; /* Нижний отступ для блока с карточками товаров */
+    }
+
+    .blue-bar {
+        background-color: #1861ac; /* Цвет синей полоски */
+        color: #fff; /* Цвет белого текста */
+        padding: 1.5rem; /* Внутренний отступ для синей полоски */
+        margin-top: 2rem; /* Верхний отступ для синей полоски */
+        margin-bottom: 20px;
+        width: 100% !important;
+        text-align: center; /* Выравнивание текста по центру */
+    }
+
+        .blue-bar p {
+            font-size: 1.5rem; /* Изменение размера текста */
+        }
+
+        .blue-bar .button-right {
+            margin-top: 10px; /* Отступ от надписи */
+            padding: 15px 30px; /* Увеличение отступов кнопки */
+            background-color: #FFA93C; /* Оранжевый фон */
+            color: #fff; /* Белый текст */
+            border: none; /* Убираем границу */
+            font-weight: bold; /* Жирный текст */
+            font-size: 1.2rem; /* Увеличение размера текста в кнопке */
+        }
+
+            .blue-bar .button-right:hover {
+                background-color: #fff; /* Белый фон при наведении */
+                color: #FFA93C; /* Оранжевый текст при наведении */
+            }
+
+    .wide-blue-bar {
+        background-color: #1861ac;
+        color: #fff;
+        padding: 1.5rem 0; /* Внутренний отступ сверху и снизу */
+        text-align: center; /* Выравнивание текста по центру */
+        margin-top: 20px; /* Верхний отступ */
+        margin-bottom: 20px; /* Нижний отступ */
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center; /* Вирівнюємо по горизонталі по центру */
+        max-width: 368px;
+        max-height: 301px;
+        /* Доданий зазначений margin-bottom */
+    }
+
+    .d-block {
+        max-width: 368px;
+        max-height: 301px;
+    }
+
+    h2 {
+        color: #000;
+        font-size: 26px;
+        font-weight: 300;
+        text-align: center;
+        text-transform: uppercase;
+        position: relative;
+        margin: 30px 0 60px;
+    }
+
+        h2::after {
+            content: "";
+            width: 100px;
+            position: absolute;
+            margin: 0 auto;
+            height: 4px;
+            border-radius: 1px;
+            background: #7ac400;
+            left: 0;
+            right: 0;
+            bottom: -20px;
+        }
+
+    .carousel {
+        margin: 50px auto;
+        padding: 0 70px;
+    }
+
+        .carousel .item {
+            color: #747d89;
+            min-height: 325px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .carousel .thumb-wrapper {
+            padding: 25px 15px;
+            background: #fff;
+            border-radius: 6px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+        }
+
+        .carousel .item .img-box {
+            height: 120px;
+            margin-bottom: 20px;
+            width: 100%;
+            position: relative;
+        }
+
+        .carousel .item img {
+            max-width: 100%;
+            max-height: 100%;
+            display: inline-block;
+            position: absolute;
+            bottom: 0;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+        }
+
+        .carousel .item h4 {
+            font-size: 18px;
+        }
+
+        .carousel .item h4, .carousel .item p, .carousel .item ul {
+            margin-bottom: 5px;
+        }
+
+        .carousel .thumb-content .btn {
+            color: #7ac400;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: bold;
+            background: none;
+            border: 1px solid #7ac400;
+            padding: 6px 14px;
+            margin-top: 5px;
+            line-height: 16px;
+            border-radius: 20px;
+        }
+
+            .carousel .thumb-content .btn:hover, .carousel .thumb-content .btn:focus {
+                color: #fff;
+                background: #7ac400;
+                box-shadow: none;
+            }
+
+            .carousel .thumb-content .btn i {
+                font-size: 14px;
+                font-weight: bold;
+                margin-left: 5px;
+            }
+
+        .carousel .carousel-control {
+            height: 44px;
+            width: 40px;
+            background: #7ac400;
+            margin: auto 0;
+            border-radius: 4px;
+            opacity: 0.8;
+        }
+
+            .carousel .carousel-control:hover {
+                background: #78bf00;
+                opacity: 1;
+            }
+
+            .carousel .carousel-control i {
+                font-size: 36px;
+                position: absolute;
+                top: 50%;
+                display: inline-block;
+                margin: -19px 0 0 0;
+                z-index: 5;
+                left: 0;
+                right: 0;
+                color: #fff;
+                text-shadow: none;
+                font-weight: bold;
+            }
+
+        .carousel .item-price {
+            font-size: 13px;
+            padding: 2px 0;
+        }
+
+            .carousel .item-price strike {
+                opacity: 0.7;
+                margin-right: 5px;
+            }
+
+        .carousel .carousel-control.left i {
+            margin-left: -2px;
+        }
+
+        .carousel .carousel-control.right i {
+            margin-right: -4px;
+        }
+
+        .carousel .carousel-indicators {
+            bottom: -50px;
+        }
+
+    .carousel-indicators li, .carousel-indicators li.active {
+        width: 10px;
+        height: 10px;
+        margin: 4px;
+        border-radius: 50%;
+        border: none;
+    }
+
+    .carousel-indicators li {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+        .carousel-indicators li.active {
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+    .carousel .wish-icon {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 99;
+        cursor: pointer;
+        font-size: 16px;
+        color: #abb0b8;
+    }
+
+        .carousel .wish-icon .fa-heart {
+            color: #ff6161;
+        }
+
+    .star-rating li {
+        padding: 0;
+    }
+
+    .star-rating i {
+        font-size: 14px;
+        color: #ffc000;
+    }
+    /* Добавляем стили для изменения цвета иконки при наведении */
+    /* Убираем рамку при наведении на иконку сердечка */
+    .wish-icon-container .wish-icon:hover,
+    .wish-icon-container .wish-icon:focus {
+        border-color: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    /* Убираем рамку у кнопки сердечка */
+    .btn.wish-icon:focus,
+    .btn.wish-icon:active,
+    .btn.wish-icon:hover {
+        box-shadow: none !important;
+        border-color: transparent !important;
+        background-color: transparent !important;
+    }
+
+    .wish-icon-container .wish-icon:hover {
+        color: orange; /* Изменяем цвет на оранжевый при наведении */
+    }
+
+    /* Стили для изменения цвета иконки по умолчанию */
+    .wish-icon-container .wish-icon {
+        color: white; /* Устанавливаем белый цвет по умолчанию */
+        border: 1px solid black; /* Добавляем черную обводку */
+        border-radius: 50%; /* Делаем обводку круглой */
+        padding: 3px; /* Увеличиваем немного размер кнопки */
+    }
+
+        .wish-icon-container .wish-icon:hover {
+            color: orange; /* Изменяем цвет на оранжевый при наведении */
+        }
+
+    /* Стили для изменения цвета иконки по умолчанию */
+    .wish-icon-container .wish-icon {
+        color: white; /* Устанавливаем белый цвет по умолчанию */
+        position: relative; /* Позиционируем иконку относительно родительского элемента */
+    }
+
+        /* Псевдоэлементы для создания обводки */
+        .wish-icon-container .wish-icon::before,
+        .wish-icon-container .wish-icon::after {
+            content: ''; /* Добавляем содержимое */
+            position: absolute; /* Позиционируем псевдоэлементы абсолютно */
+            border-radius: 50%; /* Делаем форму круглой */
+            width: 100%; /* Задаем ширину 100% */
+            height: 100%; /* Задаем высоту 100% */
+            border: 2px solid black; /* Добавляем черную обводку */
+            top: 0; /* Располагаем вверху */
+            left: 0; /* Располагаем слева */
+        }
+
+        /* Псевдоэлемент для левой половины сердца */
+        .wish-icon-container .wish-icon::before {
+            transform: rotate(-45deg); /* Поворачиваем на -45 градусов */
+        }
+
+        /* Псевдоэлемент для правой половины сердца */
+        .wish-icon-container .wish-icon::after {
+            transform: rotate(45deg); /* Поворачиваем на 45 градусов */
+        }
+
+    .wish-icon-container {
+        margin-right: -5px;
+    }
+
 </style>
 <body>
     <div class="search-container">
@@ -37,6 +506,62 @@
     {
         <div class="col">
             <div class="card h-100 product-card">
+                    <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
+                        @if (Model.User != null && Model.User.Fav_Products != null)
+                        {
+                            @if (Model.User.Fav_Products.Any(x => x.ProductId == p.Id))
+                            {
+                                <form>
+                                    <button asp-controller="CategoriesMenu" asp-action="UnLike" asp-route-id="@p.Id" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill" style="font-size: 1.5em; color:orange; background-color:none;"></i>
+
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form>
+                                    <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                    </button>
+                                </form>
+                            }
+
+
+
+
+                        }
+                        else
+                        {
+                            @if (User.IsInRole("Administrator") || User.IsInRole("User"))
+                            {
+                                <form>
+                                    <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form>
+                                    <button asp-area="Identity" asp-page="/Account/Register" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                    </button>
+                                </form>
+                            }
+                        }
+                    </div>
                  <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
                     @if (p.Images != null && p.Images.Any())
                     {
@@ -103,6 +628,62 @@
     {
             <div class="col">
                 <div class="card h-100 product-card">
+                    <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
+                        @if (Model.User != null && Model.User.Fav_Products != null)
+                        {
+                            @if (Model.User.Fav_Products.Any(x => x.ProductId == p.Id))
+                            {
+                                <form>
+                                    <button asp-controller="CategoriesMenu" asp-action="UnLike" asp-route-id="@p.Id" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill" style="font-size: 1.5em; color:orange; background-color:none;"></i>
+
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form>
+                                    <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                    </button>
+                                </form>
+                            }
+
+
+
+
+                        }
+                        else
+                        {
+                            @if (User.IsInRole("Administrator") || User.IsInRole("User"))
+                            {
+                                <form>
+                                    <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form>
+                                    <button asp-area="Identity" asp-page="/Account/Register" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                    </button>
+                                </form>
+                            }
+                        }
+                    </div>
                       <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
                     @if (p.Images != null && p.Images.Any())
                     {
@@ -178,3 +759,19 @@
  
     </div>
  </body>
+ <script>
+    $(document).ready(function () {
+        $(".wish-icon i").click(function () {
+            $(this).toggleClass("fa-heart fa-heart-o");
+        });
+    });
+</script>
+<script>
+    // jQuery скрипт для кнопки "сердечко"
+    $(document).ready(function () {
+        $(".wish-icon").click(function () {
+            $(this).toggleClass("btn-outline-secondary btn-danger"); // Переключаем стили кнопки
+            $(this).find("i").toggleClass("bi-heart bi-heart-fill"); // Переключаем иконку
+        });
+    });
+</script>

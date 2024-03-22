@@ -6,6 +6,77 @@
     ViewData["Title"] = "Перегляд оголошення";
 }
 <style>
+
+
+    /* Добавляем стили для изменения цвета иконки при наведении */
+    /* Убираем рамку при наведении на иконку сердечка */
+    .wish-icon-container .wish-icon:hover,
+    .wish-icon-container .wish-icon:focus {
+        border-color: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    /* Убираем рамку у кнопки сердечка */
+    .btn.wish-icon:focus,
+    .btn.wish-icon:active,
+    .btn.wish-icon:hover {
+        box-shadow: none !important;
+        border-color: transparent !important;
+        background-color: transparent !important;
+    }
+
+    .wish-icon-container .wish-icon:hover {
+        color: orange; /* Изменяем цвет на оранжевый при наведении */
+    }
+
+    /* Стили для изменения цвета иконки по умолчанию */
+    .wish-icon-container .wish-icon {
+        color: white; /* Устанавливаем белый цвет по умолчанию */
+        border: 1px solid black; /* Добавляем черную обводку */
+        border-radius: 50%; /* Делаем обводку круглой */
+        padding: 3px; /* Увеличиваем немного размер кнопки */
+    }
+
+        .wish-icon-container .wish-icon:hover {
+            color: orange; /* Изменяем цвет на оранжевый при наведении */
+        }
+
+    /* Стили для изменения цвета иконки по умолчанию */
+    .wish-icon-container .wish-icon {
+        color: white; /* Устанавливаем белый цвет по умолчанию */
+        position: relative; /* Позиционируем иконку относительно родительского элемента */
+    }
+
+        /* Псевдоэлементы для создания обводки */
+        .wish-icon-container .wish-icon::before,
+        .wish-icon-container .wish-icon::after {
+            content: ''; /* Добавляем содержимое */
+            position: absolute; /* Позиционируем псевдоэлементы абсолютно */
+            border-radius: 50%; /* Делаем форму круглой */
+            width: 100%; /* Задаем ширину 100% */
+            height: 100%; /* Задаем высоту 100% */
+            border: 2px solid black; /* Добавляем черную обводку */
+            top: 0; /* Располагаем вверху */
+            left: 0; /* Располагаем слева */
+        }
+
+        /* Псевдоэлемент для левой половины сердца */
+        .wish-icon-container .wish-icon::before {
+            transform: rotate(-45deg); /* Поворачиваем на -45 градусов */
+        }
+
+        /* Псевдоэлемент для правой половины сердца */
+        .wish-icon-container .wish-icon::after {
+            transform: rotate(45deg); /* Поворачиваем на 45 градусов */
+        }
+
+    .wish-icon-container {
+        margin-right: -5px;
+    }
+
+</style>
+<style>
     body {
         background-color: whitesmoke; /* Светлый фон для всего сайта */
         
@@ -294,6 +365,62 @@
                 {
                     <div class="col">
                         <div class="card h-100 product-card">
+                            <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
+                                @if (Model.User != null && Model.User.Fav_Products != null)
+                                {
+                                    @if (Model.User.Fav_Products.Any(x => x.ProductId == p.Id))
+                                    {
+                                        <form>
+                                            <button asp-controller="CategoriesMenu" asp-action="UnLike" asp-route-id="@p.Id" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                                <!-- Само сердечко -->
+
+                                                <i class="bi-heart-fill" style="font-size: 1.5em; color:orange; background-color:none;"></i>
+
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form>
+                                            <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                                <!-- Само сердечко -->
+
+                                                <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                            </button>
+                                        </form>
+                                    }
+
+
+
+
+                                }
+                                else
+                                {
+                                    @if (User.IsInRole("Administrator") || User.IsInRole("User"))
+                                    {
+                                        <form>
+                                            <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                                <!-- Само сердечко -->
+
+                                                <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form>
+                                            <button asp-area="Identity" asp-page="/Account/Register" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                                <!-- Само сердечко -->
+
+                                                <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                            </button>
+                                        </form>
+                                    }
+                                }
+                            </div>
                             <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
                                 @if (Model.Images_2.Where(id => id.ProductId == p.Id) != null && Model.Images_2.Where(id => id.ProductId == p.Id).Any())
                                 {
@@ -369,6 +496,62 @@
                 {
                     <div class="col">
                         <div class="card h-100 product-card">
+                            <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
+                                @if (Model.User != null && Model.User.Fav_Products != null)
+                                {
+                                    @if (Model.User.Fav_Products.Any(x => x.ProductId == p.Id))
+                                    {
+                                        <form>
+                                            <button asp-controller="CategoriesMenu" asp-action="UnLike" asp-route-id="@p.Id" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                                <!-- Само сердечко -->
+
+                                                <i class="bi-heart-fill" style="font-size: 1.5em; color:orange; background-color:none;"></i>
+
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form>
+                                            <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                                <!-- Само сердечко -->
+
+                                                <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                            </button>
+                                        </form>
+                                    }
+
+
+
+
+                                }
+                                else
+                                {
+                                    @if (User.IsInRole("Administrator") || User.IsInRole("User"))
+                                    {
+                                        <form>
+                                            <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                                <!-- Само сердечко -->
+
+                                                <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form>
+                                            <button asp-area="Identity" asp-page="/Account/Register" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                                <!-- Само сердечко -->
+
+                                                <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                            </button>
+                                        </form>
+                                    }
+                                }
+                            </div>
                             <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
                                 @if (Model.Images_2.Where(id => id.ProductId == p.Id) != null && Model.Images_2.Where(id => id.ProductId == p.Id).Any())
                                 {

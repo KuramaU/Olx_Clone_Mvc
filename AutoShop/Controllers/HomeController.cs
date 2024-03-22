@@ -29,7 +29,8 @@ namespace Shop.Controllers
 
             var products_s = from m in context.Products
                              select m;
-
+            var user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
+          
             if (!string.IsNullOrEmpty(searchString))
             {
                 products_s = products_s.Where(s => s.Name!.Contains(searchString));
@@ -37,14 +38,31 @@ namespace Shop.Controllers
             var products= await products_s.Include(p => p.Category)
                 .Include(p => p.District)
                 .ToListAsync();
-
-            var viewModel = new ProductViewModel
+            if (user != null)
+            {
+                var fvproducts = context.FavouriteProd.Where(x => x.user.Id == user.Id).ToList();
+                user.Fav_Products = fvproducts;
+                var viewModel = new ProductViewModel
             {
                 Categories = context.Categories.ToList(),
                 Products = products.ToList(),
-                Images = context.Images.Include(x => x.Product).ToList()
+                Images = context.Images.Include(x => x.Product).ToList(),
+                 User = user,
             };
             return View(viewModel);
+            }
+            else
+            {
+                var viewModel = new ProductViewModel
+                {
+                    Categories = context.Categories.ToList(),
+                    Products = products.ToList(),
+                    Images = context.Images.Include(x => x.Product).ToList(),
+                    
+                };
+                // Обробка випадку, коли користувача не знайдено
+                return View(viewModel); // Приклад перенаправлення на сторінку входу
+            }
         }
 
         public IActionResult Sort(int? categoryId)
@@ -71,13 +89,33 @@ namespace Shop.Controllers
          var products_ = products.Include(p => p.Category)
               .Include(p => p.District)
               .ToList();
-            var viewModel = new ProductViewModel
+            var user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
+          
+            if (user != null)
+            {
+                var fvproducts = context.FavouriteProd.Where(x => x.user.Id == user.Id).ToList();
+                user.Fav_Products = fvproducts;
+                var viewModel = new ProductViewModel
             {
                 Categories = context.Categories.ToList(),
                 Products = products_.ToList(),
-                Images = context.Images.Include(x => x.Product).ToList()
+                Images = context.Images.Include(x => x.Product).ToList(),
+                 User = user,
             };
             return View(viewModel);
+            }
+            else
+            {
+                var viewModel = new ProductViewModel
+                {
+                    Categories = context.Categories.ToList(),
+                    Products = products_.ToList(),
+                    Images = context.Images.Include(x => x.Product).ToList(),
+                    
+                };
+                // Обробка випадку, коли користувача не знайдено
+                return View(viewModel); // Приклад перенаправлення на сторінку входу
+            }
         }
        
 

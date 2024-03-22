@@ -1,15 +1,93 @@
-﻿@model Shop.ViewModels.ProductViewModel
+﻿@model Shop.ViewModels.ProductViewModel;
 @{
-    ViewData["Title"] = "Головна";
+    ViewData["Title"] = "Обрані оголошення";
 }
+ <style> body {
+        background-color: whitesmoke; /* Сірий колір фону */
+    }
+
+    .search-container {
+        background-color: white;
+    }
+
+    /* Добавляем стили для изменения цвета иконки при наведении */
+    /* Убираем рамку при наведении на иконку сердечка */
+    .wish-icon-container .wish-icon:hover,
+    .wish-icon-container .wish-icon:focus {
+        border-color: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    /* Убираем рамку у кнопки сердечка */
+    .btn.wish-icon:focus,
+    .btn.wish-icon:active,
+    .btn.wish-icon:hover {
+        box-shadow: none !important;
+        border-color: transparent !important;
+        background-color: transparent !important;
+    }
+
+    .wish-icon-container .wish-icon:hover {
+        color: orange; /* Изменяем цвет на оранжевый при наведении */
+    }
+
+    /* Стили для изменения цвета иконки по умолчанию */
+    .wish-icon-container .wish-icon {
+        color: white; /* Устанавливаем белый цвет по умолчанию */
+        border: 1px solid black; /* Добавляем черную обводку */
+        border-radius: 50%; /* Делаем обводку круглой */
+        padding: 3px; /* Увеличиваем немного размер кнопки */
+    }
+
+        .wish-icon-container .wish-icon:hover {
+            color: orange; /* Изменяем цвет на оранжевый при наведении */
+        }
+
+    /* Стили для изменения цвета иконки по умолчанию */
+    .wish-icon-container .wish-icon {
+        color: white; /* Устанавливаем белый цвет по умолчанию */
+        position: relative; /* Позиционируем иконку относительно родительского элемента */
+    }
+
+        /* Псевдоэлементы для создания обводки */
+        .wish-icon-container .wish-icon::before,
+        .wish-icon-container .wish-icon::after {
+            content: ''; /* Добавляем содержимое */
+            position: absolute; /* Позиционируем псевдоэлементы абсолютно */
+            border-radius: 50%; /* Делаем форму круглой */
+            width: 100%; /* Задаем ширину 100% */
+            height: 100%; /* Задаем высоту 100% */
+            border: 2px solid black; /* Добавляем черную обводку */
+            top: 0; /* Располагаем вверху */
+            left: 0; /* Располагаем слева */
+        }
+
+        /* Псевдоэлемент для левой половины сердца */
+        .wish-icon-container .wish-icon::before {
+            transform: rotate(-45deg); /* Поворачиваем на -45 градусов */
+        }
+
+        /* Псевдоэлемент для правой половины сердца */
+        .wish-icon-container .wish-icon::after {
+            transform: rotate(45deg); /* Поворачиваем на 45 градусов */
+        }
+
+    .wish-icon-container {
+        margin-right: -5px;
+    }
+
+</style>
 <style>
-  
+
     body {
         background-color: whitesmoke; /* Сірий колір фону */
     }
-    .search-container{
-        background-color:white;
+
+    .search-container {
+        background-color: white;
     }
+
     .category-block {
         display: flex;
         justify-content: space-around;
@@ -28,7 +106,6 @@
         text-align: center;
         margin: 10px;
         width: 100px;
-      
     }
 
     .image-container {
@@ -50,7 +127,6 @@
             max-height: 100%; /* Змінено на максимальну висоту 100% */
             width: 50px;
             height: 50px;
-
         }
     /* Общие стили для текста ссылок */
     a {
@@ -142,7 +218,7 @@
         margin-bottom: 20px; /* Нижний отступ */
     }
 
-    .image-container{
+    .image-container {
         display: flex;
         justify-content: center; /* Вирівнюємо по горизонталі по центру */
         max-width: 368px;
@@ -338,7 +414,7 @@
         font-size: 14px;
         color: #ffc000;
     }
-        /* Добавляем стили для изменения цвета иконки при наведении */
+    /* Добавляем стили для изменения цвета иконки при наведении */
     /* Убираем рамку при наведении на иконку сердечка */
     .wish-icon-container .wish-icon:hover,
     .wish-icon-container .wish-icon:focus {
@@ -405,119 +481,54 @@
         margin-right: -5px;
     }
 
-
 </style>
 
-
-
-
-
 <body>
-
-<div class="search-container" >
+<div class="search-container">
     <form asp-controller="Home" asp-action="Index" class="form-inline">
         <div class="input-group">
-                <input class="form-control" type="search" placeholder="Шукаю" aria-label="Search" name="SearchString">
+            <input class="form-control" type="search" placeholder="Пошук" aria-label="Search" name="SearchString">
             <button type="submit" class="btn btn-outline-secondary">
                 <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
             </button>
         </div>
     </form>
-</div> 
-<div class="category-block">
-    <!-- Первый горизонтальный ряд -->
-    <div class="category-row">
-        @foreach (var category in Model.Categories.Take(6))
-        {
-            <div class="category-card">
-                <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">
-                    <div class="image-container">
-                        <img src="~/@category.URL.ToString()" alt="@category.Name" />
-                    </div>
-                    <p class="text-center">@category.Name</p>
-                </a>
-            </div>
-        }
-    </div>
-
-    <!-- Второй горизонтальный ряд -->
-    <div class="category-row">
-        @foreach (var category in Model.Categories.Skip(6))
-        {
-                if (category.Id!= 13)
-                {
-                    <div class="category-card">
-                        <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">
-                    <div class="image-container">
-                        <img src="~/@category.URL.ToString()" alt="@category.Name"  />
-                    </div>
-                    <p class="text-center">@category.Name</p>
-                </a>
-            </div>
-            }
-        }
-    </div>
 </div>
-<div class="text-start">
-    <h3 class="display-4">
-        <small style="font-size: smaller;">VIP-оголошення</small>
-    </h3>
-      
+<hr />
 
-        <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="13" class="btn btn-primary button-right">
-            Дивитися усе</>
-            </a>
-</div>
+
+    
+        <h4>Обрані оголошення</h4>
+    
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach (var p in Model.Products.Where(x => x.IsVIP == true && x.IS_Arhive != true))
-        {
-            <div class="col-md">
-                <div class="card h-100 product-card position-relative">
-                    <!-- Добавлен класс position-relative -->
-                    <!-- Контейнер для кнопки "сердечко" -->
-                  @*   <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
-                        <button class="btn btn-outline-secondary wish-icon" style="border: none;">
-                            <!-- Само сердечко -->
-                            <i class="bi bi-heart-fill" style="font-size: 1.5em;"></i>
-                        </button>
-                    </div> *@
+        @{
+            // Сортуємо всі продукти за датою у спадаючому порядку
+            var favProducts = Model.User.Fav_Products.ToList();
+      
+           
+        }
+     @foreach (var f in favProducts)
+            {
+             
+        @foreach (var p in Model.Products.Where(p => p.Id == f.ProductId))
+    {
+        <div class="col-md">
+            <div class="card h-100 product-card">
                     <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
                         @if (Model.User != null && Model.User.Fav_Products != null)
                         {
                             @if (Model.User.Fav_Products.Any(x => x.ProductId == p.Id))
                             {
-                               
-                                    <form>
-                                        <button asp-controller="CategoriesMenu" asp-action="UnLike" asp-route-id="@p.Id" class=" btn btn-outline-secondary wish-icon " style="border: none;">
-                                            <!-- Само сердечко -->
+                                <form>
+                                    <button asp-controller="CategoriesMenu" asp-action="UnLike" asp-route-id="@p.Id" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                        <!-- Само сердечко -->
 
-                                            <i class="bi-heart-fill" style="font-size: 1.5em; color:orange; background-color:none;"></i>
+                                        <i class="bi-heart-fill" style="font-size: 1.5em; color:orange; background-color:none;"></i>
 
-                                        </button>
-                                    </form>
-                                
-                             
-                               
+                                    </button>
+                                </form>
                             }
                             else
-                            {
-                              
-                                    <form>
-                                        <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
-                                            <!-- Само сердечко -->
-
-                                            <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
-
-                                        </button>
-                                    </form>
-                           
-                            }
-
-
-                        }
-                        else
-                        {
-                            @if (User.IsInRole("Administrator") || User.IsInRole("User"))
                             {
                                 <form>
                                     <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
@@ -528,116 +539,83 @@
                                     </button>
                                 </form>
                             }
-                            else
-                            {
-                                <form>
-                                    <button asp-area="Identity" asp-page="/Account/Register" class=" btn btn-outline-secondary wish-icon " style="border: none;">
-                                        <!-- Само сердечко -->
 
-                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
 
-                                    </button>
-                                </form>
-                            }
-                        }
-                    </div>
-                      <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
-                    <!-- Контент карточки продукта -->
-                    @if (Model.Images.Where(id => id.ProductId == p.Id) != null && Model.Images.Where(id => id.ProductId == p.Id).Any())
-                    {
-                        <div class="img-container">
-                            <img class="d-block mx-auto" src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.Where(id => id.ProductId == p.Id).First().ImageData))" alt="..." />
-                        </div>
-                    }
-                    else
-                    {
-                        <img src="~/default.png" alt="...">
-                    }
-                    </a>
-                    <div class="card-body text-center">
-                        <h5 class="card-title">@p.Name</h5>
-                        @if (p.Discout != null)
-                        {
-                            var a = p.Price * (100 - p.Discout) / 100;
-                            string b = a?.ToString("0.00##");
-                            <p class="card-text">
-                                <span class="badge bg-danger">@b UAH</span>
-                            </p>
+
+
                         }
                         else
                         {
-                            <p class="card-text">
-                                <span class="badge bg-primary">@p.Price UAH</span>
-                            </p>
+                            <form>
+                                <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                    <!-- Само сердечко -->
+
+                                    <i class="bi-heart-fill   " style="font-size: 1.5em;"></i>
+
+                                </button>
+                            </form>
                         }
                     </div>
-                    <div class="card-footer text-center">
+                 <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
+                @if (p.Images != null && p.Images.Any())
+                {
+
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.FirstOrDefault().ImageData))" alt="..." />
+                    
+
+                }
+                    else
+                    {
+                        <img  src="~/default.png" alt="...">
+                    }
+              <div class="card-body text-center">
+                    <h5 class="card-title">@p.Name</h5>
+
+                    @if (p.Discout != null)
+                    {
+                        var discountedPrice = p.Price * (100 - p.Discout) / 100;
                         <p class="card-text">
-                            <span class="badge bg-info">обл. @p.District?.Name</span>
+                            <span class="badge bg-danger">@discountedPrice UAH</span>
                         </p>
+                    }
+                    else
+                    {
                         <p class="card-text">
-                            @if (p.CreatedDate?.Day == DateTime.Today.Day)
-                            {
-                                <span class="badge bg-white text-dark">Обновлено сьогодні o @p.CreatedDate?.ToString("HH:mm")</span>
-                            }
-                            @if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
-                            {
-                                <span class="badge bg-white text-dark">Обновлено вчора o  @p.CreatedDate?.ToString("HH:mm")</span>
-                            }
-                            @if (p.CreatedDate?.Day != DateTime.Today.Day && p.CreatedDate?.Day != DateTime.Today.Day - 1)
-                            {
-                                <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
-                            }
+                            <span class="badge bg-primary">@p.Price UAH</span>
                         </p>
-                    </div>
+                    }
+                </div> 
+
+                <div class="card-footer text-center">
+                   
+
+                    <p class="card-text">
+                        <span class="badge bg-info">обл. @p.District?.Name</span>
+                    </p>
+                    <p class="card-text">
+                        @if (p.CreatedDate?.Day == DateTime.Today.Day)
+                        {
+                            <span class="badge bg-white text-dark">Обновлено сьогодні о @p.CreatedDate?.ToString("HH:mm")</span>
+                        }
+                        else if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
+                        {
+                            <span class="badge bg-white text-dark">Обновлено вчора о @p.CreatedDate?.ToString("HH:mm")</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.ToString("dd.MM.yyyy HH:mm")</span>
+                        }
+                    </p>
                 </div>
+                </a>
             </div>
-        }
+        </div>
+    }
+    }
+   
+    
+
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-     
-    @if (!User.Identity.IsAuthenticated)
-    {
-           
-           
-              <div class="blue-bar">
-                  <div class="container">
-                      <div class="row align-items-center">
-                          <div class="col-md-8">
-                              <p class="text-white">Почніть свій бізнес на bag вже сьогодні</p>
-                          </div>
-                          <div class="col-md-4 text-end">
-                              <a id="login" asp-area="Identity" asp-page="/Account/Register" class="btn btn-light" role="button">Зареєструватись</a>
-                              
-                          </div>
-                      </div>
-                  </div>
-              </div>
-   }
-
-
-</div>
-<div class="wide-blue-bar">
-    <p>
-        Усі онлайн-оголошення України на bag — тут ви знайдете те, що шукали! Натиснувши на кнопку Додати оголошення, ви зможете розмістити оголошення на будь-яку тематику легко й швидко. За допомогою сервісу bag ви зможете купити чи продати з рук у руки практично все, що завгодно.
-
-    </p>
-</div>
 </body>
 <script>
     $(document).ready(function () {
