@@ -1,16 +1,17 @@
-﻿
-@model Shop.ViewModels.ProductViewModel
+﻿@model Shop.ViewModels.ProductViewModel;
 @{
-    ViewData["Title"] = "Каталог";
+    ViewData["Title"] = "Обрані оголошення";
 }
-<style>
-    body {
+ <style> body {
         background-color: whitesmoke; /* Сірий колір фону */
     }
-      .search-container{
-        background-color:white;
+
+    .search-container {
+        background-color: white;
     }
 
+    /* Добавляем стили для изменения цвета иконки при наведении */
+    /* Убираем рамку при наведении на иконку сердечка */
     .wish-icon-container .wish-icon:hover,
     .wish-icon-container .wish-icon:focus {
         border-color: transparent !important;
@@ -75,6 +76,7 @@
     .wish-icon-container {
         margin-right: -5px;
     }
+
 </style>
 <style>
 
@@ -480,31 +482,37 @@
     }
 
 </style>
+
 <body>
-    <div class="search-container">
-        <form asp-controller="Home" asp-action="Index" class="form-inline">
-            <div class="input-group">
-                <input class="form-control" type="search" placeholder="Пошук" aria-label="Search" name="SearchString">
-                <button type="submit" class="btn btn-outline-secondary">
-                    <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
-                </button>
-            </div>
-        </form>
-    </div>
-    <hr />
+<div class="search-container">
+    <form asp-controller="Home" asp-action="Index" class="form-inline">
+        <div class="input-group">
+            <input class="form-control" type="search" placeholder="Пошук" aria-label="Search" name="SearchString">
+            <button type="submit" class="btn btn-outline-secondary">
+                <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
+            </button>
+        </div>
+    </form>
+</div>
+<hr />
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    @{
-        // Сортуємо всі продукти за датою у спадаючому порядку
-        var sortedProducts = Model.Products.Where(p => p.D_Up_seven.HasValue || p.D_Up_one.HasValue)
-        .OrderByDescending(p => p.D_Up_seven ?? DateTime.MinValue)
-        .ThenByDescending(p => p.D_Up_one ?? DateTime.MinValue)
-        .ToList();
-    }
 
-        @foreach (var p in sortedProducts.Where(x=>x.IS_Arhive != true))
+    
+        <h4>Обрані оголошення</h4>
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @{
+            // Сортуємо всі продукти за датою у спадаючому порядку
+            var favProducts = Model.User.Fav_Products.ToList();
+      
+           
+        }
+     @foreach (var f in favProducts)
+            {
+             
+        @foreach (var p in Model.Products.Where(p => p.Id == f.ProductId))
     {
-        <div class="col">
+        <div class="col-md">
             <div class="card h-100 product-card">
                     <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
                         @if (Model.User != null && Model.User.Fav_Products != null)
@@ -549,18 +557,18 @@
                         }
                     </div>
                  <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
-                    @if (p.Images != null && p.Images.Any())
-                    {
+                @if (p.Images != null && p.Images.Any())
+                {
 
-                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.First().ImageData))" alt="..." />
-                        
-                    }
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.FirstOrDefault().ImageData))" alt="..." />
+                    
+
+                }
                     else
                     {
                         <img  src="~/default.png" alt="...">
                     }
-                    
-                <div class="card-body text-center">
+              <div class="card-body text-center">
                     <h5 class="card-title">@p.Name</h5>
 
                     @if (p.Discout != null)
@@ -576,16 +584,10 @@
                             <span class="badge bg-primary">@p.Price UAH</span>
                         </p>
                     }
-                </div>
+                </div> 
 
                 <div class="card-footer text-center">
-                   @*  <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
-                        <i class="bi bi-bag-plus"></i>
-                        Додати до кошика
-                    </a>
-                    <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
-                        <i class="bi bi-eye">  </i>
-                    </a> *@
+                   
 
                     <p class="card-text">
                         <span class="badge bg-info">обл. @p.District?.Name</span>
@@ -609,129 +611,13 @@
             </div>
         </div>
     }
-
-    @foreach(var p in Model.Products.Where(p=>p.IsUp_seven!=true && p.IsUp_one!=true && p.IS_Arhive!=true))
-    {
-            <div class="col">
-                <div class="card h-100 product-card">
-                    <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
-                        @if (Model.User != null && Model.User.Fav_Products != null)
-                        {
-                            @if (Model.User.Fav_Products.Any(x => x.ProductId == p.Id))
-                            {
-                                <form>
-                                    <button asp-controller="CategoriesMenu" asp-action="UnLike" asp-route-id="@p.Id" class=" btn btn-outline-secondary wish-icon " style="border: none;">
-                                        <!-- Само сердечко -->
-
-                                        <i class="bi-heart-fill" style="font-size: 1.5em; color:orange; background-color:none;"></i>
-
-                                    </button>
-                                </form>
-                            }
-                            else
-                            {
-                                <form>
-                                    <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
-                                        <!-- Само сердечко -->
-
-                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
-
-                                    </button>
-                                </form>
-                            }
-
-
-
-
-                        }
-                        else
-                        {
-                            <form>
-                                <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
-                                    <!-- Само сердечко -->
-
-                                    <i class="bi-heart-fill   " style="font-size: 1.5em;"></i>
-
-                                </button>
-                            </form>
-                        }
-                    </div>
-                      <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
-                    @if (p.Images != null && p.Images.Any())
-                    {
-
-                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.First().ImageData))" alt="..." />
-                    }
-
-                    else
-                    {
-                        <img  src="~/default.png" alt="...">
-                    }
-                     
-                <div class="card-body text-center">
-                    <h5 class="card-title">@p.Name</h5>
-                  
-
-                        @if (p.Discout != null)
-                        {
-                            var a = p.Price * (100 - p.Discout) / 100;
-                            string b = a?.ToString("0.00##");
-                        <p class="card-text">
-                        <span class="badge bg-danger">@b UAH</span>
-                        </p>
-                        }
-                        else
-                        {
-                        <p class="card-text">
-                            <span class="badge bg-primary">@p.Price UAH</span>
-                        </p>
-                        }
-
-
-                      
-                  
-                </div>
-
-                <div class="card-footer text-center">
-                  @*   <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
-                        <i class="bi bi-bag-plus"></i>
-                        Додати до кошика
-                    </a>
-                    <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
-                        <i class="bi bi-eye">  </i>
-                    </a> *@
-
-                    <p class="card-text">
-                         <span class="badge bg-info">обл. @p.District?.Name</span>
-                    </p>
-                    <p class="card-text">
-                        @if (p.CreatedDate?.Day == DateTime.Today.Day)
-                        {
-                            <span class="badge bg-white text-dark">Обновлено сьогодні o @p.CreatedDate?.ToString("HH:mm")</span>
-                        }
-                        @if (p.CreatedDate?.Day == DateTime.Today.Day-1)
-                        {
-                            <span class="badge bg-white text-dark">Обновлено вчора o  @p.CreatedDate?.ToString("HH:mm")</span>
-
-                        }
-                        @if (p.CreatedDate?.Day != DateTime.Today.Day && p.CreatedDate?.Day != DateTime.Today.Day - 1)
-                        {
-                            <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year</span>
-
-                        }
-                    </p>
-                   
-                </div>
-                </a>
-            </div>
-        </div>
     }
+   
+    
 
-  
- 
     </div>
- </body>
- <script>
+</body>
+<script>
     $(document).ready(function () {
         $(".wish-icon i").click(function () {
             $(this).toggleClass("fa-heart fa-heart-o");

@@ -255,6 +255,8 @@ namespace Shop.Controllers
 
             return RedirectToAction("Index", "Profil");
         }
+       
+       
 
 
         [AllowAnonymous]

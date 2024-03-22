@@ -43,7 +43,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link dropdown-toggle" asp-controller="Users" asp-action="Index">
+                                <a class=nav-link dropdown-toggle" asp-controller="Users" asp-action="Index">
                                     <img width="25px" height="25px" src="~/likes.png" />
                                 </a>
                             </li>
@@ -56,7 +56,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Profil" asp-action="Index">
+                                <a class="nav-link" asp-controller="CategoriesMenu" asp-action="Favourite">
                                     <img width="25px" height="25px" src="~/likes.png" />
                                 </a>
                             </li>
@@ -100,7 +100,7 @@
         </main>
     </div>
 
-    @if (ViewData["Title"] != null && ViewData["Title"].ToString() != "Реєстрація" && ViewData["Title"].ToString() != "Увійти")
+    @if (ViewData["Title"] != null && ViewData["Title"].ToString() != "Реєстрація" && ViewData["Title"].ToString() != "Увійти" && ViewData["Title"].ToString() != "Доставка Bag")
     {
         <footer class="border-top footer text-muted custom-footer">
             <div class="container">

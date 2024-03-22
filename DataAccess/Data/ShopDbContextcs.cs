@@ -99,5 +99,6 @@ namespace Data
         public DbSet<Category> Categories { get; set; }
        public DbSet<District> Districts { get; set; }
         public DbSet<ProductImage> Images { get; set; }
+        public DbSet<FavouriteProducts> FavouriteProd { get; set; }
     }
 }

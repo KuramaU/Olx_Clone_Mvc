@@ -50,6 +50,8 @@ namespace Data.Entities
 
         public User? User { get; set; }
         public List<ProductImage>? Images { get; set; }
+
+       
         [NotMapped]
         public List<IFormFile>? UploadImages { get; set; }
     }

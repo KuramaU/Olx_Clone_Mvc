@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContextcs))]
-    partial class ShopDbContextcsModelSnapshot : ModelSnapshot
+    [Migration("20240320215955_addbase_like")]
+    partial class addbase_like
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,12 +279,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("userId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("FavouriteProd");
                 });
@@ -669,11 +668,13 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Data.Entities.FavouriteProducts", b =>
                 {
-                    b.HasOne("Data.Entities.User", "user")
+                    b.HasOne("Data.Entities.Product", "Product")
                         .WithMany("Fav_Products")
-                        .HasForeignKey("userId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("user");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Data.Entities.Product", b =>
@@ -775,13 +776,13 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Data.Entities.Product", b =>
                 {
+                    b.Navigation("Fav_Products");
+
                     b.Navigation("Images");
                 });
 
             modelBuilder.Entity("Data.Entities.User", b =>
                 {
-                    b.Navigation("Fav_Products");
-
                     b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
