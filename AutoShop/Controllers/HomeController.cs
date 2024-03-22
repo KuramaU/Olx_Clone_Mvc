@@ -30,8 +30,7 @@ namespace Shop.Controllers
             var products_s = from m in context.Products
                              select m;
             var user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
-            var fvproducts = context.FavouriteProd.Where(x => x.user.Id == user.Id).ToList();
-            user.Fav_Products = fvproducts;
+          
             if (!string.IsNullOrEmpty(searchString))
             {
                 products_s = products_s.Where(s => s.Name!.Contains(searchString));
@@ -41,6 +40,8 @@ namespace Shop.Controllers
                 .ToListAsync();
             if (user != null)
             {
+                var fvproducts = context.FavouriteProd.Where(x => x.user.Id == user.Id).ToList();
+                user.Fav_Products = fvproducts;
                 var viewModel = new ProductViewModel
             {
                 Categories = context.Categories.ToList(),
@@ -52,8 +53,15 @@ namespace Shop.Controllers
             }
             else
             {
+                var viewModel = new ProductViewModel
+                {
+                    Categories = context.Categories.ToList(),
+                    Products = products.ToList(),
+                    Images = context.Images.Include(x => x.Product).ToList(),
+                    
+                };
                 // Обробка випадку, коли користувача не знайдено
-                return View(); // Приклад перенаправлення на сторінку входу
+                return View(viewModel); // Приклад перенаправлення на сторінку входу
             }
         }
 
@@ -82,10 +90,11 @@ namespace Shop.Controllers
               .Include(p => p.District)
               .ToList();
             var user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
-            var fvproducts = context.FavouriteProd.Where(x => x.user.Id == user.Id).ToList();
-            user.Fav_Products = fvproducts;
+          
             if (user != null)
             {
+                var fvproducts = context.FavouriteProd.Where(x => x.user.Id == user.Id).ToList();
+                user.Fav_Products = fvproducts;
                 var viewModel = new ProductViewModel
             {
                 Categories = context.Categories.ToList(),
@@ -97,8 +106,15 @@ namespace Shop.Controllers
             }
             else
             {
+                var viewModel = new ProductViewModel
+                {
+                    Categories = context.Categories.ToList(),
+                    Products = products_.ToList(),
+                    Images = context.Images.Include(x => x.Product).ToList(),
+                    
+                };
                 // Обробка випадку, коли користувача не знайдено
-                return View(); // Приклад перенаправлення на сторінку входу
+                return View(viewModel); // Приклад перенаправлення на сторінку входу
             }
         }
        

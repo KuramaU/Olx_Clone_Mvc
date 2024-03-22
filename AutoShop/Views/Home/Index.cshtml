@@ -538,14 +538,28 @@
                         }
                         else
                         {
-                            <form>
-                                <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
-                                    <!-- Само сердечко -->
+                            @if (User.IsInRole("Administrator") || User.IsInRole("User"))
+                            {
+                                <form>
+                                    <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                        <!-- Само сердечко -->
 
-                                    <i class="bi-heart-fill   " style="font-size: 1.5em;"></i>
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
 
-                                </button>
-                            </form>
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form>
+                                    <button asp-area="Identity" asp-page="/Account/Register" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                    </button>
+                                </form>
+                            }
                         }
                     </div>
                  <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
@@ -646,14 +660,28 @@
                         }
                         else
                         {
-                            <form>
-                                <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
-                                    <!-- Само сердечко -->
+                            @if (User.IsInRole("Administrator") || User.IsInRole("User"))
+                            {
+                                <form>
+                                    <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                        <!-- Само сердечко -->
 
-                                    <i class="bi-heart-fill   " style="font-size: 1.5em;"></i>
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
 
-                                </button>
-                            </form>
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form>
+                                    <button asp-area="Identity" asp-page="/Account/Register" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                    </button>
+                                </form>
+                            }
                         }
                     </div>
                       <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">

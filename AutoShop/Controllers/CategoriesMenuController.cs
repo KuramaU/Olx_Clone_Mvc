@@ -20,10 +20,13 @@ namespace Shop.Controllers
         {
 
             var user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
-            var fvproducts = context.FavouriteProd.Where(x => x.user.Id == user.Id).ToList();
-            user.Fav_Products = fvproducts;
+          
+          
             if (user != null)
             {
+                var fvproducts = context.FavouriteProd.Where(x => x.user.Id == user.Id).ToList();
+                user.Fav_Products = fvproducts;
+
                 var viewModel = new ProductViewModel
                 {
                     Categories = context.Categories.ToList(),
@@ -36,8 +39,16 @@ namespace Shop.Controllers
             }
             else
             {
+                var viewModel = new ProductViewModel
+                {
+                    Categories = context.Categories.ToList(),
+                    Products = context.Products.Include(x => x.Category).ToList(),
+                    Images = context.Images.Include(x => x.Product).ToList(),
+                    Districs = context.Districts.ToList(),
+                    
+                };
                 // Обробка випадку, коли користувача не знайдено
-                return RedirectToAction("Index", "Profil"); // Приклад перенаправлення на сторінку входу
+                return View(viewModel); // Приклад перенаправлення на сторінку входу
             }
         }
 

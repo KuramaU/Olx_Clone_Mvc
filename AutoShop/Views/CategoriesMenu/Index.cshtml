@@ -475,11 +475,71 @@
                 <div class="card h-100 product-card position-relative">
                     <!-- Добавлен класс position-relative -->
                     <!-- Контейнер для кнопки "сердечко" -->
-                    <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
+                  @*   <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
                         <button class="btn btn-outline-secondary wish-icon" style="border: none;">
                             <!-- Само сердечко -->
                             <i class="bi bi-heart-fill" style="font-size: 1.5em;"></i>
                         </button>
+                    </div> *@
+                    <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
+                        @if (Model.User != null && Model.User.Fav_Products != null)
+                        {
+                            @if (Model.User.Fav_Products.Any(x => x.ProductId == p.Id))
+                            {
+                               
+                                    <form>
+                                        <button asp-controller="CategoriesMenu" asp-action="UnLike" asp-route-id="@p.Id" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                            <!-- Само сердечко -->
+
+                                            <i class="bi-heart-fill" style="font-size: 1.5em; color:orange; background-color:none;"></i>
+
+                                        </button>
+                                    </form>
+                                
+                             
+                               
+                            }
+                            else
+                            {
+                              
+                                    <form>
+                                        <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                            <!-- Само сердечко -->
+
+                                            <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                        </button>
+                                    </form>
+                           
+                            }
+
+
+                        }
+                        else
+                        {
+                            @if (User.IsInRole("Administrator") || User.IsInRole("User"))
+                            {
+                                <form>
+                                    <button asp-controller="CategoriesMenu" asp-action="Like" asp-route-id="@p.Id" class="btn btn-outline-secondary wish-icon" style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form>
+                                    <button asp-area="Identity" asp-page="/Account/Register" class=" btn btn-outline-secondary wish-icon " style="border: none;">
+                                        <!-- Само сердечко -->
+
+                                        <i class="bi-heart-fill   " style="font-size: 1.5em; "></i>
+
+                                    </button>
+                                </form>
+                            }
+                        }
                     </div>
                       <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
                     <!-- Контент карточки продукта -->
