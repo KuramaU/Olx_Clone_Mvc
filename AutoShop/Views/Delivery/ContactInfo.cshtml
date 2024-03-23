@@ -73,19 +73,23 @@
         }
 
         .next-button {
-            width: 223px; /* задаем ширину кнопки */
-            height: 60px; /* задаем высоту кнопки */
-            position: absolute; /* абсолютное позиционирование */
-            bottom: -160px; /* располагаем кнопку внизу */
-            right: 0; /* прижимаем к правому краю */
-            background-color: orange; /* Цвет кнопки */
-            color: white; /* Цвет текста */
+            /* Добавляем стили для кнопки */
+            width: 223px; /* Ширина кнопки */
+            height: 60px; /* Высота кнопки */
+            background-color: orange; /* Цвет фона кнопки */
+            color: white; /* Цвет текста кнопки */
             border: none; /* Убираем границу */
             border-radius: 5px; /* Скругляем углы */
-            padding: 10px 20px; /* Отступы внутри кнопки */
-            cursor: pointer; /* Изменяем курсор при наведении */
+            padding: 0; /* Убираем внутренние отступы */
             font-size: 16px; /* Размер шрифта */
+            cursor: pointer; /* Изменяем курсор при наведении */
+            text-align: center; /* Выравниваем текст по центру */
+            line-height: 60px; /* Выравниваем текст по вертикали посередине кнопки */
         }
+
+            .next-button:hover {
+                background-color: darkorange; /* Изменяем цвет фона при наведении */
+            }
     </style>
 </head>
 <body>
@@ -126,12 +130,14 @@
                     <input type="text" id="branch" name="branch" class="form-control" placeholder="Введіть ваше відділення">
                 </div>
             </div>
-            <button class="next-button">Далі</button>
+            <a asp-action="Checkout" asp-controller="Delivery" asp-route-id="@Model.Product.Id" type="submit" class="next-button rounded">Далі</a>
         </div>
     </div>
 
 </body>
 </html>
+
+
 
 
 

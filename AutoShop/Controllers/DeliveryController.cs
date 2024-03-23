@@ -139,6 +139,41 @@ namespace Shop.Controllers
 
 
         }
+        public IActionResult Checkout(int id)
+        {
+            var item = context.Products
+    .Include(x => x.Category)
+    .Include(x => x.District)
+    .Include(x => x.Images).Include(x => x.User)
+    .FirstOrDefault(x => x.Id == id);
+
+            var user = context.Users.Include(x => x.Products).FirstOrDefault(x => x.Email == item.User.Email);
+
+            if (item == null || user == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new ProductViewModel
+            {
+                Product = item,
+
+                Images = item.Images,
+                User = user,
+
+
+                Categories = context.Categories.ToList(),
+                Products = context.Products.Include(x => x.Category).ToList(),
+                Images_2 = context.Images.Include(x => x.Product).ToList(),
+                Districs = context.Districts.ToList(),
+
+            };
+
+            return View(viewModel);
+
+
+        }
     }
+
 
 }
