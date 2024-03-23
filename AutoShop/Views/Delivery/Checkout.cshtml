@@ -1,0 +1,166 @@
+﻿@model Shop.ViewModels.ProductViewModel;
+
+@{
+    ViewData["Title"] = "Підтвердження покупки";
+}
+<style>
+    body {
+        background-color: whitesmoke; /* Светлый фон для всего сайта */
+    }
+
+    .delivery-method {
+        padding-left: 3mm; /* Відступ з лівого краю таблиці */
+        padding-right: 3mm; /* Відступ з правого краю таблиці */
+    }
+
+    .delivery-image {
+        max-width: calc(100% - 3mm); /* Розраховуємо ширину з урахуванням відступів */
+        height: auto;
+        display: block;
+        margin: 5px auto; /* Відступи від країв фотографій усередині блоку доставки */
+    }
+
+    .card-header {
+        background-color: whitesmoke;
+    }
+
+    .col-4 {
+        display: flex; /* Встановлюємо flex контейнер */
+        justify-content: space-between; /* Рівномірно розподіляємо елементи по контейнеру */
+    }
+
+    .md-5 {
+        white-space: nowrap; /* Забороняємо перенесення тексту на новий рядок */
+        margin-right: 16cm; /* Встановлюємо відступ між елементами */
+    }
+
+    .pos {
+        color: orange;
+    }
+
+    .carousel-inner {
+        border: 2px solid gray; /* Чорна границя товщиною 2px */
+        border-radius: 5px; /* Округлені кути */
+    }
+
+    .carousel-control-prev-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+    }
+
+    .carousel-control-next-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+    }
+
+    .carousel-item {
+        display: flex;
+        justify-content: center; /* Вирівнюємо по горизонталі по центру */
+        max-width: 850px;
+        max-height: 350px;
+        margin-bottom: 4px; /* Доданий зазначений margin-bottom */
+    }
+
+    .d-block {
+        max-width: 185px;
+        max-height: 130px;
+    }
+
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        background-color: #f0f0f0;
+    }
+
+    .content {
+        width: 658px;
+        height: 369px;
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: bold; /* Додаємо жирність */
+    }
+
+    p {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 18px; /* Зменшуємо розмір шрифту */
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: flex-start; /* Розміщення кнопок починається з початку контейнера */
+        margin-top: 30px; /* Відстань зверху */
+    }
+
+    .white-button,
+    .orange-button {
+        width: 241px;
+        height: 42px;
+        border: none;
+        border-radius: 8px; /* Заокруглені кути */
+        cursor: pointer;
+        margin-left: 51px; /* Відступ зліва */
+        margin-top: 30px; /* Відступ зверху */
+    }
+
+    .white-button {
+        background-color: white;
+        color: orange;
+        border: 2px solid orange;
+    }
+
+    .orange-button {
+        background-color: orange;
+        color: white;
+    }
+
+    /* Якщо ви хочете застосувати ці стилі тільки до підзаголовків, використовуйте клас або id для цих елементів */
+    .subheading {
+        font-size: 14px;
+        font-weight: 525; /* Зменшуємо товщину шрифту */
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мій блок</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>Покупка завершена</h1>
+            <p class="subheading">Тепер почекаємо поки продавець підтвердить замовлення</p>
+            <p class="subheading">Для підтвердження у нього є 48 годин (не рахуючи день покупки), для відправки — 3 дні (не рахуючи день
+                підтвердження та суботу (для Meest Пошта) чи неділю (для інших логістів)).
+            </p>
+            <div class="buttons">
+                <button class="white-button">Повернутись до оголошень</button>
+                <button class="orange-button">Переглянути замовлення</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
