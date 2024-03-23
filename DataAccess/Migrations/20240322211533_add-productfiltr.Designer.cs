@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContextcs))]
-    partial class ShopDbContextcsModelSnapshot : ModelSnapshot
+    [Migration("20240322211533_add-productfiltr")]
+    partial class addproductfiltr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -349,12 +351,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Price_1")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Price_2")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")

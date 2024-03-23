@@ -19,6 +19,7 @@ namespace Shop.ViewModels
         public District District { get; set; }
         public Category Category { get; set; }
         public Product Product { get; set; }
+     
     }
    
 }

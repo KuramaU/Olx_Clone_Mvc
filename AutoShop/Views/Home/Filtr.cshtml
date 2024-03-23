@@ -1,11 +1,11 @@
 ﻿@model Shop.ViewModels.ProductViewModel;
 @{
-    ViewData["Title"] = "КаталогСорт";
+    ViewData["Title"] = "КаталогФільтр";
 }
 <style>
 
     body {
-        background-color: black; /* Сірий колір фону */
+        background-color: whitesmoke; /* Сірий колір фону */
     }
 
     .search-container {
@@ -134,7 +134,7 @@
             }
 
     .wide-blue-bar {
-        background-color: lightgray;
+        background-color: #1861ac;
         color: #fff;
         padding: 1.5rem 0; /* Внутренний отступ сверху и снизу */
         text-align: center; /* Выравнивание текста по центру */
@@ -407,60 +407,32 @@
 
 </style>
 <body>
-<div class="search-container">
-    <form asp-controller="Home" asp-action="Index" class="form-inline">
-        <div class="input-group">
-            <input class="form-control" type="search" placeholder="Пошук" aria-label="Search" name="SearchString">
-            <button type="submit" class="btn btn-outline-secondary">
-                <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
-            </button>
-        </div>
-    </form>
-</div>
-    <div class="wide-blue-bar">
-        
-   
-        <form asp-controller="Home" asp-action="Filtr" class="form-inline">
-            <h4 style="color:black;">Фільтр</h4>
-            <div class="input-group ">
-                <div class="col-md-3" style="margin-right: 5mm;">
-                    <label asp-for="@Model.Product.CategoryId" class="form-label" style="color:black">Категорія</label>
-                    <select asp-for="@Model.Product.CategoryId" asp-items="@ViewBag.CategoryList" class="form-select">Виберіть категорію </select>
-                    <span asp-validation-for="@Model.Product.CategoryId" class="form-text text-danger"></span>
-                </div>
-                <div class="col-md-1" style="margin-right: 5mm;">
-                    <label asp-for="@Model.Product.Price_1" class="form-label" style="color:black">Ціна</label>
-                    <input asp-for="@Model.Product.Price_1" type="number" class="form-control rounded" placeholder="Від:">
-                    <span asp-validation-for="@Model.Product.Price_1" class="form-text text-danger"></span>
-
-                </div>
-
-                <div class="col-md-1" style="margin-right: 5mm;">
-                    <label asp-for="@Model.Product.Price_2" class="form-label" style="color:black">Ціна  </label>
-                    <input asp-for="@Model.Product.Price_2" type="number" class="form-control rounded" placeholder="До:">
-                    <span asp-validation-for="@Model.Product.Price_2" class="form-text text-danger"></span>
-                </div>
-
-                <div class="col-md-3">
-                    <label asp-for="@Model.Product.DistrictId" class="form-label" style="color:black">Область</label>
-                    <select asp-for="@Model.Product.DistrictId" asp-items="@ViewBag.DistrictList" class="form-select">Область </select>
-                <span asp-validation-for="@Model.Product.DistrictId" class="form-text text-danger"></span>
-            </div>
-                <div class="col-md-3">
-                <button type="submit" class="btn btn-outline-secondary rounded">
-               Застосувати<!-- Иконка лупы из Bootstrap Icons -->
+    <div class="search-container">
+        <form asp-controller="Home" asp-action="Index" class="form-inline">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Пошук" aria-label="Search" name="SearchString">
+                <button type="submit" class="btn btn-outline-secondary">
+                    <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
                 </button>
-                </div>
             </div>
         </form>
-    
-  </div>
-<hr />
+    </div>
+    <div class="search-container">
+        <form asp-controller="Home" asp-action="Filtr" class="form-inline">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Пошук" aria-label="Search" name="SearchString">
+                <button type="submit" class="btn btn-outline-secondary">
+                    <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
+                </button>
+            </div>
+        </form>
+    </div>
+    <hr />
 
 
-    @if(Model.Products.Count>1)
+    @if (Model.Products.Count > 1)
     {
-        <h4>Ми знайшли понад @(Model.Products.Count-1) оголошень</h4>
+        <h4>Ми знайшли понад @(Model.Products.Count - 1) оголошень</h4>
     }
     else if (Model.Products.Count > 0)
     {
@@ -480,9 +452,9 @@
         }
 
         @foreach (var p in sortedProducts.Where(x => x.IS_Arhive != true))
-    {
-        <div class="col-md">
-            <div class="card h-100 product-card">
+        {
+            <div class="col-md">
+                <div class="card h-100 product-card">
                     <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
                         @if (Model.User != null && Model.User.Fav_Products != null)
                         {
@@ -539,72 +511,72 @@
                             }
                         }
                     </div>
-                 <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
-                @if (p.Images != null && p.Images.Any())
-                {
-
-                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.FirstOrDefault().ImageData))" alt="..." />
-                    
-
-                }
-                    else
-                    {
-                        <img  src="~/default.png" alt="...">
-                    }
-              <div class="card-body text-center">
-                    <h5 class="card-title">@p.Name</h5>
-
-                    @if (p.Discout != null)
-                    {
-                        var discountedPrice = p.Price * (100 - p.Discout) / 100;
-                        <p class="card-text">
-                            <span class="badge bg-danger">@discountedPrice UAH</span>
-                        </p>
-                    }
-                    else
-                    {
-                        <p class="card-text">
-                            <span class="badge bg-primary">@p.Price UAH</span>
-                        </p>
-                    }
-                </div> 
-
-                <div class="card-footer text-center">
-                    @* <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
-                        <i class="bi bi-bag-plus"></i>
-                        Додати до кошика
-                    </a>
-                    <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
-                        <i class="bi bi-eye">  </i>
-                    </a> *@
-
-                    <p class="card-text">
-                        <span class="badge bg-info">обл. @p.District?.Name</span>
-                    </p>
-                    <p class="card-text">
-                        @if (p.CreatedDate?.Day == DateTime.Today.Day)
+                    <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
+                        @if (p.Images != null && p.Images.Any())
                         {
-                            <span class="badge bg-white text-dark">Обновлено сьогодні о @p.CreatedDate?.ToString("HH:mm")</span>
-                        }
-                        else if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
-                        {
-                            <span class="badge bg-white text-dark">Обновлено вчора о @p.CreatedDate?.ToString("HH:mm")</span>
+
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.FirstOrDefault().ImageData))" alt="..." />
+
+
                         }
                         else
                         {
-                            <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.ToString("dd.MM.yyyy HH:mm")</span>
+                            <img src="~/default.png" alt="...">
                         }
-                    </p>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@p.Name</h5>
+
+                            @if (p.Discout != null)
+                            {
+                                var discountedPrice = p.Price * (100 - p.Discout) / 100;
+                                <p class="card-text">
+                                    <span class="badge bg-danger">@discountedPrice UAH</span>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="card-text">
+                                    <span class="badge bg-primary">@p.Price UAH</span>
+                                </p>
+                            }
+                        </div>
+
+                        <div class="card-footer text-center">
+                            @* <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
+                        <i class="bi bi-bag-plus"></i>
+                        Додати до кошика
+                        </a>
+                        <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
+                        <i class="bi bi-eye">  </i>
+                        </a> *@
+
+                            <p class="card-text">
+                                <span class="badge bg-info">обл. @p.District?.Name</span>
+                            </p>
+                            <p class="card-text">
+                                @if (p.CreatedDate?.Day == DateTime.Today.Day)
+                                {
+                                    <span class="badge bg-white text-dark">Обновлено сьогодні о @p.CreatedDate?.ToString("HH:mm")</span>
+                                }
+                                else if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
+                                {
+                                    <span class="badge bg-white text-dark">Обновлено вчора о @p.CreatedDate?.ToString("HH:mm")</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.ToString("dd.MM.yyyy HH:mm")</span>
+                                }
+                            </p>
+                        </div>
+                    </a>
                 </div>
-                </a>
             </div>
-        </div>
-    }
-   
-    @foreach (var p in Model.Products.Where(x => x.IsUp_seven != true && x.IsUp_one!=true && x.IS_Arhive!=true))
-    {
-        <div class="col">
-            <div class="card h-100 product-card">
+        }
+
+        @foreach (var p in Model.Products.Where(x => x.IsUp_seven != true && x.IsUp_one != true && x.IS_Arhive != true))
+        {
+            <div class="col">
+                <div class="card h-100 product-card">
                     <div class="wish-icon-container position-absolute top-0 end-0 mt-2 me-2">
                         @if (Model.User != null && Model.User.Fav_Products != null)
                         {
@@ -661,67 +633,67 @@
                             }
                         }
                     </div>
-                  <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
-                @if (p.Images != null && p.Images.Any())
-                {
-                    
-                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.First().ImageData))" alt="..." />
-                    
-
-                }
-                    else
-                    {
-                        <img  src="~/default.png" alt="...">
-                    }
-                <div class="card-body text-center">
-                    <h5 class="card-title">@p.Name</h5>
-
-                    @if (p.Discout != null)
-                    {
-                        var discountedPrice = p.Price * (100 - p.Discout) / 100;
-                        <p class="card-text">
-                            <span class="badge bg-danger">@discountedPrice UAH</span>
-                        </p>
-                    }
-                    else
-                    {
-                        <p class="card-text">
-                            <span class="badge bg-primary">@p.Price UAH</span>
-                        </p>
-                    }
-                </div>
-
-                <div class="card-footer text-center">
-                    @* <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
-                        <i class="bi bi-bag-plus"></i>
-                        Додати до кошика
-                    </a>
-                    <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
-                        <i class="bi bi-eye">  </i>
-                    </a> *@
-
-                    <p class="card-text">
-                        <span class="badge bg-info">обл. @p.District?.Name</span>
-                    </p>
-                    <p class="card-text">
-                        @if (p.CreatedDate?.Day == DateTime.Today.Day)
+                    <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline">
+                        @if (p.Images != null && p.Images.Any())
                         {
-                            <span class="badge bg-white text-dark">Обновлено сьогодні о @p.CreatedDate?.ToString("HH:mm")</span>
-                        }
-                        else if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
-                        {
-                            <span class="badge bg-white text-dark">Обновлено вчора о @p.CreatedDate?.ToString("HH:mm")</span>
+
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Images.First().ImageData))" alt="..." />
+
+
                         }
                         else
                         {
-                            <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.ToString("dd.MM.yyyy HH:mm")</span>
+                            <img src="~/default.png" alt="...">
                         }
-                    </p>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@p.Name</h5>
+
+                            @if (p.Discout != null)
+                            {
+                                var discountedPrice = p.Price * (100 - p.Discout) / 100;
+                                <p class="card-text">
+                                    <span class="badge bg-danger">@discountedPrice UAH</span>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="card-text">
+                                    <span class="badge bg-primary">@p.Price UAH</span>
+                                </p>
+                            }
+                        </div>
+
+                        <div class="card-footer text-center">
+                            @* <a asp-controller="Cart" asp-action="Add" asp-route-id="@p.Id" class="btn btn-outline-success">
+                        <i class="bi bi-bag-plus"></i>
+                        Додати до кошика
+                        </a>
+                        <a asp-controller="Products" asp-action="DetailsCatalog" asp-route-id="@p.Id" class="btn btn-outline-info">
+                        <i class="bi bi-eye">  </i>
+                        </a> *@
+
+                            <p class="card-text">
+                                <span class="badge bg-info">обл. @p.District?.Name</span>
+                            </p>
+                            <p class="card-text">
+                                @if (p.CreatedDate?.Day == DateTime.Today.Day)
+                                {
+                                    <span class="badge bg-white text-dark">Обновлено сьогодні о @p.CreatedDate?.ToString("HH:mm")</span>
+                                }
+                                else if (p.CreatedDate?.Day == DateTime.Today.Day - 1)
+                                {
+                                    <span class="badge bg-white text-dark">Обновлено вчора о @p.CreatedDate?.ToString("HH:mm")</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-white text-dark">Обновлено @p.CreatedDate?.ToString("dd.MM.yyyy HH:mm")</span>
+                                }
+                            </p>
+                        </div>
+                    </a>
                 </div>
-                </a>
             </div>
-        </div>
-    }
+        }
 
     </div>
 </body>

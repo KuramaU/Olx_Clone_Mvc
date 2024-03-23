@@ -18,6 +18,11 @@ namespace Data.Entities
      
         public decimal Price { get; set; }
         public bool Has_Delivery { get; set; }
+
+        public decimal? Price_1 { get; set; }
+
+        public decimal? Price_2 { get; set; }
+
         public bool? IS_Arhive { get; set; }
         public bool? IsUp_one{ get; set; }
         public DateTime? D_Up_one { get; set; }
