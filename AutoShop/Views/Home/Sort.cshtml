@@ -5,7 +5,7 @@
 <style>
 
     body {
-        background-color: black; /* Сірий колір фону */
+        background-color: whitesmoke; /* Сірий колір фону */
     }
 
     .search-container {
@@ -421,8 +421,22 @@
         
    
         <form asp-controller="Home" asp-action="Filtr" class="form-inline">
-            <h4 style="color:black;">Фільтр</h4>
+            <h1 style="color:black;">Фільтр</h1>
+            <div class="col-md-3" style="margin-right: 5mm; color:black;">
+
+                <input asp-for="@Model.Product.Has_Photo" class="form-check-input"  type="checkbox">
+                <label asp-for="@Model.Product.Has_Photo" class="form-check-label"><b>Тільки з фото</b></label>
+                <span asp-validation-for="@Model.Product.Has_Photo" class="form-text text-danger"></span>
+                
+           
+
+                <input asp-for="@Model.Product.Has_Delivery" class="form-check-input"   type="checkbox">
+                <label asp-for="@Model.Product.Has_Delivery" class="form-check-label"><b> Товари з доставкою</b></label>
+                <span asp-validation-for="@Model.Product.Has_Delivery" class="form-text text-danger"></span>
+            </div>
             <div class="input-group ">
+               
+
                 <div class="col-md-3" style="margin-right: 5mm;">
                     <label asp-for="@Model.Product.CategoryId" class="form-label" style="color:black">Категорія</label>
                     <select asp-for="@Model.Product.CategoryId" asp-items="@ViewBag.CategoryList" class="form-select">Виберіть категорію </select>
@@ -447,7 +461,9 @@
                 <span asp-validation-for="@Model.Product.DistrictId" class="form-text text-danger"></span>
             </div>
                 <div class="col-md-3">
-                <button type="submit" class="btn btn-outline-secondary rounded">
+                    <label class="form-label" style="color:black"> =
+                    </label>
+                <button type="submit" class="btn btn-outline-secondary rounded" style="background-color:orange">
                Застосувати<!-- Иконка лупы из Bootstrap Icons -->
                 </button>
                 </div>

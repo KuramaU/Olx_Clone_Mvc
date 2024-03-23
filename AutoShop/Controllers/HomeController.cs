@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.Entities;
+using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,9 @@ namespace Shop.Controllers
 
         public async Task<IActionResult> Index(string searchString)
         {
+            LoadCategories();
+            LoadDistricts();
+            LoadImages();
             if (!ModelState.IsValid)
             {
                 LoadCategories();
@@ -146,74 +150,77 @@ namespace Shop.Controllers
                 return View(viewModel); // Приклад перенаправлення на сторінку входу
             }
         }
-        [HttpPost]
-        public IActionResult Sort(int? categoryId)
-        {
+        //[HttpPost]
+        //public IActionResult Sort(int? categoryId)
+        //{
 
-            if (!ModelState.IsValid)
-            {
-                LoadCategories();
-                LoadDistricts();
-                LoadImages();
-                return View("Home", "Sort");
-            }
-            var products = from m in context.Products
-                           select m;
+        //    if (!ModelState.IsValid)
+        //    {
+        //        LoadCategories();
+        //        LoadDistricts();
+        //        LoadImages();
+        //        return View("Home", "Sort");
+        //    }
+        //    var products = from m in context.Products
+        //                   select m;
 
-            if (categoryId.HasValue)
-            {
-                if (categoryId.Value == 13)
-                {
-                    int selectedCategoryId = categoryId.Value;
-                    products = products.Where(s => s.Category_VIP_Id == selectedCategoryId);
-                }
-                else
-                {
-                    int selectedCategoryId = categoryId.Value;
-                    products = products.Where(s => s.CategoryId == selectedCategoryId);
-                }
-            }
-            else
-            {
-                // Логіка для випадку, коли categoryId не має значення
-            }
-            var products_ = products.Include(p => p.Category)
-                 .Include(p => p.District)
-                 .ToList();
-            var user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
+        //    if (categoryId.HasValue)
+        //    {
+        //        if (categoryId.Value == 13)
+        //        {
+        //            int selectedCategoryId = categoryId.Value;
+        //            products = products.Where(s => s.Category_VIP_Id == selectedCategoryId);
+        //        }
+        //        else
+        //        {
+        //            int selectedCategoryId = categoryId.Value;
+        //            products = products.Where(s => s.CategoryId == selectedCategoryId);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        // Логіка для випадку, коли categoryId не має значення
+        //    }
+        //    var products_ = products.Include(p => p.Category)
+        //         .Include(p => p.District)
+        //         .ToList();
+        //    var user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
 
-            if (user != null)
-            {
-                var fvproducts = context.FavouriteProd.Where(x => x.user.Id == user.Id).ToList();
-                user.Fav_Products = fvproducts;
-                var viewModel = new ProductViewModel
-                {
-                    Categories = context.Categories.ToList(),
-                    Products = products_.ToList(),
-                    Images = context.Images.Include(x => x.Product).ToList(),
-                    User = user,
-                };
-                return View(viewModel);
-            }
-            else
-            {
-                var viewModel = new ProductViewModel
-                {
-                    Categories = context.Categories.ToList(),
-                    Products = products_.ToList(),
-                    Images = context.Images.Include(x => x.Product).ToList(),
+        //    if (user != null)
+        //    {
+        //        var fvproducts = context.FavouriteProd.Where(x => x.user.Id == user.Id).ToList();
+        //        user.Fav_Products = fvproducts;
+        //        var viewModel = new ProductViewModel
+        //        {
+        //            Categories = context.Categories.ToList(),
+        //            Products = products_.ToList(),
+        //            Images = context.Images.Include(x => x.Product).ToList(),
+        //            User = user,
+        //        };
+        //        return View(viewModel);
+        //    }
+        //    else
+        //    {
+        //        var viewModel = new ProductViewModel
+        //        {
+        //            Categories = context.Categories.ToList(),
+        //            Products = products_.ToList(),
+        //            Images = context.Images.Include(x => x.Product).ToList(),
 
-                };
-                // Обробка випадку, коли користувача не знайдено
-                return View(viewModel); // Приклад перенаправлення на сторінку входу
-            }
-        }
+        //        };
+        //        // Обробка випадку, коли користувача не знайдено
+        //        return View(viewModel); // Приклад перенаправлення на сторінку входу
+        //    }
+        //}
 
       
 
 
 public IActionResult Filtr(Product product)
         {
+            LoadCategories();
+            LoadDistricts();
+            LoadImages();
 
             int? categoryId=product.CategoryId;
             int? districtId=product.DistrictId;
@@ -221,90 +228,124 @@ public IActionResult Filtr(Product product)
 
             decimal? price_2 = product.Price_2;
 
-            //bool? has_Delivery = product.Has_Delivery;
+            bool? has_Delivery = product.Has_Delivery;
 
-            // bool? has_Photo=product.Has_Photo;
+            bool? has_Photo = product.Has_Photo;
 
-            // bool? InStock=product.InStock;
 
-            //int? howSort = product.HowSort;
 
-     
-        var products = from m in context.Products
+
+            var products = from m in context.Products
                            select m;
 
 
-
+          //  віп оголоешння
             if (categoryId.HasValue && districtId.HasValue)
             {
                 if (categoryId.Value == 13)
                 {
-                    products = products.Where(s => s.Category_VIP_Id == categoryId && s.DistrictId == districtId);
+                    if (districtId.Value == 1)
+                    {
+                        products = products.Where(s => s.Category_VIP_Id == categoryId );
 
-                    if (price_1.HasValue && price_2.HasValue)
-                    {
-                        products = products.Where(s => s.Price > price_1.Value && s.Price < price_2.Value);
+                        if (price_1.HasValue && price_2.HasValue)
+                        {
+                            products = products.Where(s => s.Price > price_1.Value && s.Price < price_2.Value);
+                        }
+                        else if (price_1.HasValue)
+                        {
+                            products = products.Where(s => s.Price > price_1);
+                        }
+                        else if (price_2.HasValue)
+                        {
+                            products = products.Where(s => s.Price < price_2);
+                        }
                     }
-                    else if (price_1.HasValue)
+                    else
                     {
-                        products = products.Where(s => s.Price > price_1);
-                    }
-                    else if (price_2.HasValue)
-                    {
-                        products = products.Where(s => s.Price < price_2);
+
+
+                        products = products.Where(s => s.Category_VIP_Id == categoryId && s.DistrictId == districtId);
+
+                        if (price_1.HasValue && price_2.HasValue)
+                        {
+                            products = products.Where(s => s.Price > price_1.Value && s.Price < price_2.Value);
+                        }
+                        else if (price_1.HasValue)
+                        {
+                            products = products.Where(s => s.Price > price_1);
+                        }
+                        else if (price_2.HasValue)
+                        {
+                            products = products.Where(s => s.Price < price_2);
+                        }
                     }
                 }
                 else
                 {
-                    products = products.Where(s => s.CategoryId == categoryId && s.DistrictId == districtId);
+                    if (districtId.Value == 1)
+                    {
+                        products = products.Where(s => s.CategoryId == categoryId );
 
-                    if (price_1.HasValue && price_2.HasValue)
-                    {
-                        products = products.Where(s => s.Price > price_1.Value && s.Price < price_2.Value);
+                        if (price_1.HasValue && price_2.HasValue)
+                        {
+                            products = products.Where(s => s.Price > price_1.Value && s.Price < price_2.Value);
+                        }
+                        else if (price_1.HasValue)
+                        {
+                            products = products.Where(s => s.Price > price_1);
+                        }
+                        else if (price_2.HasValue)
+                        {
+                            products = products.Where(s => s.Price < price_2);
+                        }
                     }
-                    else if (price_1.HasValue)
+                    else
                     {
-                        products = products.Where(s => s.Price > price_1);
-                    }
-                    else if (price_2.HasValue)
-                    {
-                        products = products.Where(s => s.Price < price_2);
+
+
+                        products = products.Where(s => s.CategoryId == categoryId && s.DistrictId == districtId);
+
+                        if (price_1.HasValue && price_2.HasValue)
+                        {
+                            products = products.Where(s => s.Price > price_1.Value && s.Price < price_2.Value);
+                        }
+                        else if (price_1.HasValue)
+                        {
+                            products = products.Where(s => s.Price > price_1);
+                        }
+                        else if (price_2.HasValue)
+                        {
+                            products = products.Where(s => s.Price < price_2);
+                        }
                     }
                 }
+
+              
+
+                 //має фотки або доставку
+                if (has_Delivery.HasValue && has_Photo.HasValue)
+                {
+                    if (has_Delivery.Value && has_Photo.Value)
+                    {
+                        products = products.Where(s => s.Has_Delivery && s.Images.Any());
+                    }
+                    else if (has_Delivery.Value)
+                    {
+                        products = products.Where(s => s.Has_Delivery);
+                    }
+                    else if (has_Photo.Value)
+                    {
+                        products = products.Where(s => s.Images.Any());
+                    }
+                }
+
             }
             else
             {
                 // Логіка для випадку, коли categoryId або districtId не мають значення
             }
-            //if (categoryId.HasValue)
-            //{
-            //    if (categoryId.Value == 13)
-            //    {
-            //        int selectedCategoryId = categoryId.Value;
-            //        int selectedDistrictId = districtId.Value;
-            //        decimal selectedPrice_1 = price_1.Value;
-            //        decimal selectedPrice_2 = price_2.Value;
-            //        //bool selectedHas_delivery = has_Delivery.Value;
-            //        //bool selectedHas_photo = has_Photo.Value;
-            //        //bool selectedInstock = InStock.Value;
-            //        products = products.Where(s => s.Category_VIP_Id == selectedCategoryId ).Where(s => s.DistrictId == selectedDistrictId).Where(s=>s.Price>selectedPrice_1&&s.Price<selectedPrice_2);
-            //    }
-            //    else
-            //    {
-            //        int selectedCategoryId = categoryId.Value;
-            //        int selectedDistrictId = districtId.Value;
-            //        decimal? selectedPrice_1 = price_1.Value;
-            //        decimal? selectedPrice_2 = price_2.Value;
-            //        //bool selectedHas_delivery = has_Delivery.Value;
-            //        //bool selectedHas_photo = has_Photo.Value;
-            //        //bool selectedInstock = InStock.Value;
-            //        products = products.Where(s => s.CategoryId == selectedCategoryId ).Where(s=>s.DistrictId==selectedDistrictId);
-            //    }
-            //}
-            //else
-            //{
-            //    // Логіка для випадку, коли categoryId не має значення
-            //}
+            
             var products_ = products.Include(p => p.Category)
                  .Include(p => p.District)
                  .ToList();

@@ -29,7 +29,7 @@ namespace Shop.Controllers
         }
         private void LoadDistricts()
         {
-            ViewBag.DistrictList = new SelectList(context.Districts.ToList(), "Id", "Name");
+            ViewBag.DistrictList = new SelectList(context.Districts.ToList(), "Id", "Name").Skip(1);
 
 
         }

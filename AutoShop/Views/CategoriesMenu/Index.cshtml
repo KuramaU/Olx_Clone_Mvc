@@ -427,7 +427,7 @@
 <div class="category-block">
     <!-- Первый горизонтальный ряд -->
     <div class="category-row">
-        @foreach (var category in Model.Categories.Take(6))
+            @foreach (var category in Model.Categories.Take(6))
         {
             <div class="category-card">
                 <a asp-controller="Home" asp-action="Sort" asp-route-categoryId="@category.Id">

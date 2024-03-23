@@ -134,12 +134,13 @@
             }
 
     .wide-blue-bar {
-        background-color: #1861ac;
+        background-color: lightgray;
         color: #fff;
         padding: 1.5rem 0; /* Внутренний отступ сверху и снизу */
         text-align: center; /* Выравнивание текста по центру */
         margin-top: 20px; /* Верхний отступ */
         margin-bottom: 20px; /* Нижний отступ */
+
     }
 
     .image-container {
@@ -417,15 +418,60 @@
             </div>
         </form>
     </div>
-    <div class="search-container">
+    <div class="wide-blue-bar">
+
+
         <form asp-controller="Home" asp-action="Filtr" class="form-inline">
-            <div class="input-group">
-                <input class="form-control" type="search" placeholder="Пошук" aria-label="Search" name="SearchString">
-                <button type="submit" class="btn btn-outline-secondary">
-                    <i class="bi bi-search"></i> <!-- Иконка лупы из Bootstrap Icons -->
-                </button>
+            <h1 style="color:black;">Фільтр</h1>
+            <div class="col-md-3" style="margin-right: 5mm; color:black;">
+
+                <input asp-for="@Model.Product.Has_Photo" class="form-check-input" type="checkbox">
+                <label asp-for="@Model.Product.Has_Photo" class="form-check-label"><b>Тільки з фото</b></label>
+                <span asp-validation-for="@Model.Product.Has_Photo" class="form-text text-danger"></span>
+
+
+
+                <input asp-for="@Model.Product.Has_Delivery" class="form-check-input" type="checkbox">
+                <label asp-for="@Model.Product.Has_Delivery" class="form-check-label"><b> Товари з доставкою</b></label>
+                <span asp-validation-for="@Model.Product.Has_Delivery" class="form-text text-danger"></span>
+            </div>
+            <div class="input-group ">
+
+
+                <div class="col-md-3" style="margin-right: 5mm;">
+                    <label asp-for="@Model.Product.CategoryId" class="form-label" style="color:black">Категорія</label>
+                    <select asp-for="@Model.Product.CategoryId" asp-items="@ViewBag.CategoryList" class="form-select">Виберіть категорію </select>
+                    <span asp-validation-for="@Model.Product.CategoryId" class="form-text text-danger"></span>
+                </div>
+                <div class="col-md-1" style="margin-right: 5mm;">
+                    <label asp-for="@Model.Product.Price_1" class="form-label" style="color:black">Ціна</label>
+                    <input asp-for="@Model.Product.Price_1" type="number" class="form-control rounded" placeholder="Від:">
+                    <span asp-validation-for="@Model.Product.Price_1" class="form-text text-danger"></span>
+
+                </div>
+
+                <div class="col-md-1" style="margin-right: 5mm;">
+                    <label asp-for="@Model.Product.Price_2" class="form-label" style="color:black">Ціна  </label>
+                    <input asp-for="@Model.Product.Price_2" type="number" class="form-control rounded" placeholder="До:">
+                    <span asp-validation-for="@Model.Product.Price_2" class="form-text text-danger"></span>
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="@Model.Product.DistrictId" class="form-label" style="color:black">Область</label>
+                    <select asp-for="@Model.Product.DistrictId" asp-items="@ViewBag.DistrictList" class="form-select">Область </select>
+                    <span asp-validation-for="@Model.Product.DistrictId" class="form-text text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" style="color:black">
+                        =
+                    </label>
+                    <button type="submit" class="btn btn-outline-secondary rounded" style="background-color:orange">
+                        Застосувати<!-- Иконка лупы из Bootstrap Icons -->
+                    </button>
+                </div>
             </div>
         </form>
+
     </div>
     <hr />
 

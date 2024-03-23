@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContextcs))]
-    partial class ShopDbContextcsModelSnapshot : ModelSnapshot
+    [Migration("20240323020329_add_has_photo")]
+    partial class add_has_photo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,131 +144,126 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Вся Україна"
-                        },
-                        new
-                        {
-                            Id = 2,
                             Name = "Aвтономна Республiка Крим"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 2,
                             Name = "Вінницька"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 3,
                             Name = "Волинська"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 4,
                             Name = "Днiпропетровська"
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 5,
                             Name = "Донецька"
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 6,
                             Name = "Житомирська"
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 7,
                             Name = "Закарпатська"
                         },
                         new
                         {
-                            Id = 9,
+                            Id = 8,
                             Name = "Запорiзька"
                         },
                         new
                         {
-                            Id = 10,
+                            Id = 9,
                             Name = "Iвано-Франкiвська"
                         },
                         new
                         {
-                            Id = 11,
+                            Id = 10,
                             Name = "Київська"
                         },
                         new
                         {
-                            Id = 12,
+                            Id = 11,
                             Name = "Кiровоградська"
                         },
                         new
                         {
-                            Id = 13,
+                            Id = 12,
                             Name = "Луганська"
                         },
                         new
                         {
-                            Id = 14,
+                            Id = 13,
                             Name = "Львiвська"
                         },
                         new
                         {
-                            Id = 15,
+                            Id = 14,
                             Name = "Миколаївська"
                         },
                         new
                         {
-                            Id = 16,
+                            Id = 15,
                             Name = "Одеська"
                         },
                         new
                         {
-                            Id = 17,
+                            Id = 16,
                             Name = "Полтавська"
                         },
                         new
                         {
-                            Id = 18,
+                            Id = 17,
                             Name = "Рiвненська"
                         },
                         new
                         {
-                            Id = 19,
+                            Id = 18,
                             Name = "Сумська"
                         },
                         new
                         {
-                            Id = 20,
+                            Id = 19,
                             Name = "Тернопiльська"
                         },
                         new
                         {
-                            Id = 21,
+                            Id = 20,
                             Name = "Харкiвська"
                         },
                         new
                         {
-                            Id = 22,
+                            Id = 21,
                             Name = "Херсонська"
                         },
                         new
                         {
-                            Id = 23,
+                            Id = 22,
                             Name = "Хмельницька"
                         },
                         new
                         {
-                            Id = 24,
+                            Id = 23,
                             Name = "Черкаська"
                         },
                         new
                         {
-                            Id = 25,
+                            Id = 24,
                             Name = "Чернiвецька"
                         },
                         new
                         {
-                            Id = 26,
+                            Id = 25,
                             Name = "Чернiгiвська"
                         });
                 });
