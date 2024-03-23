@@ -103,5 +103,6 @@ namespace Data
        public DbSet<District> Districts { get; set; }
         public DbSet<ProductImage> Images { get; set; }
         public DbSet<FavouriteProducts> FavouriteProd { get; set; }
+        public DbSet<PaymentBag> Payments{ get; set; }
     }
 }

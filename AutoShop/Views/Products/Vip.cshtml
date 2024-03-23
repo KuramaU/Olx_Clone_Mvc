@@ -202,42 +202,46 @@
         <hr />
 
         <div class="btn-container">
-            <form id="productForm1" asp-action="SETVIPSTATUS" asp-controller="Products" method="post">
-                <input asp-for="Id" type="hidden" />
-                <label class="btn-custom" id="btn1">
-                    <input type="radio" name="radio" />
-                    <span class="checkmark"></span> <!-- Зона для                    отображения галочки -->
-                    Підняття вгору списку <i class="bi bi-award-fill"></i>
-                    <span style="margin-left: auto;">300 грн</span>
-                </label>
-            </form>
+            
             <form id="productForm2" asp-action="UP_ONE_DAY" asp-controller="Products" method="post">
                 <input asp-for="Id" type="hidden" />
                 <label class="btn-custom" id="btn2">
-                    <input type="radio" name="radio" />
+                    <input type="radio" id="btn2" name="radio" />
                     <span class="checkmark"></span> <!-- Зона для отображения галочки -->
-                    VIP-оголошення на 7 днів
-                    <span style="margin-left: auto;">300 грн</span>
+                    Підняття вгору списку
+                    <span style="margin-left: auto;">9 грн</span>
+                </label>
+            </form>
+            <form id="productForm1" asp-action="SETVIPSTATUS" asp-controller="Products" method="post">
+                <input asp-for="Id" type="hidden" />
+                <label class="btn-custom" id="btn1">
+                    <input type="radio" id="btn1" name="radio" />
+                    <span class="checkmark"></span> <!-- Зона для                    отображения галочки -->
+                    Підняття вгору списку   VIP-оголошення на 7 днів
+                    <span style="margin-left: auto;">289 грн</span>
                 </label>
             </form>
             <form id="productForm3" asp-action="UP_SEVEN_DAYS" asp-controller="Products" method="post">
                 <input asp-for="Id" type="hidden" />
                 <label class="btn-custom" id="btn3">
-                    <input type="radio" name="radio" />
+                    <input type="radio" id="btn3" name="radio" />
                     <span class="checkmark"></span> <!-- Зона для отображения галочки -->
                     7 підняттів вгору списку (на 7 днів)
-                    <span style="margin-left: auto;">300 грн</span>
+                    <span style="margin-left: auto;">89 грн</span>
                 </label>
             </form>
-            <form id="productForm4" asp-action="DELETE_ALL_STATUSES" asp-controller="Products" method="post">
-                <input asp-for="Id" type="hidden" />
+            @if (User.IsInRole("Administrator"))
+                {
+                    <form id="productForm4" asp-action="DELETE_ALL_STATUSES" asp-controller="Products" method="post">
+                        <input asp-for="Id" type="hidden" />
                 <label class="btn-custom" id="btn4">
                     <input type="radio" name="radio" />
                     <span class="checkmark"></span> <!-- Зона для отображения галочки -->
                     Забрати всі статуси
-                    <span style="margin-left: auto;">300 грн</span>
+                    
                 </label>
             </form>
+            }
         </div>
         <div class="payment-method-container">
             <div class="payment-method">Спосіб оплати</div>
@@ -251,19 +255,90 @@
             </div>
         </div>
         <div class="total-container" style="position: relative; display: flex; align-items: center;">
-            <div>Усього до сплати:</div>
-            <div style="margin-left: 30px;">9 грн</div>
-            <button class="orange-btn" style="margin-left: auto; margin-right: 10px;">Оплатити</button>
+            <div id="total-amount"></div>
+
+           
+            <button id="payment-button" class="orange-btn" style="margin-left: auto; margin-right: 10px;">Оплатити</button>
+
             <button class="white-btn">Відхилити</button>
         </div>
 
 
 
-
-
-
     </div>
+    <script>
+        // Оновлення стрічки "Усього до сплати" при кожному виборі опції
+        function updateTotalAmount() {
+            var selectedOption = document.querySelector('input[type="radio"]:checked');
+            console.log(selectedOption);
+            if (selectedOption) {
+                var amount = 0;
+                if (selectedOption.id === 'btn1') {
+                    amount = 289;
+                } else if (selectedOption.id === 'btn2') {
+                    amount = 9;
+                } else if (selectedOption.id === 'btn3') {
+                    amount = 89;
+                }
 
+                document.getElementById('total-amount').textContent = 'Усього до сплати: ' +amount + ' грн';
+            }
+        }
+
+
+        var radioButtons = document.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(function (radioButton) {
+            radioButton.addEventListener('change', updateTotalAmount);
+        });
+
+        // Викликати функцію updateTotalAmount() при завантаженні сторінки
+        window.onload = updateTotalAmount;
+
+    </script>
+
+
+  
+
+
+
+
+
+
+    <script>
+        document.getElementById('payment-button').addEventListener('click', function () {
+            // Отримання обраної опції
+            var selectedOption = document.querySelector('input[type="radio"]:checked');
+
+            // Перевірка, чи вибрано опцію
+            if (selectedOption) {
+                // Отримання форми, до якої відноситься обрана опція
+                var form = selectedOption.closest('form');
+
+                // Відправка даних форми на сервер за допомогою AJAX
+                var formData = new FormData(form);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', form.action, true);
+                xhr.onload = function () {
+                    // Перевірка статусу відповіді сервера
+                    if (xhr.status === 200) {
+                        // Перенаправлення на головну сторінку після успішної оплати
+                        window.location.href = '/CategoriesMenu/Index';
+                    } else {
+                        // Обробка помилки оплати
+                        alert('Помилка оплати. Будь ласка, спробуйте ще раз.');
+                    }
+                };
+                xhr.onerror = function () {
+                    // Обробка помилки оплати
+                    alert('Помилка оплати. Будь ласка, спробуйте ще раз.');
+                };
+                xhr.send(formData);
+            } else {
+                // Повідомлення, якщо не обрано жодної опції
+                alert('Будь ласка, виберіть опцію перед оплатою.');
+            }
+        });
+    </script>
     <script>
         // Получаем все радиокнопки
         var radioButtons = document.querySelectorAll('input[type="radio"]');

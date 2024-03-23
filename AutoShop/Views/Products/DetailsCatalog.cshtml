@@ -208,12 +208,12 @@
                         }
                         else
                         {
-                            
+                            <div class="carousel-item active">
                                 <img src="~/default.png" class="d-block w-100" alt="...">
-                            
+                            </div>
                         }
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
@@ -663,60 +663,6 @@
         this.textContent = "+380 @Model.Product.Phonenumber";
     });
 
-@* <script>
-    // Функція для відображення або приховання висувної таблиці жалоби
-     function toggleComplaintTable() {
-        var complaintTable = document.getElementById('complaintTable');
-        if (complaintTable.style.display === 'none') {
-            complaintTable.style.display = 'block';
-            // Заблокувати інші елементи на сторінці
-            document.body.classList.add('modal-open');
-            // Додатковий код для затемнення сторінки
-            var overlay = document.createElement('div');
-            overlay.id = 'overlay';
-            overlay.style.position = 'fixed';
-            overlay.style.top = '0';
-            overlay.style.left = '0';
-            overlay.style.width = '100%';
-            overlay.style.height = '100%';
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-            overlay.style.zIndex = '1000';
-            document.body.appendChild(overlay);
-        } else {
-            complaintTable.style.display = 'none';
-            // Розблокувати інші елементи на сторінці
-            document.body.classList.remove('modal-open');
-            // Видалити затемнення сторінки
-            var overlay = document.getElementById('overlay');
-            if (overlay) {
-                document.body.removeChild(overlay);
-            }
-        }
-    }
-    
-    // Додавання події кліку на кнопку "Поскаржитися"
-    document.querySelector('.pos').addEventListener('click', function () {
-        // Делегуємо функцію переключення висувної таблиці жалоби
-        toggleComplaintTable();
-    });
-
-    function closeComplaintTable() {
-        toggleComplaintTable();
-    }
-
-    function showSubOptions() {
-        var complaintType = document.getElementById('complaintType').value;
-        var subOptions = document.getElementById('subOptions');
-        if (complaintType) {
-            subOptions.style.display = 'block';
-            // Додатковий код для відображення підопцій в залежності від обраного типу скарги
-        } else {
-            subOptions.style.display = 'none';
-        }
-    }
-</script> *@
-
-
     function toggleComplaintTable() {
         var complaintTable = document.getElementById('complaintTable');
         if (complaintTable.style.display === 'none') {
@@ -760,4 +706,6 @@
         }
     }
 </script>
+
+
 
