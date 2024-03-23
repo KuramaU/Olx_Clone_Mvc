@@ -1,104 +1,156 @@
 ﻿@model Data.Entities.Product;
-<h1>Створити нове оголошення</h1>
-<form asp-action="Create" class="row g-3" enctype="multipart/form-data">
-    <div class="col-md-12">
-        <label asp-for="Name" method="post" class="form-label">Назва</label>
-        <input asp-for="Name" type="text" class="form-control" placeholder="Введіть назву товару">
-        <span asp-validation-for="Name" class="form-text text-danger"></span>
-  </div>
+@{
+    ViewData["Title"] = "СтворенняОголшення";
+}
+ 
+    <style>
+    body {
+        background-color:whitesmoke;
+    }
+        .container,
+        .container1,
+        .container2,
+        .container3,
+        .container5,
+        .container4 {
+        padding: 20px;
+        border-radius: 10px;
+        margin: 0 auto;
+        width: 80%; /* або будь-яке інше значення, що вам потрібно */
+        margin-top: 20px;
+        margin-bottom: 20px;
+        }
+    </style>
 
-  <div class="col-md-6">
-        <label asp-for="Price" class="form-label">Ціна</label>
-        <input asp-for="Price" type="number" class="form-control" placeholder="Введіть ціну">
-        <span asp-validation-for="Price" class="form-text text-danger"></span>
-    </div>
+<body >
+    <h1 class="text-center">Створити нове оголошення</h1>
+    <form asp-action="Create" class="row g-3" enctype="multipart/form-data" style="background-color:whitesmoke">
 
-  <div class="col-md-6">
-        <label asp-for="Discout" class="form-label">Знижка</label>
-        <input asp-for="Discout" type="number" class="form-control" placeholder="Введіть знижку">
-        <span asp-validation-for="Discout" class="form-text text-danger"></span>
-    </div>
-
-    <div class="col-md-12">
-     
-        <label asp-for="CategoryId" class="form-label">Категорії</label>
-        <select asp-for="CategoryId" asp-items="@ViewBag.CategoryList" class="form-select">Виберіть категорію </select>
-        <span asp-validation-for="CategoryId" class="form-text text-danger"></span>
-    </div>
-   @*  фотономер1 *@
-   <div class="col-md-12">
-        <label asp-for="UploadImages" method="post" class="form-label">Додайте фото вашого продукту</label>
-        <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" >
-        <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
-</div>
-    @*  фотономер2 *@
-    <div class="col-md-12">
-        <label asp-for="UploadImages" method="post" class="form-label">Додайте фото вашого продукту</label>
-        <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control">
-        <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
-    </div>
-    @*  фотономер3 *@
-    <div class="col-md-12">
-        <label asp-for="UploadImages" method="post" class="form-label">Додайте фото вашого продукту</label>
-        <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control">
-        <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
-    </div>
-    @*  фотономер4 *@
-    <div class="col-md-12">
-        <label asp-for="UploadImages" method="post" class="form-label">Додайте фото вашого продукту</label>
-        <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control">
-        <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
-    </div>
-    @*  фотономер5 *@
-    <div class="col-md-12">
-        <label asp-for="UploadImages" method="post" class="form-label">Додайте фото вашого продукту</label>
-        <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control">
-        <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
-    </div>
-
-
-    <div class="col-mb-12">
-        <label asp-for="Description" class="form-label">Додайте Опис</label>
-        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Введіть опис товару"></textarea>
-        <span asp-validation-for="Description" class="form-text text-danger"></span>
-    </div>
-
-    <div class="col-md-12">
-
-        <label asp-for="DistrictId" class="form-label">Місцезнаходження</label>
-        <select asp-for="DistrictId" asp-items="@ViewBag.DistrictList" class="form-select">Область </select>
-        <span asp-validation-for="DistrictId" class="form-text text-danger"></span>
-    </div>
-    <div class="col-12">
-            <div class="form-check">
-            <input asp-for="Has_Delivery" class="form-check-input" type="checkbox" >
-                    <label asp-for="Has_Delivery" class="form-check-label"> Bag Доставка</label>
-                    <span asp-validation-for="Has_Delivery" class="form-text text-danger"></span>
+        <div class="container4">
+            <div class="row">
+                <div class="col-md-12 bg-white rounded p-3 mb-3">
+                    <div class="col-md-12 mt-3">
+                        <label asp-for="Name" method="post" class="form-label">Назва</label>
+                        <input asp-for="Name" type="text" class="form-control" placeholder="Введіть назву товару">
+                        <span asp-validation-for="Name" class="form-text text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <label asp-for="Price" class="form-label">Ціна</label>
+                        <input asp-for="Price" type="number" class="form-control" placeholder="Введіть ціну">
+                        <span asp-validation-for="Price" class="form-text text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <label asp-for="Discout" class="form-label">Знижка</label>
+                        <input asp-for="Discout" type="number" class="form-control" placeholder="Введіть знижку">
+                        <span asp-validation-for="Discout" class="form-text text-danger"></span>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <label asp-for="CategoryId" class="form-label">Категорії</label>
+                        <select asp-for="CategoryId" asp-items="@ViewBag.CategoryList" class="form-select">Виберіть категорію </select>
+                        <span asp-validation-for="CategoryId" class="form-text text-danger"></span>
+                    </div>
+                </div>
             </div>
-    </div> 
-    <div class="col-md-12">
+        </div>
+    
+
+       
 
     
-        <label asp-for="Username" method="post" class="form-label">Контактна особа</label>
-        <input asp-for="Username" type="text" class="form-control" placeholder="Ім'я">
-        <span asp-validation-for="Username" class="form-text text-danger"></span>
-    </div>
-    <div class="col-md-12">
-        <label asp-for="Phonenumber" class="form-label">Номер телефону</label>
-        <input asp-for="Phonenumber" type="number" class="form-control" placeholder="+380">
-        <span asp-validation-for="Phonenumber" class="form-text text-danger"></span>
-  
-    </div>
-  
+   @*  фотономер1 *@
+        <div class="container" style="background-color: white;">
+            <div class="row">
+                <div class="col-md-4 mb-3" style="background-color: white;">
+                    <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
+                    <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;">
+                    <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+                </div>
 
- 
+                <div class="col-md-4 mb-3" style="background-color: white;">
+                    <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
+                    <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;;">
+                    <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3" style="background-color: white;">
+                    <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
+                    <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;">
+                    <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3" style="background-color: white;">
+                    <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
+                    <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;">
+                    <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+                </div>
+                <!-- Якщо потрібно додати ще один блок для завантаження фото, розмістіть його тут у відповідній колонці -->
+                <div class="col-md-4 mb-3" style="background-color: white;">
+                    <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
+                    <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;">
+                    <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+                </div>
+               
+            </div>
+        </div>
 
-    <div class="col-6">
-        <a asp-action="Index" asp-controller="Profil" class="btn btn-secondary w-100">Back</a>
-    </div>
 
 
-  <div class="col-6">
-    <button type="submit" class="btn btn-success w-100">Готово</button>
-  </div>
-</form>
+
+
+
+        <div class="container1" style="background-color: white;">
+            <div class="row">
+                <div class="col-mb-12">
+                    <label asp-for="Description" class="form-label">Додайте Опис</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" style="background-color:#EFEFEF;" placeholder="Введіть опис товару"></textarea>
+                    <span asp-validation-for="Description" class="form-text text-danger" ></span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="container2" style="background-color: white;">
+            <div class="row">
+                <div class="col-md-12">
+                    <label asp-for="DistrictId" class="form-label">Місцезнаходження</label>
+                    <select asp-for="DistrictId" asp-items="@ViewBag.DistrictList" class="form-select">Область </select>
+                    <span asp-validation-for="DistrictId" class="form-text text-danger"></span>
+                </div>
+            </div>
+       
+                <div class="col-12">
+                    <div class="form-check">
+                        <input asp-for="Has_Delivery" class="form-check-input" type="checkbox">
+                        <label asp-for="Has_Delivery" class="form-check-label"> Bag Доставка</label>
+                        <span asp-validation-for="Has_Delivery" class="form-text text-danger"></span>
+                    </div>
+                </div>
+        </div>
+        <div class="container3" style="background-color: white;">
+            <div class="row">
+                <div class="col-md-12">
+                    <label asp-for="Username" method="post" class="form-label">Контактна особа</label>
+                    <input asp-for="Username" type="text" class="form-control" placeholder="Ім'я">
+                    <span asp-validation-for="Username" class="form-text text-danger"></span>
+                </div>
+                <div class="col-md-12 mt-3">
+                    <label asp-for="Phonenumber" class="form-label">Номер телефону</label>
+                    <input asp-for="Phonenumber" type="number" class="form-control" placeholder="+380">
+                    <span asp-validation-for="Phonenumber" class="form-text text-danger"></span>
+                </div>
+            </div>
+            <div class="row justify-content-end mt-3">
+                <div class="col-md-4 text-end">
+                    <a asp-action="Index" asp-controller="Profil" class="btn btn-secondary btn-sm rounded-3 text-dark" style="background-color: #FFFFFF; color: black; border-color: #FFFFFF;">Back</a>
+                    <button type="submit" class="btn btn-success btn-sm rounded-3" style="background-color: #FFA32D; color: #FFFFFF; border-color: #FFFFFF;">Готово</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        </form>
+</body>
+
