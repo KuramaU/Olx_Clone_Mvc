@@ -1,0 +1,141 @@
+﻿@model Shop.ViewModels.ProductViewModel;
+
+@{
+    ViewData["Title"] = "Контактні дані";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контактні дані</title>
+    <style>
+        body {
+            background-color: #f2f2f2; /* изменяем цвет фона */
+            font-family: Arial, sans-serif; /* задаем шрифт */
+            margin: 0; /* убираем внешние отступы */
+            padding: 0; /* убираем внутренние отступы */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px; /* устанавливаем максимальную ширину контейнера */
+            margin: 0 auto; /* выравниваем по центру */
+            padding: 20px; /* добавляем отступы */
+        }
+
+        .buy-text {
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px; /* добавляем отступ снизу */
+            font-weight: bold; /* делаем текст полужирным */
+        }
+
+        .contact-form-container {
+            position: relative; /* добавляем относительное позиционирование */
+            margin-bottom: 200px; /* добавляем отступ снизу для кнопки */
+        }
+
+        .contact-form {
+            width: 700px;
+            height: 819px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+            .contact-form h2 {
+                text-align: center;
+                margin-top: 0; /* убираем отступ сверху */
+            }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 630px;
+            height: 54px;
+            padding: 10px;
+            border: none;
+            background-color: #f2f2f2;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .next-button {
+            width: 223px; /* задаем ширину кнопки */
+            height: 60px; /* задаем высоту кнопки */
+            position: absolute; /* абсолютное позиционирование */
+            bottom: -160px; /* располагаем кнопку внизу */
+            right: 0; /* прижимаем к правому краю */
+            background-color: orange; /* Цвет кнопки */
+            color: white; /* Цвет текста */
+            border: none; /* Убираем границу */
+            border-radius: 5px; /* Скругляем углы */
+            padding: 10px 20px; /* Отступы внутри кнопки */
+            cursor: pointer; /* Изменяем курсор при наведении */
+            font-size: 16px; /* Размер шрифта */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="buy-text">
+            <h2><strong>Купити з доставкою</strong></h2>
+        </div>
+        <div class="contact-form-container">
+            <div class="contact-form">
+                <h2>Контактні дані</h2>
+                <div class="form-group">
+                    <label for="surname">Прізвище:</label>
+                    <input type="text" id="surname" name="surname" class="form-control" placeholder="Введіть ваше прізвище" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Ім'я:</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Введіть ваше ім'я" required>
+                </div>
+                <div class="form-group">
+                    <label for="patronymic">По батькові:</label>
+                    <input type="text" id="patronymic" name="patronymic" class="form-control" placeholder="Введіть ваше по батькові">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Номер телефону:</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="Введіть ваш номер телефону" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Введіть вашу електронну пошту" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">Місто:</label>
+                    <input type="text" id="city" name="city" class="form-control" placeholder="Введіть ваше місто">
+                </div>
+                <div class="form-group">
+                    <label for="branch">Відділення:</label>
+                    <input type="text" id="branch" name="branch" class="form-control" placeholder="Введіть ваше відділення">
+                </div>
+            </div>
+            <button class="next-button">Далі</button>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
+

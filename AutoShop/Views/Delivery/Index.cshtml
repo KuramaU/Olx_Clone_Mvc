@@ -149,7 +149,10 @@
             </div>
             
             <section class="row">
-                <button type="submit" form="user-form"  class="rounded">Далі</button>
+
+                    <a asp-action="ContactInfo" asp-controller="Delivery" asp-route-id="@Model.Product.Id" type="submit"  class="rounded">Далі</a>
+                   
+
             </section>
             <section class="row mt-2">
                 <button style="background-color:orange; border: white" class="rounded" role="button">Відхилити</button>

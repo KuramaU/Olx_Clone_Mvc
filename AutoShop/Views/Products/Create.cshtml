@@ -39,11 +39,6 @@
                         <input asp-for="Price" type="number" class="form-control" placeholder="Введіть ціну">
                         <span asp-validation-for="Price" class="form-text text-danger"></span>
                     </div>
-                    <div class="col-md-6 mt-3">
-                        <label asp-for="Discout" class="form-label">Знижка</label>
-                        <input asp-for="Discout" type="number" class="form-control" placeholder="Введіть знижку">
-                        <span asp-validation-for="Discout" class="form-text text-danger"></span>
-                    </div>
                     <div class="col-md-12 mt-3">
                         <label asp-for="CategoryId" class="form-label">Категорії</label>
                         <select asp-for="CategoryId" asp-items="@ViewBag.CategoryList" class="form-select">Виберіть категорію </select>
@@ -60,38 +55,100 @@
    @*  фотономер1 *@
         <div class="container" style="background-color: white;">
             <div class="row">
-                <div class="col-md-4 mb-3" style="background-color: white;">
+                <div class="col-md-4 mb-3" style="background-color: white; position: relative; border-radius: 10px; padding: 20px; height: 350px;">
                     <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
                     <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;">
                     <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+                    <div style="position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%);">
+                        <img id="previewImage3" src="~/up.png" alt="Ваше фото" style="width: 50px; height: 50px; object-fit: contain; cursor: pointer;">
+                    </div>
+                </div>
+          
+
+
+                <div class="col-md-4 mb-3" style="background-color: white; position: relative; border-radius: 10px; padding: 20px; height: 350px;">
+                    <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
+                    <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;">
+                    <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+                    <div style="position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%);">
+                        <img id="previewImage3" src="~/up.png" alt="Ваше фото" style="width: 50px; height: 50px; object-fit: contain; cursor: pointer;">
+                    </div>
+                </div>
+             
+
+                <div class="col-md-4 mb-3" style="background-color: white; position: relative; border-radius: 10px; padding: 20px; height: 350px;">
+                    <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
+                    <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;">
+                    <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+                    <div style="position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%);">
+                        <img id="previewImage3" src="~/up.png" alt="Ваше фото" style="width: 50px; height: 50px; object-fit: contain; cursor: pointer;">
+                    </div>
+                </div>
+              
+
+            </div>
+
+             <div class="row">
+                <div class="col-md-4 mb-3" style="background-color: white; position: relative; border-radius: 10px; padding: 20px; height: 350px;">
+                    <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
+                    <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;">
+                    <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+                    <div style="position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%);">
+                        <img id="previewImage3" src="~/up.png" alt="Ваше фото" style="width: 50px; height: 50px; object-fit: contain; cursor: pointer;">
+                    </div>
                 </div>
 
-                <div class="col-md-4 mb-3" style="background-color: white;">
-                    <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
-                    <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;;">
-                    <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
-                </div>
-                <div class="col-md-4 mb-3" style="background-color: white;">
-                    <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
-                    <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;">
-                    <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 mb-3" style="background-color: white;">
-                    <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
-                    <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;">
-                    <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
-                </div>
                 <!-- Якщо потрібно додати ще один блок для завантаження фото, розмістіть його тут у відповідній колонці -->
-                <div class="col-md-4 mb-3" style="background-color: white;">
+                <div class="col-md-4 mb-3" style="background-color: white; position: relative; border-radius: 10px; padding: 20px; height: 350px;">
                     <label asp-for="UploadImages" class="form-label">Додайте фото вашого продукту</label>
                     <input asp-for="UploadImages" type="file" name="UploadImages" class="form-control" style="width: 239px; height: 235px; background-color:#EFEFEF;">
                     <span asp-validation-for="UploadImages" class="form-text text-danger"></span>
+                    <div style="position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%);">
+                        <img id="previewImage3" src="~/up.png" alt="Ваше фото" style="width: 50px; height: 50px; object-fit: contain; cursor: pointer;">
+                    </div>
                 </div>
-               
-            </div>
+
+            </div> 
+            <script>
+                // Функція для додавання обробників подій для кожного блоку
+                function addEventListeners() {
+                    // Отримати всі блоки з класом "col-md-4"
+                    var blocks = document.querySelectorAll('.col-md-4');
+
+                    // Пройтись по кожному блоку і додати обробник подій для зміни зображення
+                    blocks.forEach(function (block) {
+                        // Знайти внутрішню фотографію в блоку
+                        var image = block.querySelector('img');
+
+                        // Додати обробник подій для натискання на фотографію
+                        image.addEventListener('click', function () {
+                            // Знайти відповідний вхідний елемент файлу в блоку і клікнути на нього
+                            var fileInput = block.querySelector('input[type="file"]');
+                            fileInput.click();
+                        });
+
+                        // Додати обробник подій для зміни зображення при виборі нового файлу
+                        var fileInput = block.querySelector('input[type="file"]');
+                        fileInput.addEventListener('change', function (event) {
+                            var file = event.target.files[0];
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                // Змінити зображення в блоку на вибране зображення
+                                image.src = e.target.result;
+                            };
+                            reader.readAsDataURL(file);
+                        });
+                    });
+                }
+
+                // Додати обробники подій після завантаження сторінки
+                window.onload = function () {
+                    addEventListeners();
+                };
+            </script>
+
         </div>
+
 
 
 
@@ -107,7 +164,7 @@
                 </div>
             </div>
         </div>
-
+       
 
 
 
