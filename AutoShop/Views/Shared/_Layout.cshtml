@@ -79,9 +79,12 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div class="text-end">
-                            <a asp-controller="Products" asp-action="Create" class="button-4" role="button">Додати оголошення</a>
-                        </div>
+                        @if (User.IsInRole("User"))
+                        {
+                            <div class="text-end">
+                                <a asp-controller="Products" asp-action="Create" class="button-4" role="button">Додати оголошення</a>
+                            </div>
+                        }
                     }
                     else
                     {
