@@ -99,7 +99,7 @@
     </nav>
     @if(Model.Payments.Where(x=>x.UserEmail==Model.User.Email).Any())
     {
-        @foreach (var p in Model.Payments.ToList())
+        @foreach (var p in Model.Payments.Where(x=>x.UserEmail==Model.User.Email).ToList())
         {
             <div class="container mt-5 mb-5">
                 <div class="d-flex justify-content-center row">
