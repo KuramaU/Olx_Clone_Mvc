@@ -1,89 +1,89 @@
-﻿
-
-@model Shop.ViewModels.ProductViewModel;
+﻿@model Shop.ViewModels.ProductViewModel;
 
 @{
     ViewData["Title"] = "Доставка Bag";
 }
-<style>
-    body {
-        background-color: whitesmoke; /* Светлый фон для всего сайта */
-        
-    }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Доставка Bag</title>
+    <style>
+        /* Ваши стили здесь */
 
-    .delivery-method {
-        padding-left: 3mm; /* Відступ з лівого краю таблиці */
-        padding-right: 3mm; /* Відступ з правого краю таблиці */
-    }
+        body {
+            background-color: whitesmoke; /* Светлый фон для всего сайта */
+        }
 
-    .delivery-image {
-        max-width: calc(100% - 3mm); /* Розраховуємо ширину з урахуванням відступів */
-        height: auto;
-        display: block;
-        margin: 5px auto; /* Відступи від країв фотографій усередині блоку доставки */
-    }
+        .delivery-method {
+            padding-left: 3mm; /* Відступ з лівого краю таблиці */
+            padding-right: 3mm; /* Відступ з правого краю таблиці */
+        }
 
+        .delivery-image {
+            max-width: calc(100% - 3mm); /* Розраховуємо ширину з урахуванням відступів */
+            height: auto;
+            display: block;
+            margin: 5px auto; /* Відступи від країв фотографій усередині блоку доставки */
+        }
 
-    .card-header{
-        background-color: white;
-    }
+        .card-header {
+            background-color: white;
+        }
 
- 
-   
+        .col-4 {
+            display: flex; /* Встановлюємо flex контейнер */
+            justify-content: space-between; /* Рівномірно розподіляємо елементи по контейнеру */
+        }
 
+        .md-5 {
+            white-space: nowrap; /* Забороняємо перенесення тексту на новий рядок */
+            margin-right: 16cm; /* Встановлюємо відступ між елементами */
+        }
 
-    
+        .pos {
+            color: orange;
+        }
 
-    .col-4 {
-        display: flex; /* Встановлюємо flex контейнер */
-        justify-content: space-between; /* Рівномірно розподіляємо елементи по контейнеру */
-    /* Відступ від нижнього краю контейнера */
-    }
+        .carousel-inner {
+            border: 2px solid gray; /* Чорна границя товщиною 2px */
+            border-radius: 5px; /* Округлені кути */
+        }
 
-    .md-5 {
-        white-space: nowrap; /* Забороняємо перенесення тексту на новий рядок */
-        margin-right: 16cm; /* Встановлюємо відступ між елементами */
-  
-     
-    }
+        .carousel-control-prev-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+        }
 
-    .pos{
-        color: orange;
-    }
+        .carousel-control-next-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+        }
 
-    .carousel-inner {
-        border: 2px solid gray; /* Чорна границя товщиною 2px */
-        border-radius: 5px; /* Округлені кути */
-    }
+        .carousel-item {
+            display: flex;
+            justify-content: center; /* Вирівнюємо по горизонталі по центру */
+            max-width: 850px;
+            max-height: 350px;
+            margin-bottom: 4px; /* Доданий зазначений margin-bottom */
+        }
 
+        .d-block {
+            max-width: 185px;
+            max-height: 130px;
+        }
 
-    .carousel-control-prev-icon {
-        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
-    }
+        input[type="radio"] {
+            width: 20px; /* Ширина */
+            height: 20px; /* Высота */
+        }
 
-    .carousel-control-next-icon {
-        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
-    }
+        /* Стили для кнопки "Підтвердити" */
+        .confirm-button {
+            width: 278px;
+            height: 54px;
+        }
 
-   
-    .carousel-item {
-        display: flex;
-        justify-content: center; /* Вирівнюємо по горизонталі по центру */
-        max-width: 850px;
-        max-height: 350px;
-        margin-bottom: 4px; /* Доданий зазначений margin-bottom */
-    }
-
-    .d-block {
-        max-width: 185px;
-        max-height: 130px;
-    }
-</style>
-
-
-
+    </style>
+</head>
 <body>
-
     <div data-testid="delivery-ua-payment">
         <main class="css-1y7glq2">
             <div style="display: flex;">
@@ -93,79 +93,77 @@
                         <h4>Служба доставки</h4>
                         <p>Оберіть спосіб отримання замовлення</p>
                         <div class="row">
-                           
-                            <span style="display: flex; align-items: center;">
-                                <input type="checkbox" style="margin-right: 5px;">
-                                <div style="border: 1px solid white; padding: 5px;background-color:white">Новапошта</div>
-                            </span>
+                            <div style="display: flex; align-items: center;">
+                                <label for="nova_poshta1" style="width: 641px; height: 109px; display: inline-block;margin-top: 30px;">
+                                    <input type="radio" id="nova_poshta1" name="delivery_option" style="margin-right: 5px;">
+                                    <img src="/ukrposhta1.png" alt="Описание" style="width: 641px; height: 109px;">
+                                </label>
+                            </div>
                         </div>
                         <div class="row">
-                            
-                            <span style="display: flex; align-items: center;">
-                                <input type="checkbox" style="margin-right: 5px;">
-                                <div style="border: 1px solid white; padding: 5px; background-color:white">Укрпошта</div>
-                            </span>
+                            <div style="display: flex; align-items: center;">
+                                <label for="nova_poshta2" style="width: 641px; height: 109px; display: inline-block;margin-top: 30px;">
+                                    <input type="radio" id="nova_poshta2" name="delivery_option" style="margin-right: 5px;">
+                                    <img src="/image.png" alt="Описание" style="width: 641px; height: 109px;">
+                                </label>
+                            </div>
                         </div>
-                        @* <div class="form-check">
-                            <input asp-for="Has_Delivery" class="form-check-input" type="checkbox">
-                            <label asp-for="Has_Delivery" class="form-check-label"> Bag Доставка</label>
-                            <span asp-validation-for="Has_Delivery" class="form-text text-danger"></span>
-                        </div> *@
+                        <div class="row">
+                            <div style="display: flex; align-items: center;">
+                                <label for="nova_poshta3" style="width: 641px; height: 109px; display: inline-block;margin-top: 30px;">
+                                    <input type="radio" id="nova_poshta3" name="delivery_option" style="margin-right: 5
+px;">
+                                    <img src="/image (1).png" alt="Описание" style="width: 641px; height: 109px;">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div style="display: flex; align-items: center;">
+                                <label for="nova_poshta4" style="width: 641px; height: 109px; display: inline-block;margin-top: 30px;">
+                                    <input type="radio" id="nova_poshta4" name="delivery_option" style="margin-right: 5px;">
+                                    <img src="/image (2).png" alt="Описание" style="width: 641px; height: 109px;">
+                                </label>
+                            </div>
+                        </div>
                     </section>
-                    
                 </div>
 
                 <!-- Права частина сторінки -->
                 <div style="flex: 1; padding: 20px;">
                     <section class="css-wgtfpg">
                         <div class="css-1cfn66">
-
-
-                            @if (Model.Images.Where(id => id.ProductId == Model.Product.Id ) != null && Model.Images.Where(id => id.ProductId == Model.Product.Id).Any())
-                                {
-                                    <div class="img-container">
-
+                            @if (Model.Images.Where(id => id.ProductId == Model.Product.Id) != null && Model.Images.Where(id => id.ProductId == Model.Product.Id).Any())
+                            {
+                                <div class="img-container">
                                     <img class="d-block mx-auto" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Product.Images.Where(id => id.ProductId == Model.Product.Id).First().ImageData)) " alt="...">
-
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="img-container">
-
-                                        <img class="d-block mx-auto" src="~/default.png" alt="...">
-                                    </div>
-
-                                }
-                              
-                          
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="img-container">
+                                    <img class="d-block mx-auto" src="~/default.png" alt="...">
+                                </div>
+                            }
                             <div class="">
                                 <p class="css-1ngctco">@Model.Product.Description</p>
-                                
                             </div>
                         </div>
                     </section>
                 </div>
             </div>
-            
             <section class="row">
+                <!-- Кнопки Далі и Відхилити -->
+                <div class="col-md-12 text-center mt-3">
+                    <a asp-action="ContactInfo" asp-controller="Delivery" asp-route-id="@Model.Product.Id" class="btn btn-primary rounded" style="background-color: white; border: orange; width: 278px; height: 54px; color: black; font-weight: bold; text-align: center; line-height: 35px;">Далі</a>
 
-                    <a asp-action="ContactInfo" asp-controller="Delivery" asp-route-id="@Model.Product.Id" type="submit"  class="rounded">Далі</a>
-                   
 
+
+                    <!-- Стилизованная кнопка "Підтвердити" -->
+                    <button style="background-color: orange; border: white" class="btn btn-secondary rounded confirm-button">Підтвердити</button>
+                </div>
             </section>
-            <section class="row mt-2">
-                <button style="background-color:orange; border: white" class="rounded" role="button">Відхилити</button>
-
-            </section>
-          
         </main>
     </div>
-
-
 </body>
-
-<script>
-   
-</script>
+</html>
 
