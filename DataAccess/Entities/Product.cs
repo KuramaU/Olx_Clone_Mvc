@@ -17,8 +17,8 @@ namespace Data.Entities
 
      
         public decimal Price { get; set; }
-        public bool? Has_Delivery { get; set; }
-        public bool? Has_Photo { get; set; }
+        public bool Has_Delivery { get; set; }
+        public bool Has_Photo { get; set; }
         public decimal? Price_1 { get; set; }
 
         public decimal? Price_2 { get; set; }
