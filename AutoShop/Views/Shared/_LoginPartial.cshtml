@@ -73,34 +73,36 @@
                                     </form>
                                 </li>
                                 <hr/>
-                                <li class="nav-item">
-                                    
-                                    <form  class="form-inline">
-                                        <button class="nav-link btn btn-link form-inline text-dark" asp-controller="Profil" asp-action="Index">Оголошення</button>
-                                    </form>
-                                </li>
+                                @if (User.IsInRole("User"))
+                                {
+                                    <li class="nav-item">
 
-                                <li class="nav-item">
-                                    
-                                    <form class="form-inline" >
-                                        <button class="nav-link btn btn-link form-inline text-dark" asp-controller="Profil" asp-action="Settings">Налаштування</button>
-                                    </form>
-                                </li>
-                                <li class="nav-item">
-                                      <form  class="form-inline" >
-                                        <button class="nav-link btn btn-link form-inline text-dark" asp-controller="Profil" asp-action="BilBag">Платежі Bag</button>
-                                    </form>
-                                </li>
+                                        <form  class="form-inline">
+                                            <button class="nav-link btn btn-link form-inline text-dark" asp-controller="Profil" asp-action="Index">Оголошення</button>
+                                        </form>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <form class="form-inline" >
-                                    <button class="nav-link btn btn-link form-inline text-dark" asp-controller="Profil" asp-action="BagDelivery">Bag доставка</button>
-                                    </form>
-                                   
-                                </li>
+                                    <li class="nav-item">
 
-                                <hr/>
+                                        <form class="form-inline" >
+                                            <button class="nav-link btn btn-link form-inline text-dark" asp-controller="Profil" asp-action="Settings">Налаштування</button>
+                                        </form>
+                                    </li>
+                                    <li class="nav-item">
+                                        <form  class="form-inline" >
+                                            <button class="nav-link btn btn-link form-inline text-dark" asp-controller="Profil" asp-action="BilBag">Платежі Bag</button>
+                                        </form>
+                                    </li>
 
+                                    <li class="nav-item">
+                                        <form class="form-inline" >
+                                            <button class="nav-link btn btn-link form-inline text-dark" asp-controller="Profil" asp-action="BagDelivery">Bag доставка</button>
+                                        </form>
+
+                                    </li>
+
+                                    <hr/>
+                                }
                                 <li class="nav-item">
                                     <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "CategoriesMenu", new { area = "" })">
                                         <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Вийти</button>
@@ -132,7 +134,7 @@
                                 <li class="nav-item">
 
                                     <form class="form-inline">
-                                        <button class="nav-link btn btn-link form-inline text-dark" asp-area="Identity" asp-page="/Account/Register">Оголошення</button>
+                                        <button class="nav-link btn btn-link form-inline text-dark" asp-area="Identity" asp-page="/Account/Register">Увійти в обліковий запис</button>
                                     </form>
                                 </li> 
                               

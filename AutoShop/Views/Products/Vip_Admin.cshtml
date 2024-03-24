@@ -1,0 +1,44 @@
+﻿@model Data.Entities.Product
+<div class="container mt-5">
+    <h1>Підняти оголошення</h1>
+    <hr />
+
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="align-middle">
+                <td>
+                    <div class="btn-group-vertical" role="group">
+                        <form id="productForm1" asp-action="SETVIPSTATUS" asp-controller="Products" method="post">
+                            <input asp-for="Id" hidden />
+                            <button type="submit" class="btn btn-link">
+                                VIP-оголошення <i class="bi bi-award-fill"></i>
+                            </button>
+                        </form>
+                        <form id="productForm2" asp-action="UP_ONE_DAY" asp-controller="Products" method="post">
+                            <input asp-for="Id" hidden />
+                            <button type="submit" class="btn btn-link">
+                                Підняти в гору списку
+                            </button>
+                        </form>
+                        <form id="productForm3" asp-action="UP_SEVEN_DAYS" asp-controller="Products" method="post">
+                            <input asp-for="Id" hidden />
+                            <button type="submit" class="btn btn-link">
+                                7 підняттів вгору списку(на 7 днів)
+                            </button>
+                        </form>
+                        <form id="productForm4" asp-action="DELETE_ALL_STATUSES" asp-controller="Products" method="post">
+                            <input asp-for="Id" hidden />
+                            <button type="submit" class="btn btn-link">
+                                Забрати усі статуси
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>

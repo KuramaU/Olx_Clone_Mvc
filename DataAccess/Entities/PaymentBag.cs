@@ -17,7 +17,7 @@ namespace Data.Entities
        
         public decimal? Price { get; set; }
         // --navigation properties
-        public int UserId { get; set; }
+        public string UserEmail { get; set; }
         public User? User { get; set; }
      
 

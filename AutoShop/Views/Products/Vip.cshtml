@@ -195,6 +195,9 @@
 
     </style>
 </head>
+    @{
+        var amount_ = 9;
+    }
 <body>
 
     <div class="container mt-5">
@@ -255,24 +258,28 @@
             </div>
         </div>
         <div class="total-container" style="position: relative; display: flex; align-items: center;">
-            <div id="total-amount"></div>
+            <div id="total-amount" style="margin-right: 20px;"></div>
 
-           
-            <button id="payment-button" class="orange-btn" style="margin-left: auto; margin-right: 10px;">Оплатити</button>
-
-            <button class="white-btn">Відхилити</button>
+            <form id="payment-form" asp-controller="Products" asp-action="BilBag_Logic" method="post">
+                <input type="hidden" id="amount-input" name="price" value="" />
+              
+                <button type="submit" id="payment-button" class="orange-btn" style="margin-left:auto; margin-right: 10px;">Оплатити</button>
+               
+            </form>
+            <form asp-controller="Profil" asp-action="Index">
+                <button class="white-btn">Відхилити</button>
+            </form>
         </div>
 
 
 
     </div>
     <script>
-        // Оновлення стрічки "Усього до сплати" при кожному виборі опції
         function updateTotalAmount() {
             var selectedOption = document.querySelector('input[type="radio"]:checked');
-            console.log(selectedOption);
+            var amount = 0;
+
             if (selectedOption) {
-                var amount = 0;
                 if (selectedOption.id === 'btn1') {
                     amount = 289;
                 } else if (selectedOption.id === 'btn2') {
@@ -281,32 +288,15 @@
                     amount = 89;
                 }
 
-                document.getElementById('total-amount').textContent = 'Усього до сплати: ' +amount + ' грн';
+                // Встановлення значення в полі введення для передачі на сервер
+                document.getElementById('amount-input').value = amount;
+
+                document.getElementById('total-amount').textContent = 'Усього до сплати: ' + amount + ' грн  '+'  ';
             }
         }
 
-
-        var radioButtons = document.querySelectorAll('input[type="radio"]');
-        radioButtons.forEach(function (radioButton) {
-            radioButton.addEventListener('change', updateTotalAmount);
-        });
-
-        // Викликати функцію updateTotalAmount() при завантаженні сторінки
-        window.onload = updateTotalAmount;
-
-    </script>
-
-
-  
-
-
-
-
-
-
-    <script>
-        document.getElementById('payment-button').addEventListener('click', function () {
-            // Отримання обраної опції
+        // Додати обробник події для форми оплати
+        document.getElementById('payment-form').addEventListener('submit', function() {
             var selectedOption = document.querySelector('input[type="radio"]:checked');
 
             // Перевірка, чи вибрано опцію
@@ -322,23 +312,30 @@
                     // Перевірка статусу відповіді сервера
                     if (xhr.status === 200) {
                         // Перенаправлення на головну сторінку після успішної оплати
-                        window.location.href = '/CategoriesMenu/Index';
+                        window.location.href = '/Profil/BilBag';
                     } else {
                         // Обробка помилки оплати
-                        alert('Помилка оплати. Будь ласка, спробуйте ще раз.');
+                    alert('Помилка оплати. Будь ласка, спробуйте ще  раз.');
                     }
                 };
                 xhr.onerror = function () {
                     // Обробка помилки оплати
-                    alert('Помилка оплати. Будь ласка, спробуйте ще раз.');
+                    alert('Помилка оплати. Будь ласка, спробуйте ще 1 раз.');
                 };
                 xhr.send(formData);
-            } else {
-                // Повідомлення, якщо не обрано жодної опції
-                alert('Будь ласка, виберіть опцію перед оплатою.');
             }
         });
+
+        // Додати обробник події для зміни вибору опції
+        var radioButtons = document.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(function (radioButton) {
+            radioButton.addEventListener('change', updateTotalAmount);
+        });
+
+        // Викликати функцію updateTotalAmount() при завантаженні сторінки
+        window.onload = updateTotalAmount;
     </script>
+
     <script>
         // Получаем все радиокнопки
         var radioButtons = document.querySelectorAll('input[type="radio"]');

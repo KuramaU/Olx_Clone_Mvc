@@ -38,7 +38,7 @@ namespace Shop.Controllers
             ViewBag.ImagesList = new SelectList(context.Images.ToList(), "Id", "Name");
 
         }
-        public IActionResult Index()
+        public IActionResult Index(string id)
         {
             // read products from db
             //var prod = context.Products.Include(x => x.Category).ToList();
@@ -51,26 +51,21 @@ namespace Shop.Controllers
             
             if (userRole == Roles.Administrator)
             {
-                // Якщо користувач - адміністратор, відображаємо всі продукти
-                prod = context.Products.Include(x => x.Category).ToList();
-                prod = context.Products.Include(x => x.District).ToList();
-                 prod = context.Products.Include(x => x.Images).ToList();
-
+               
+               // Отримуємо ідентифікатор користувача(email)
+                prod = context.Products.Where(x => x.User.Email == id).Include(x=>x.Category)
+                                        .ToList();
+                prod = context.Products.Where(x => x.User.Email == id).Include(x => x.District)
+                                      .ToList();
+                prod = context.Products.Where(x => x.User.Email == id).Include(x => x.Images).ToList();
+                return View(prod);
             }
             else
             {
-                // Якщо користувач - звичайний користувач, фільтруємо продукти за його id
-                var userEmail = HttpContext.User.Identity.Name;
-               // Отримуємо ідентифікатор користувача(email)
-                prod = context.Products.Where(x => x.User.Email == userEmail).Include(x=>x.Category)
-                                        .ToList();
-                prod = context.Products.Where(x => x.User.Email == userEmail).Include(x => x.District)
-                                      .ToList();
-                prod = context.Products.Where(x => x.User.Email == userEmail).Include(x => x.Images).ToList();
+
             }
 
-
-            return View(prod);
+            return View();
         }
 
         public IActionResult Create()
@@ -226,7 +221,51 @@ namespace Shop.Controllers
             // Перенаправляємо користувача на сторінку зі списком продуктів
             return RedirectToAction("Index", "Profil");
         }
+        [HttpPost]
+        public IActionResult BilBag_Logic(int price)
+        {
 
+            var user = context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
+
+            var products = context.Products.Where(x => x.User.Email == user.Email).Include(x => x.Category).ToList();
+            if (user != null)
+            { // Перевірка, чи знайдено користувача з вказаним email
+                var viewModel = new ProductViewModel
+                {
+                    Categories = context.Categories.ToList(),
+                    Products = products,
+                    Images = context.Images.Include(x => x.Product).ToList(),
+                    Districs = context.Districts.ToList(),
+                    User = user,
+
+                };
+                var payment = new PaymentBag();
+                payment.CreatedDate = DateTime.Now;
+                payment.User = user;
+                payment.UserEmail = user.Email;
+                payment.number = new Random().Next(1, 999999999);
+                payment.Name = "Реклама оголошення";
+                payment.Price = price;
+                if (user.Payments !=null)
+                {
+                    
+                    user.Payments.Add(payment);
+                }
+                else
+                {
+                    user.Payments = new List<PaymentBag>();
+                }
+                context.Payments.Add(payment);
+                context.SaveChanges();
+                return RedirectToAction("BilBag", "Profil");
+            }
+            else
+            {
+                // Обробка випадку, коли користувача не знайдено
+                return RedirectToAction("Index","CatergoriesMenu"); // Приклад перенаправлення на сторінку входу
+            }
+
+        }
         public IActionResult Vip(int id)
         {
             var item = context.Products.Find(id);
@@ -255,8 +294,37 @@ namespace Shop.Controllers
 
             return RedirectToAction("Index", "Profil");
         }
-       
-       
+
+        public IActionResult Vip_Admin(int id)
+        {
+            var item = context.Products.Find(id);
+
+            if (item == null)
+                return NotFound();
+
+            LoadCategories();
+            LoadDistricts();
+            return View(item);
+        }
+        [HttpPost]
+        public IActionResult Vip_Admin(Product product)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                LoadCategories();
+                LoadDistricts();
+                return View("Vip");
+            }
+
+
+            context.Products.Update(product);
+            context.SaveChanges();
+
+            return RedirectToAction("Index", "Profil");
+        }
+
+
 
 
         [AllowAnonymous]

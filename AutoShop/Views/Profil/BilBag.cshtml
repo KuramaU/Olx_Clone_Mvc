@@ -65,7 +65,67 @@
                 </div>
             </div>
         </nav>
- 
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+
+
+        <div class="container-fluid">
+            <div class="navbar-collapse collapse d-sm-inline-flex w-50 justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+
+
+
+                    <li class="nav-item" style="margin-right: 10mm;">
+                        <a class="nav-link text-dark" ><small>Дата</small></a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" ><small>Номер операції</small></a>
+                    </li>
+                    <li class="nav-item " style="margin-right: 100mm;" >
+                        <a class="nav-link text-dark"><small>Заголовок</small></a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark"><small>Сума</small></a>
+                    </li>
+
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    @if(Model.Payments.Where(x=>x.UserEmail==Model.User.Email).Any())
+    {
+        @foreach (var p in Model.Payments.ToList())
+        {
+            <div class="container mt-5 mb-5">
+                <div class="d-flex justify-content-center row">
+                    <div class="card-footer border p-3 rounded" style="background-color: white;">
+                        <p class="m-0">
+                            <span style="margin-right: 10mm;"> @p.CreatedDate?.Day.@p.CreatedDate?.Month.@p.CreatedDate?.Year &nbsp;</span>
+                            <span style="margin-right: 15mm;">
+                                @p.number?.ToString("0") &nbsp;
+                            </span>
+                            <span style="margin-right: 100mm;">@p.Name</span>
+                            @p.Price грн
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+    }
+    else
+    {
+        <div class="text-center">
+
+            <a><b>У вас поки що немає архівованих товарів</b></a>
+        </div>
+    }
   
 
 
