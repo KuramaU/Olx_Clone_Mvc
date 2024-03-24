@@ -20,9 +20,11 @@ namespace Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
+         
+
             //base.OnConfiguring(optionsBuilder);
-           // string con = "Server=tcp:mybagserver.database.windows.net,1433;Initial Catalog=mybag_db_1;Persist Security Info=False;User ID=Lubomyr;Password=Qwerty@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            string con = "Data Source=DESKTOP-G3DSI7E;Initial Catalog=mybag_db_1;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;";
+            // string con = "Server=tcp:mybagserver.database.windows.net,1433;Initial Catalog=mybag_db_1;Persist Security Info=False;User ID=Lubomyr;Password=Qwerty@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            string con = "Data Source=DESKTOP-JSOA9J5;Initial Catalog=mybag_db_1;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;";
             optionsBuilder.UseSqlServer(con);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -101,5 +103,6 @@ namespace Data
        public DbSet<District> Districts { get; set; }
         public DbSet<ProductImage> Images { get; set; }
         public DbSet<FavouriteProducts> FavouriteProd { get; set; }
+        public DbSet<PaymentBag> Payments{ get; set; }
     }
 }

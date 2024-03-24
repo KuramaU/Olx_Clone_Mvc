@@ -208,12 +208,12 @@
                         }
                         else
                         {
-                            
+                            <div class="carousel-item active">
                                 <img src="~/default.png" class="d-block w-100" alt="...">
-                            
+                            </div>
                         }
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
@@ -273,7 +273,7 @@
                         <div class="text-center">
                             <form>
                               
-                                <button asp-controller="Delivery" asp-route-id="@Model.Product.Id" asp-action="Index" class="buy-btn btn btn-light text-warning text-black border border-warning w-100">Купити з доставкою</button>
+                                    <button asp-controller="Delivery" asp-route-id="@Model.Product.Id" asp-action="Index" class="buy-btn btn btn-light text-warning text-black border border-warning w-100 rounded">Купити з доставкою</button>
                                 </form>
                             </div>
                     </div>
@@ -340,8 +340,8 @@
                 <div class="card mb-4">
                     <div class="card-header">Зв'язатися з продавцем</div>
                     <div class="card-body text-center">
-                        <button class="btn btn-warning text-white mb-2">Написати повідомлення</button><br>
-                        <button id="phoneButton" class="btn btn-light text-warning text-black border border-warning">Номер телефону</button>
+                        <button class="btn btn-warning text-white mb-2 rounded">Написати повідомлення</button><br>
+                        <button id="phoneButton" class="btn btn-light text-warning text-black border border-warning rounded">Номер телефону</button>
 
                     </div>
                 </div>
@@ -663,60 +663,6 @@
         this.textContent = "+380 @Model.Product.Phonenumber";
     });
 
-@* <script>
-    // Функція для відображення або приховання висувної таблиці жалоби
-     function toggleComplaintTable() {
-        var complaintTable = document.getElementById('complaintTable');
-        if (complaintTable.style.display === 'none') {
-            complaintTable.style.display = 'block';
-            // Заблокувати інші елементи на сторінці
-            document.body.classList.add('modal-open');
-            // Додатковий код для затемнення сторінки
-            var overlay = document.createElement('div');
-            overlay.id = 'overlay';
-            overlay.style.position = 'fixed';
-            overlay.style.top = '0';
-            overlay.style.left = '0';
-            overlay.style.width = '100%';
-            overlay.style.height = '100%';
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-            overlay.style.zIndex = '1000';
-            document.body.appendChild(overlay);
-        } else {
-            complaintTable.style.display = 'none';
-            // Розблокувати інші елементи на сторінці
-            document.body.classList.remove('modal-open');
-            // Видалити затемнення сторінки
-            var overlay = document.getElementById('overlay');
-            if (overlay) {
-                document.body.removeChild(overlay);
-            }
-        }
-    }
-    
-    // Додавання події кліку на кнопку "Поскаржитися"
-    document.querySelector('.pos').addEventListener('click', function () {
-        // Делегуємо функцію переключення висувної таблиці жалоби
-        toggleComplaintTable();
-    });
-
-    function closeComplaintTable() {
-        toggleComplaintTable();
-    }
-
-    function showSubOptions() {
-        var complaintType = document.getElementById('complaintType').value;
-        var subOptions = document.getElementById('subOptions');
-        if (complaintType) {
-            subOptions.style.display = 'block';
-            // Додатковий код для відображення підопцій в залежності від обраного типу скарги
-        } else {
-            subOptions.style.display = 'none';
-        }
-    }
-</script> *@
-
-
     function toggleComplaintTable() {
         var complaintTable = document.getElementById('complaintTable');
         if (complaintTable.style.display === 'none') {
@@ -760,4 +706,6 @@
         }
     }
 </script>
+
+
 

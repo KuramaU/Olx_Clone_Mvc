@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ShopDbContextcs))]
-    partial class ShopDbContextcsModelSnapshot : ModelSnapshot
+    [Migration("20240323210206_add-payment")]
+    partial class addpayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -309,11 +311,10 @@ namespace DataAccess.Migrations
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal?>("number")
@@ -321,7 +322,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Payments");
                 });
@@ -421,8 +422,8 @@ namespace DataAccess.Migrations
                             Id = 1,
                             CategoryId = 1,
                             Category_VIP_Id = 13,
-                            CreatedDate = new DateTime(2024, 3, 24, 0, 0, 0, 0, DateTimeKind.Local),
-                            D_VIP = new DateTime(2024, 3, 16, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            D_VIP = new DateTime(2024, 3, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             DistrictId = 17,
                             Has_Delivery = false,
                             Has_Photo = false,
@@ -435,8 +436,8 @@ namespace DataAccess.Migrations
                             Id = 2,
                             CategoryId = 3,
                             Category_VIP_Id = 0,
-                            CreatedDate = new DateTime(2024, 3, 24, 0, 0, 0, 0, DateTimeKind.Local),
-                            D_VIP = new DateTime(2024, 3, 22, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            D_VIP = new DateTime(2024, 3, 21, 0, 0, 0, 0, DateTimeKind.Local),
                             DistrictId = 17,
                             Has_Delivery = false,
                             Has_Photo = false,
@@ -449,8 +450,8 @@ namespace DataAccess.Migrations
                             Id = 3,
                             CategoryId = 4,
                             Category_VIP_Id = 0,
-                            CreatedDate = new DateTime(2024, 3, 24, 0, 0, 0, 0, DateTimeKind.Local),
-                            D_VIP = new DateTime(2024, 3, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            D_VIP = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             DistrictId = 17,
                             Has_Delivery = false,
                             Has_Photo = false,
@@ -463,8 +464,8 @@ namespace DataAccess.Migrations
                             Id = 4,
                             CategoryId = 5,
                             Category_VIP_Id = 0,
-                            CreatedDate = new DateTime(2024, 3, 24, 0, 0, 0, 0, DateTimeKind.Local),
-                            D_VIP = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            D_VIP = new DateTime(2024, 3, 22, 0, 0, 0, 0, DateTimeKind.Local),
                             DistrictId = 17,
                             Has_Delivery = false,
                             Has_Photo = false,
@@ -732,7 +733,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Data.Entities.User", "User")
                         .WithMany("Payments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });

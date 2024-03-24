@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using Shop.ViewModels;
 using Shop.Helpers;
+using Data.Entities;
 namespace Shop.Controllers
 {
     public class ProfilController : Controller
@@ -68,14 +69,7 @@ namespace Shop.Controllers
                 }
             }
         }
-        public IActionResult BilBag()
-        {
-            return View();
-        }
-        public IActionResult BagDelivery()
-        {
-            return View();
-        }
+      
         public IActionResult Author(string Id)
         {
            
@@ -103,7 +97,34 @@ namespace Shop.Controllers
                 }
             
         }
+        public IActionResult BilBag()
+        {
 
+            var user = context.Users.FirstOrDefault(u => u.Email == HttpContext.User.Identity.Name);
+            var products = context.Products.Where(x => x.User.Email == user.Email).Include(x => x.Category).ToList();
+            if (user != null)
+            { // Перевірка, чи знайдено користувача з вказаним email
+                var viewModel = new ProductViewModel
+                {
+                  
+                    Payments = context.Payments.ToList(),
+                    User = user,
+
+                };
+
+                return View(viewModel);
+            }
+            else
+            {
+                // Обробка випадку, коли користувача не знайдено
+                return RedirectToAction("Shared", "Error"); // Приклад перенаправлення на сторінку входу
+            }
+        }
+        
+        public IActionResult BagDelivery()
+        {
+            return View();
+        }
         public IActionResult Arhive_()
         {
             var userRole = User.IsInRole("Administrator") ? Roles.Administrator : Roles.User;

@@ -13,6 +13,7 @@
         }
     </style>
     <body>
+       
 <div>
     <form asp-controller="Users" asp-action="Index" method="get">
         @* <div class="form-group">
@@ -52,21 +53,23 @@
                 <td>
                     <div class="btn-group" role="group">
                         @if (!roles.Contains("Administrator"))
-                        {
-                            <form asp-action="ChangeRoleToAdmin" asp-route-email="@user.Email" method="post">
-                                <button type="submit" class="btn btn-info">Надати права адміністратора</button>
-                            </form>
-                        }
-                        @if (roles.Contains("Administrator"))
-                        {
-                            <form asp-action="ChangeRoleToUser" asp-route-email="@user.Email" method="post">
-                                <button type="submit" class="btn btn-info">Забрати права</button>
-                            </form>
-                        }
+                            {
+                                <form asp-action="ChangeRoleToAdmin" asp-route-email="@user.Email" method="post">
+                                    <button type="submit" class="btn btn-info rounded">Надати права адміністратора</button>
+                                </form>
+                                <form asp-action="ChangeRoleToUser" asp-route-email="@user.Email" method="post">
+                                    <button type="submit" class="btn btn-info rounded">Забрати права</button>
+                                </form>
 
-                        <form asp-action="Delete" asp-route-id="@user.Id" > 
-                            <button type="submit" class="btn btn-danger">Видалити</button>
-                            </form>
+
+                                <form asp-action="Delete" asp-route-id="@user.Id" >
+                                    <button type="submit" class="btn btn-danger rounded">Видалити</button>
+                                </form>
+
+                                <form asp-action="Index" asp-controller="Products" asp-route-id="@user.Email">
+                                    <button type="submit" class="btn btn-success rounded">Товари</button>
+                                </form>
+                                }
                     </div>
                 </td>
             </tr>
@@ -75,4 +78,5 @@
 </table>
 
 <p>Кількість: @Model.Count</p>
+
 </body>

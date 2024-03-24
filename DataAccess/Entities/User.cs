@@ -17,6 +17,8 @@ namespace Data.Entities
     
         public ICollection<Product> Products { get; set; }
         public ICollection<FavouriteProducts>? Fav_Products { get; set; }
+        public List<PaymentBag>? Payments{ get; set; }
+
 
     }
 }
