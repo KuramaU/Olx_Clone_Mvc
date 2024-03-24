@@ -328,11 +328,11 @@ public IActionResult Filtr(Product product)
                 {
                     if (has_Delivery.Value && has_Photo.Value)
                     {
-                        products = products.Where(s => s.Has_Delivery && s.Images.Any());
+                        products = products.Where(s => s.Has_Delivery==true && s.Images.Any());
                     }
                     else if (has_Delivery.Value)
                     {
-                        products = products.Where(s => s.Has_Delivery);
+                        products = products.Where(s => s.Has_Delivery== true);
                     }
                     else if (has_Photo.Value)
                     {

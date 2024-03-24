@@ -109,48 +109,9 @@
                 </div>
 
             </div> 
-            <script>
-                // Функція для додавання обробників подій для кожного блоку
-                function addEventListeners() {
-                    // Отримати всі блоки з класом "col-md-4"
-                    var blocks = document.querySelectorAll('.col-md-4');
-
-                    // Пройтись по кожному блоку і додати обробник подій для зміни зображення
-                    blocks.forEach(function (block) {
-                        // Знайти внутрішню фотографію в блоку
-                        var image = block.querySelector('img');
-
-                        // Додати обробник подій для натискання на фотографію
-                        image.addEventListener('click', function () {
-                            // Знайти відповідний вхідний елемент файлу в блоку і клікнути на нього
-                            var fileInput = block.querySelector('input[type="file"]');
-                            fileInput.click();
-                        });
-
-                        // Додати обробник подій для зміни зображення при виборі нового файлу
-                        var fileInput = block.querySelector('input[type="file"]');
-                        fileInput.addEventListener('change', function (event) {
-                            var file = event.target.files[0];
-                            var reader = new FileReader();
-                            reader.onload = function (e) {
-                                // Змінити зображення в блоку на вибране зображення
-                                image.src = e.target.result;
-                            };
-                            reader.readAsDataURL(file);
-                        });
-                    });
-                }
-
-                // Додати обробники подій після завантаження сторінки
-                window.onload = function () {
-                    addEventListeners();
-                };
-            </script>
+            
 
         </div>
-
-
-
 
 
 
@@ -211,3 +172,40 @@
         </form>
 </body>
 
+<script>
+    // Функція для додавання обробників подій для кожного блоку
+    function addEventListeners() {
+        // Отримати всі блоки з класом "col-md-4"
+        var blocks = document.querySelectorAll('.col-md-4');
+
+        // Пройтись по кожному блоку і додати обробник подій для зміни зображення
+        blocks.forEach(function (block) {
+            // Знайти внутрішню фотографію в блоку
+            var image = block.querySelector('img');
+
+            // Додати обробник подій для натискання на фотографію
+            image.addEventListener('click', function () {
+                // Знайти відповідний вхідний елемент файлу в блоку і клікнути на нього
+                var fileInput = block.querySelector('input[type="file"]');
+                fileInput.click();
+            });
+
+            // Додати обробник подій для зміни зображення при виборі нового файлу
+            var fileInput = block.querySelector('input[type="file"]');
+            fileInput.addEventListener('change', function (event) {
+                var file = event.target.files[0];
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // Змінити зображення в блоку на вибране зображення
+                    image.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+    }
+
+    // Додати обробники подій після завантаження сторінки
+    window.onload = function () {
+        addEventListeners();
+    };
+</script>

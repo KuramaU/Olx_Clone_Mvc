@@ -358,7 +358,7 @@
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
         @if (Model.Product != null && Model.Product.User != null)
         {
-            var productsForUser = Model.Products.Where(x => x.User != null && x.User.Email == Model.Product.User.Email).Take(4);
+            var productsForUser = Model.Products.Where(x => x.User != null && x.User.Email == Model.Product.User.Email).Take(3);
             foreach (var p in productsForUser.Where(x => x.IS_Arhive != true))
             {
                 if (p.Id != Model.Product.Id)
@@ -488,7 +488,7 @@
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
         @if (Model.Product != null && Model.Product.User != null)
         {
-            var productsForUser = Model.Products.Where(x => x.Category != null && x.Category.Id == Model.Product.Category.Id).Take(4);
+            var productsForUser = Model.Products.Where(x => x.Category != null && x.Category.Id == Model.Product.Category.Id).Take(3);
 
             foreach (var p in productsForUser.Where(x => x.IS_Arhive != true))
             {

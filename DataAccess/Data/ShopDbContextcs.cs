@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Data.Entities;
 using System;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting.Server;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace Data
@@ -20,11 +22,11 @@ namespace Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-         
+
 
             //base.OnConfiguring(optionsBuilder);
             // string con = "Server=tcp:mybagserver.database.windows.net,1433;Initial Catalog=mybag_db_1;Persist Security Info=False;User ID=Lubomyr;Password=Qwerty@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            string con = "Data Source=DESKTOP-G3DSI7E;Initial Catalog=mybag_db_1;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;";
+            string con = "Data Source=DESKTOP-JSOA9J5;Initial Catalog=mybag_db_1;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;";
             optionsBuilder.UseSqlServer(con);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -89,10 +91,10 @@ namespace Data
 
             modelBuilder.Entity<Product>().HasData(new[]
           {
-            new Product() { Id = 1, Name = "iPhone 13 ", Price=37600, D_VIP=DateTime.Today.AddDays(-8),   CategoryId=1, Category_VIP_Id=13, DistrictId=17,CreatedDate=DateTime.Today   },
-            new Product() { Id = 2, Name = "Nike Monarh" , Price=2600,D_VIP=DateTime.Today.AddDays(-2) ,CategoryId=3,  DistrictId=17, CreatedDate=DateTime.Today },
-            new Product() {Id = 3, Name = "Shovel" , Price=2000,D_VIP=DateTime.Today ,CategoryId=4, DistrictId=17, CreatedDate=DateTime.Today },
-            new Product() { Id = 4, Name = "Yoyo", Price=500,D_VIP=DateTime.Today.AddDays(-1),CategoryId=5,  DistrictId=17, CreatedDate=DateTime.Today   }
+            new Product() { Id = 1, Name = "iPhone 13 ", Price=37600, D_VIP=DateTime.Today.AddDays(-8), Has_Delivery=true, Has_Photo=true,   CategoryId=1, Category_VIP_Id=13, DistrictId=17,CreatedDate=DateTime.Today   },
+            new Product() { Id = 2, Name = "Nike Monarh" , Price=2600,D_VIP=DateTime.Today.AddDays(-2) ,Has_Delivery=true, Has_Photo=false, CategoryId=3,  DistrictId=17, CreatedDate=DateTime.Today },
+            new Product() {Id = 3, Name = "Shovel" , Price=2000,D_VIP=DateTime.Today ,CategoryId=4,Has_Delivery=true, Has_Photo=false,  DistrictId=17, CreatedDate=DateTime.Today },
+            new Product() { Id = 4, Name = "Yoyo", Price=500,D_VIP=DateTime.Today.AddDays(-1),CategoryId=5, Has_Delivery=true, Has_Photo=false,  DistrictId=17, CreatedDate=DateTime.Today   }
          
 
             });
