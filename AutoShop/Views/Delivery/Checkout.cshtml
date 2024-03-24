@@ -155,8 +155,10 @@
                 підтвердження та суботу (для Meest Пошта) чи неділю (для інших логістів)).
             </p>
             <div class="buttons">
-                <button class="white-button">Повернутись до оголошень</button>
-                <button class="orange-button">Переглянути замовлення</button>
+                <form>                <button asp-controller="CategoriesMenu" asp-action="Index" class="white-button">Повернутись до оголошень</button>
+                <button asp-controller="Profil" asp-action="BagDelivery" class="orange-button">Переглянути замовлення</button>
+                </form>
+
             </div>
         </div>
     </div>
